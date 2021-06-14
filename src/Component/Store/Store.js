@@ -13,7 +13,7 @@ const Store = () =>{
       			</Card.Description>
     		</Card.Content>
     		<Card.Content extra>
-      			<a>
+      			<a href="/">
         			<Icon name='user' />
         			10 Friends
       			</a>

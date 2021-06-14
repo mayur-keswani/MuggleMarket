@@ -6,7 +6,7 @@ const SubmitForm = () =>{
 
 	const history=useHistory()
 	const submitFormHandler = () =>{
-		const outletDetails=JSON.parse(localStorage.getItem('outletDetails'))
+	//	const outletDetails=JSON.parse(localStorage.getItem('outletDetails'))
 		axios.post('localhost:8080/create-your-store',{"storeName":"Mayur Store"})
 			.then(response=>{
 					console.log(response)

@@ -1,12 +1,11 @@
 import React ,{useState,useEffect} from 'react'
 import axios from 'axios'
 import {
-	Button,
 	Dropdown,
 	Message,
 } from 'semantic-ui-react'
 import {BiCurrentLocation} from 'react-icons/bi'
-import { result } from 'lodash'
+
 // import { Button } from 'bootstrap'
 
 const DetectLocation = () =>{
@@ -42,8 +41,8 @@ const DetectLocation = () =>{
 				   <Dropdown text={location?location:'Find Your Location'}
 				   icon='location arrow'
 				   size={"huge"}
-				   className="dropdown"
-				   floating labeled button className='icon'  >
+				   className="dropdown icon"
+				   floating labeled button>
 					
 				   <Dropdown.Menu >
 					  <Message  error header={<><BiCurrentLocation/><span> Detect your current location</span></>} content='using GPS'  onClick={(e)=>fetchLocation()}/>
