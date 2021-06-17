@@ -6,6 +6,7 @@ const InputForm1 = () =>{
 
 	const [outletDetails,setOutletDetails] = useState({
 		storeName:"",
+		description:"",
 		city:"",
 		address:"",
 		contactNo:"",
@@ -34,6 +35,11 @@ const InputForm1 = () =>{
     		  <input placeholder='Store Name' 
 			  	value={outletDetails.storeName}
 				onChange={(event)=>setOutletDetails({...outletDetails,storeName:event.target.value})} />
+    		</Form.Field>
+			<Form.Field>
+				<Form.TextArea placeholder='Brief Description' 
+					value={outletDetails.description}
+					onChange={(event)=>setOutletDetails({...outletDetails,description:event.target.value})} />
     		</Form.Field>
 			<Form.Field>
     		  <input placeholder='City' 

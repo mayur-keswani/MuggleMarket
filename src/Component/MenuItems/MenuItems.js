@@ -13,19 +13,21 @@ const MenuItems = (props) => {
   })
   const [newItemSlot,setNewItemSlot] = useState(true)
   
-  const addNewItemHandler = () =>{
-    console.log(menuItem)
-    setItems((prevState)=>{
+  const addNewItemHandler = async () =>{
+    // console.log(menuItem)
+    await setItems((prevState)=>{
       return prevState.concat(menuItem)
     })
-    setMenuItem({id:++menuItem.id,name:"",description:"",product_pic:"",price:""})
+    // startTransition(()=>{
+    //   setMenuItem({id:++menuItem.id,name:"",description:"",product_pic:"",price:""})
+    // })
+    
   }
   const addImage=(event)=>{
     console.log(event.target.files[0])
   }
   return(
   <>
- 
   <Table unstackable style={{width:"100%"}} className="m-0">
     <Table.Header>
       <Table.Row>
@@ -41,19 +43,18 @@ const MenuItems = (props) => {
     <Table.Body>
     {
     
-     
-     items.map((i,item)=>   
-      <Table.Row key={i}>
+     items.map((item)=> {
+      return <Table.Row key={item.id}>
         <Table.Cell>
           <Label ribbon>First</Label>
-          1
+          {item.id}
         </Table.Cell>
         <Table.Cell className="my-4">{item.name}</Table.Cell>
         <Table.Cell>{item.description}</Table.Cell>
         <Table.Cell>{item.product_pic}</Table.Cell>
         <Table.Cell>{item.price}</Table.Cell>
       </Table.Row>
-     )
+     })
     }
     {
       newItemSlot?

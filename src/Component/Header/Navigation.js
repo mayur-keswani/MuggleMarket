@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import React , { useState} from 'react'
 import DetectLocation from '../LocationFinder/DetectLocation';
 import SearchBar from './SearchBar'
 import Auth from '../Auth/Auth'
@@ -15,13 +15,13 @@ import {
 } from 'reactstrap';
 
 
+
 const Navigation = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoginModalOpen,toggleLoginModal] = useState(false)
   const [isSignUpModalOpen,toggleSignUpModal] = useState(false)
   const toggle = () => setIsOpen(!isOpen);
- 
-  console.log(isLoginModalOpen)
+
   return (
   
       <Navbar  light expand="md" >
@@ -39,11 +39,18 @@ const Navigation = (props) => {
           </Collapse>
           {
             isLoginModalOpen?
-              <ModalWrapper isOpen={isLoginModalOpen} closeModal={()=>toggleLoginModal(false)} title="Login"><Login/></ModalWrapper>:""
+             
+                 <ModalWrapper isOpen={isLoginModalOpen} closeModal={()=>toggleLoginModal(false)} title="Login">
+                    <Login  closeModal={()=>toggleLoginModal(false)}/>
+                 </ModalWrapper>
+              :
+              ""
           }
           {
             isSignUpModalOpen?
-              <ModalWrapper isOpen={isSignUpModalOpen} closeModal={()=>toggleSignUpModal(false)} title=""><Signup/></ModalWrapper>:""
+              <ModalWrapper isOpen={isSignUpModalOpen} closeModal={()=>toggleSignUpModal(false)} title="">
+                <Signup closeModal={()=>toggleSignUpModal(false)} />
+              </ModalWrapper>:""
           }
       </Navbar>
 
