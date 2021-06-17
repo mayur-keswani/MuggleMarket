@@ -1,6 +1,6 @@
 import React ,{useContext} from 'react'
 import userContext from '../../context/user-context'
-import {onAuthentication} from '../../context/action-types'
+import {onLogout} from '../../context/action-types'
 import {Button} from 'semantic-ui-react'
 import './Auth.css'
 const Auth = ({toggleLoginModal,toggleSignUpModal})=>{
@@ -9,7 +9,7 @@ const Auth = ({toggleLoginModal,toggleSignUpModal})=>{
 
 	const logoutHandler=()=>{
 		localStorage.removeItem('token');
-		dispatch({type:onAuthentication,payload:null})
+		dispatch({type:onLogout,payload:null})
 	}
 	
 	console.log(isAuth)

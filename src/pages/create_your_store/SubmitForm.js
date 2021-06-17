@@ -9,13 +9,13 @@ const SubmitForm = () =>{
 	const {token} = globalState
 
 	const submitFormHandler = () =>{
+		console.log(token)
 		const outletDetails=JSON.parse(localStorage.getItem('outletDetails'))
-		console.log(JSON.stringify(outletDetails))
 		fetch('http://localhost:8080/create-your-store',{
 			method:"POST",
 			body:JSON.stringify(outletDetails),
 			headers:{
-				'Authorization':token,
+				'Authorization':token.token,
 				'Content-Type':'application/json'
 			}
 		})

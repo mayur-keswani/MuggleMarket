@@ -3,7 +3,7 @@ import Store from '../../Component/Store/Store'
 import {Grid, Segment} from 'semantic-ui-react'
 
 const Stores = () =>{
-	const [stores,setStores] = useState([])
+	const [stores,setStores] = useState("")
 	const fetchStores =()=>{
 		fetch('http://localhost:8080/',{
 			method:"GET"
