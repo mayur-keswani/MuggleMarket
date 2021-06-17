@@ -11,6 +11,8 @@ const Auth = ({toggleLoginModal,toggleSignUpModal})=>{
 		localStorage.removeItem('token');
 		dispatch({type:onAuthentication,payload:null})
 	}
+	
+	console.log(isAuth)
 	return (
 	<div className="auth-flow">
 	

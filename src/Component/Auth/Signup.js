@@ -1,11 +1,13 @@
-import React , {useState} from 'react'
+import React , {useContext, useState} from 'react'
 import {
 	Form,
 	Input,
 	Divider,
 	Checkbox,
 	Button} from 'semantic-ui-react'
-import { useHistory } from 'react-router-dom';
+
+import userContext from '../../context/user-context';
+import { onAuthentication } from '../../context/action-types';
 
 
 const Signup = (props) =>{
@@ -13,7 +15,8 @@ const Signup = (props) =>{
 	const [email,setEmail] = useState("");
 	const [password,setPassword] = useState("");
 	const [errorMessage,setErrorMessage] = useState("")
-	const history = useHistory()
+
+	const {dispatch} = useContext(userContext)
 	const onSignUpHandler=()=>{
 		fetch('http://localhost:8080/auth/signup',{
 			method:"POST",
@@ -32,9 +35,12 @@ const Signup = (props) =>{
 				return response.json()
 			})
 			.then(result=>{
+				const expiresIN=new Date(new Date().getTime()+3600000)
 				localStorage.setItem('token',JSON.stringify(result))
-				history.push('/')
+				localStorage.setItem('expiresIn',expiresIN.toISOString())
+				dispatch({type:onAuthentication,payload:result})
 				props.closeModal()
+				
 			})
 			.catch(error=>{
 				console.log(error)

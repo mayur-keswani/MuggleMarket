@@ -1,10 +1,12 @@
 import { onAuthentication } from "./action-types";
-
+import { onLogout } from "./action-types";
 const reducer = (state,action) =>{
 	switch (action.type) {
 		case onAuthentication:
-			return {...state,isAuth:!state.isAuth,token:action.payload}
-		
+			return {...state,isAuth:true,token:action.payload}
+		case onLogout:{
+			return {...state,isAuth:false,token:action.payload}
+		}
 		default:
 			break;
 	}
