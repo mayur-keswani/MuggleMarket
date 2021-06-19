@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {Form,Input,Divider ,Button} from 'semantic-ui-react'
-import { useHistory } from 'react-router-dom'
+
+import userContext from '../../context/user-context'
+import { onAuthentication } from '../../context/action-types'
 
 const Login = (props) =>{
 	const [phoneNo,setPhoneNo] = useState("")
@@ -9,7 +11,7 @@ const Login = (props) =>{
 	const [password,setPassword] = useState("");
 	const [errorMessage,setErrorMessage] = useState("")
 	
-	const history = useHistory();
+	const {dispatch} = useContext(userContext);
 
 	const onLoginHandler=()=>{
 		fetch('http://localhost:8080/auth/login',{
@@ -29,8 +31,12 @@ const Login = (props) =>{
 			 return response.json()
 		})
 		.then(result=>{
-			console.log(result.user)
-			history.push('/')
+			//console.log(result.user)
+		
+			const expiresIN=new Date(new Date().getTime()+3600000)
+			localStorage.setItem('token',JSON.stringify(result))
+			localStorage.setItem('expiresIn',expiresIN.toISOString())
+			dispatch({type:onAuthentication,payload:result})
 			props.closeModal()
 		}).catch(error=>{
 			setErrorMessage(error.message)
@@ -44,7 +50,6 @@ const Login = (props) =>{
 			<>
 			{errorMessage?<div className="text-center h3 text-danger">{errorMessage}</div>:""}
 			  <Form.Group widths='equal'>
-			 
          	  	<Form.Field>
 			  	 <Input icon="mail" placeholder='Email' 
 				   value={email} onChange={(e)=>setEmail(e.target.value)} />
@@ -66,7 +71,8 @@ const Login = (props) =>{
 			<>
         	<Form.Group widths='equal'>
          		<Form.Field>
-				 <Input icon="phone" iconposition='left' placeholder='Phone number' />
+				 <Input icon="phone" iconposition='left' placeholder='Phone number'
+				 	 value={phoneNo} onChange={(e)=>setPhoneNo(e.target.value)}/>
 				</Form.Field>
 			</Form.Group> 
 			<Button fluid type='submit' size="huge" >Send OTP</Button>
