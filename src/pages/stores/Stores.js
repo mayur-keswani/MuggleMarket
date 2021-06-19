@@ -28,7 +28,7 @@ const Stores = () =>{
 			stores?
 			stores.map(store=>
 				<Grid.Column key={store._id}>
-		    		<Segment>
+		    		<Segment className="d-flex justify-content-center mx-0 px-0">
 						<Store store={store}/>
 					</Segment>
 		  		</Grid.Column>
