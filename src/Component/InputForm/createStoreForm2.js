@@ -1,6 +1,7 @@
 import React ,{useState} from 'react'
 import ModalWrapper from '../UI/ModalWrapper/ModalWrapper'
 import SubmitForm from '../../pages/create_your_store/SubmitForm'
+import {Image as StoreImage} from '../Image/Image'
 import {Header,Form,Divider,Button,Icon,Image} from 'semantic-ui-react'
 
 
@@ -18,7 +19,6 @@ const InputForm2 = () =>{
 	const submitFormHandler = () =>{
 		let prevDetails=JSON.parse(localStorage.getItem('outletDetails'))
 		let newDetails={...prevDetails,...outletDetails}
-		console.log(newDetails)
 		localStorage.setItem('outletDetails',JSON.stringify(newDetails))
 
 		toggleConfirmBox(true);
@@ -39,16 +39,7 @@ const InputForm2 = () =>{
 		<Header as="h1">Outlet Type & Timings</Header>
 		<Divider/>
 		
-		<div  className='text-center'>
-			<Image
-      			centered
-				className="store_image rounded-circle"
-      			src='https://st2.depositphotos.com/3682225/11139/v/600/depositphotos_111391738-stock-illustration-store-icon-retail-vector-front.jpg'
-				alt="store"
-    		/><br/>
-			&nbsp;<i><b>update</b></i><Icon name="edit" size="large"/>
-     	 	<p className="text-muted" style={{fontSize:"1.5rem"}}>Store Image</p>	
-    	</div>
+		
 		
 		<Form>	
 			<Form.Field>
@@ -77,7 +68,7 @@ const InputForm2 = () =>{
 				 />
     		</Form.Field>
 
-			<Button animated centered  size="huge" className="my-5" color='blue' onClick={submitFormHandler}>
+			<Button animated   size="huge" className="my-5" color='blue' onClick={submitFormHandler}>
      			<Button.Content visible>Create Store</Button.Content>
       			<Button.Content hidden>
         			<Icon name='arrow right' />
