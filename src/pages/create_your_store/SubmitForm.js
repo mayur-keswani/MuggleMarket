@@ -27,7 +27,10 @@ const SubmitForm = () =>{
 		formData.append('personalNo',outletDetails.personalNo)
 		formData.append('storeType',outletDetails.storeType)
 		formData.append('yearOfEstablishment',outletDetails.yearOfEstablishment)
-		console.log(storeImage)
+		formData.append('personalWebsite',outletDetails.personalWebsite)
+		formData.append('facebook',outletDetails.facebook)
+		formData.append('instagram',outletDetails.instagram)
+		formData.append('youtube',outletDetails.youtube)
 		formData.append('storeImage',storeImage)
 		console.log(formData.get('storeImage'))
 

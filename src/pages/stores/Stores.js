@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Store from '../../Component/Store/Store'
-import {Grid, Segment} from 'semantic-ui-react'
+import {Header,Grid, Segment,Image} from 'semantic-ui-react'
+import empty_state from './empty_state.svg'
+
 
 const Stores = () =>{
-	const [stores,setStores] = useState("")
+	const [stores,setStores] = useState([])
 	const fetchStores =()=>{
 		fetch('http://localhost:8080/',{
 			method:"GET"
@@ -22,22 +24,28 @@ const Stores = () =>{
 	useEffect(()=>{
 		fetchStores()
 	},[])
+	
 	return(
-		<Grid stackable columns={4} >
-		{
-			stores?
-			stores.map(store=>
-				<Grid.Column key={store._id}>
-		    		<Segment className="d-flex justify-content-center mx-0 px-0">
+		stores.length?
+			<Grid stackable columns={4}>
+			{		
+		  	 stores.map(store=>
+			 	<Grid.Column key={store._id}>
+					<Segment className="d-flex justify-content-center mx-0 px-0">
 						<Store store={store}/>
 					</Segment>
-		  		</Grid.Column>
-			)
+			   	</Grid.Column>
+			 )
+		 	}
+			</Grid>
 			:
-			<h2>No stores detected</h2>
-		}
+			<>
+			<Image src={empty_state} centered style={{height:"35vh"}}/>
+			<Header textAlign='center' className="text-muted ">Oops! No Store Found</Header>
+			</>
 		
-		</Grid>
+		
+
 		
     )
 }

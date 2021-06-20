@@ -1,8 +1,7 @@
 import React ,{useState} from 'react'
 import ModalWrapper from '../UI/ModalWrapper/ModalWrapper'
 import SubmitForm from '../../pages/create_your_store/SubmitForm'
-import {Image as StoreImage} from '../Image/Image'
-import {Header,Form,Divider,Button,Icon,Image} from 'semantic-ui-react'
+import {Header,Form,Divider,Button,Icon,Input} from 'semantic-ui-react'
 
 
 
@@ -12,6 +11,11 @@ const InputForm2 = () =>{
 		yearOfEstablishment:"",
 		openingTime:"",
 		closingTime:"",
+		personalWebsite:"",
+		instagram:"",
+		facebook:"",
+		youtube:""
+
 	})
 	const [showConfirmBox,toggleConfirmBox] = useState(false)
 
@@ -68,6 +72,41 @@ const InputForm2 = () =>{
 				 />
     		</Form.Field>
 
+			<Divider/>
+			<h3>Social</h3>
+			<Form.Group widths='equal'>
+			  <Form.Field>
+    		    <Input type="url" label="Personal Website" placeholder='eg: www.yourStore.com' 
+			    	value={outletDetails.personalWebsite}
+			  		onChange={(event)=>setOutletDetails({...outletDetails,personalWebsite:event.target.value}) }
+			    />
+    		  </Form.Field>
+			  <Form.Field>
+    		      <Input type="url" label='Instagram' placeholder="eg: https://www.instagram.com/yourName/" 
+			    	value={outletDetails.instagram}
+			  		onChange={(event)=>setOutletDetails({...outletDetails,instagram:event.target.value}) }
+			    />
+    		  </Form.Field>
+			</Form.Group>
+
+			<Form.Group widths='equal'>
+			  <Form.Field>
+    		    <Input type="url" label='Facebook' placeholder="eg: https://www.facebook.com/yourName" 
+			    	value={outletDetails.facebook}
+			  		onChange={(event)=>setOutletDetails({...outletDetails,facebook:event.target.value}) }
+			    />
+    		  </Form.Field>
+			  <Form.Field>
+    		    <Input type="url" label='Youtube' 
+			    	value={outletDetails.youtube}
+			 	 	onChange={(event)=>setOutletDetails({...outletDetails,youtube:event.target.value}) }
+			    />
+    		  </Form.Field>
+
+			</Form.Group>
+
+
+			
 			<Button animated   size="huge" className="my-5" color='blue' onClick={submitFormHandler}>
      			<Button.Content visible>Create Store</Button.Content>
       			<Button.Content hidden>

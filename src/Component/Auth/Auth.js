@@ -9,6 +9,8 @@ const Auth = ({toggleLoginModal,toggleSignUpModal})=>{
 
 	const logoutHandler=()=>{
 		localStorage.removeItem('token');
+		localStorage.removeItem('expiresIn');
+
 		dispatch({type:onLogout,payload:null})
 	}
 	

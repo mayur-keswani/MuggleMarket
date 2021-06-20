@@ -1,10 +1,11 @@
 import React from 'react'
 import './Footer.css'
 import { Divider, Header, List, Segment ,Grid} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 
 const Footer= () =>{
   return(	
-  	<div className="footer-section">
+  	<div className="footer-section fixed-bottom bg-light py-1">
     	<Header as='h2' floated='right' className="logo">
       		Muggle Market
     	</Header>
@@ -36,7 +37,7 @@ const Footer= () =>{
 				  <Segment  className="info-box">
 				  <List link>
     				 <List.Item active>For Stores</List.Item>
-    				 <List.Item as='a'>Add Store</List.Item>
+    				 <List.Item as={Link} to="/partner_with_us">Add Store</List.Item>
     				 <List.Item as='a'>Store Widget</List.Item>
     				 <List.Item as='a'>Products for Business</List.Item>
   				  </List>
