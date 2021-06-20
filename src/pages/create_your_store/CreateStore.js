@@ -2,8 +2,8 @@ import React from 'react'
 import CreateStoreGuide from '../../Component/UI/CreateStoreGuide/CreateStoreGuide'
 
 import InputForm1 from '../../Component/InputForm/createStoreForm1'
-import InputForm2 from '../../Component/InputForm/createStoreForm2.js'
-import InputForm3 from '../../Component/InputForm/createStoreForm3.js'
+import InputForm2 from '../../Component/InputForm/createStoreForm2'
+import InputForm3 from '../../Component/InputForm/createStoreForm3'
 
 import {useParams } from 'react-router-dom'
 import { Header , Grid } from 'semantic-ui-react'

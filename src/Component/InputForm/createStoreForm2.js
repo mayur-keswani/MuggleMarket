@@ -1,7 +1,7 @@
 import React ,{useState} from 'react'
 import ModalWrapper from '../UI/ModalWrapper/ModalWrapper'
 import SubmitForm from '../../pages/create_your_store/SubmitForm'
-import {Header,Form,Divider,Button,Icon,Image} from 'semantic-ui-react'
+import {Header,Form,Divider,Button,Icon,Input} from 'semantic-ui-react'
 
 
 
@@ -11,6 +11,11 @@ const InputForm2 = () =>{
 		yearOfEstablishment:"",
 		openingTime:"",
 		closingTime:"",
+		personalWebsite:"",
+		instagram:"",
+		facebook:"",
+		youtube:""
+
 	})
 	const [showConfirmBox,toggleConfirmBox] = useState(false)
 
@@ -18,7 +23,6 @@ const InputForm2 = () =>{
 	const submitFormHandler = () =>{
 		let prevDetails=JSON.parse(localStorage.getItem('outletDetails'))
 		let newDetails={...prevDetails,...outletDetails}
-		console.log(newDetails)
 		localStorage.setItem('outletDetails',JSON.stringify(newDetails))
 
 		toggleConfirmBox(true);
@@ -39,16 +43,7 @@ const InputForm2 = () =>{
 		<Header as="h1">Outlet Type & Timings</Header>
 		<Divider/>
 		
-		<div  className='text-center'>
-			<Image
-      			centered
-				className="store_image rounded-circle"
-      			src='https://st2.depositphotos.com/3682225/11139/v/600/depositphotos_111391738-stock-illustration-store-icon-retail-vector-front.jpg'
-				alt="store"
-    		/><br/>
-			&nbsp;<i><b>update</b></i><Icon name="edit" size="large"/>
-     	 	<p className="text-muted" style={{fontSize:"1.5rem"}}>Store Image</p>	
-    	</div>
+		
 		
 		<Form>	
 			<Form.Field>
@@ -77,7 +72,42 @@ const InputForm2 = () =>{
 				 />
     		</Form.Field>
 
-			<Button animated centered  size="huge" className="my-5" color='blue' onClick={submitFormHandler}>
+			<Divider/>
+			<h3>Social</h3>
+			<Form.Group widths='equal'>
+			  <Form.Field>
+    		    <Input type="url" label="Personal Website" placeholder='eg: www.yourStore.com' 
+			    	value={outletDetails.personalWebsite}
+			  		onChange={(event)=>setOutletDetails({...outletDetails,personalWebsite:event.target.value}) }
+			    />
+    		  </Form.Field>
+			  <Form.Field>
+    		      <Input type="url" label='Instagram' placeholder="eg: https://www.instagram.com/yourName/" 
+			    	value={outletDetails.instagram}
+			  		onChange={(event)=>setOutletDetails({...outletDetails,instagram:event.target.value}) }
+			    />
+    		  </Form.Field>
+			</Form.Group>
+
+			<Form.Group widths='equal'>
+			  <Form.Field>
+    		    <Input type="url" label='Facebook' placeholder="eg: https://www.facebook.com/yourName" 
+			    	value={outletDetails.facebook}
+			  		onChange={(event)=>setOutletDetails({...outletDetails,facebook:event.target.value}) }
+			    />
+    		  </Form.Field>
+			  <Form.Field>
+    		    <Input type="url" label='Youtube' 
+			    	value={outletDetails.youtube}
+			 	 	onChange={(event)=>setOutletDetails({...outletDetails,youtube:event.target.value}) }
+			    />
+    		  </Form.Field>
+
+			</Form.Group>
+
+
+			
+			<Button animated   size="huge" className="my-5" color='blue' onClick={submitFormHandler}>
      			<Button.Content visible>Create Store</Button.Content>
       			<Button.Content hidden>
         			<Icon name='arrow right' />

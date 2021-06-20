@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
 
 .zumbotron{
-	height: 40vh;
+	height: 35vh;
 	background-color: #f1ebeb;
 	background-image: url('https://images.pexels.com/photos/1087727/pexels-photo-1087727.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
 	background-position: center;
