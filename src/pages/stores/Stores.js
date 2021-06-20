@@ -5,7 +5,9 @@ import empty_state from './empty_state.svg'
 
 
 const Stores = () =>{
+
 	const [stores,setStores] = useState([])
+
 	const fetchStores =()=>{
 		fetch('http://localhost:8080/',{
 			method:"GET"
@@ -24,6 +26,7 @@ const Stores = () =>{
 	useEffect(()=>{
 		fetchStores()
 	},[])
+
 	
 	return(
 		stores.length?
@@ -43,10 +46,7 @@ const Stores = () =>{
 			<Image src={empty_state} centered style={{height:"35vh"}}/>
 			<Header textAlign='center' className="text-muted ">Oops! No Store Found</Header>
 			</>
-		
-		
 
-		
     )
 }
 

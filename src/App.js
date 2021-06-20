@@ -14,6 +14,7 @@ import reducer from './context/reducer'
 import { onAuthentication , onLogout } from './context/action-types';
 import StoreDetails from './pages/store_details/StoreDetails';
 
+
 const initialState={
   isAuth:false,
   loading:false,
@@ -37,12 +38,21 @@ const App = () => {
     const expiresIn=localStorage.getItem('expiresIn');
     console.log(expiresIn)
     if(!token && !expiresIn){
+
       return 0
     }
 
     if(new Date(expiresIn)< new Date()){
       dispatch({type:onLogout,payload:null})
       return 0
+
+    }
+
+    if(new Date(expiresIn)< new Date()){
+      console.log("HTRE")
+      dispatch({type:onLogout,payload:null})
+      return
+
     }
 
     dispatch({type:onAuthentication,payload:token})

@@ -14,6 +14,7 @@ const SubmitForm = () =>{
 	const submitFormHandler = () =>{
 		console.log(token)
 		const outletDetails=JSON.parse(localStorage.getItem('outletDetails'))
+
 		const formData = new FormData();
 		formData.append('description',outletDetails.description)
 		formData.append('address',outletDetails.address)
@@ -34,7 +35,6 @@ const SubmitForm = () =>{
 		formData.append('storeImage',storeImage)
 		console.log(formData.get('storeImage'))
 
-		
 		fetch('http://localhost:8080/create-your-store',{
 			method:"POST",
 			body:formData,
