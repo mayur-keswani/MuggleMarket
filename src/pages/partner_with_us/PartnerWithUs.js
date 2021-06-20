@@ -1,10 +1,9 @@
 import React from 'react'
-import Footer from '../../Component/Footer/Footer'
 import {Link} from 'react-router-dom'
 import {Button,Step,Icon,Header,Segment} from 'semantic-ui-react'
-import createListing from './create_listing.svg'
-import register from './register_online.svg'
-import receiveOrder from './order_online.svg'
+import createListing from './images/create_listing.svg'
+import register from './images/register_online.svg'
+import receiveOrder from './images/order_online.svg'
 import './PartnerWithUs.css'
 const PartnerWithUs = () =>{
 	return(
@@ -13,7 +12,7 @@ const PartnerWithUs = () =>{
 			<div className='m-2 h1'>Partner with Muggle-Market</div>
 			<p className="h5 mx-3 text-lead">for free and get more customers!</p>
 			<div>
-    			<Button as={Link} to="/create-your-store"  positive  size='large' className="mx-3 px-5">Register Your Store</Button>	
+    			<Button as={Link} to="/create-your-store/1"  positive  size='large' className="mx-3 px-5">Register Your Store</Button>	
   			</div>
 	    </div>
 		<div className="text-center p-5">
@@ -22,7 +21,7 @@ const PartnerWithUs = () =>{
 		</div>
 
 
-		<Segment className="how-it-works">
+		<Segment className="how-it-works" >
 			<Header as='h2'  textAlign="center">
    			 <Icon name='settings' />
       			How it works?
@@ -58,7 +57,7 @@ const PartnerWithUs = () =>{
 		 </Step.Group>
 		</Segment>
 
-		<Footer/>
+		{/* <Footer/> */}
 		
 		</>
 	)
