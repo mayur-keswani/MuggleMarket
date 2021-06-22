@@ -16,7 +16,7 @@ import StoreDetails from './pages/store_details/StoreDetails';
 
 const initialState={
   isAuth:false,
-  loading:false,
+  isLoading:false,
   token:null,
   expiryDate:null
 }

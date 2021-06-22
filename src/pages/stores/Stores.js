@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import Store from '../../Component/Store/Store'
+import userContext from '../../context/user-context'
+import {SET_LOADING} from '../../context/action-types'
 import {Header,Grid, Segment,Image} from 'semantic-ui-react'
 import empty_state from './empty_state.svg'
-
+import {Spinner} from '../../Component/UI/Spinner/Spinner'
 
 const Stores = () =>{
 	const [stores,setStores] = useState([])
+	const {globalState,dispatch}= useContext(userContext)
+	const { isLoading }= globalState;
+
 	const fetchStores =()=>{
+		dispatch({type:SET_LOADING,payload:true})
 		fetch('http://localhost:8080/',{
 			method:"GET"
 		}).then(response=>{
@@ -16,9 +22,11 @@ const Stores = () =>{
 			else
 				return response.json()
 		}).then(result=>{
+			dispatch({type:SET_LOADING,payload:false})
 			setStores(result.stores)
 		}).catch(error=>{
-
+			dispatch({type:SET_LOADING,payload:false})
+			console.log(error)
 		})
 	}
 	useEffect(()=>{
@@ -26,6 +34,9 @@ const Stores = () =>{
 	},[])
 	
 	return(
+		isLoading?
+		<Spinner/>
+		:
 		stores.length?
 			<Grid stackable columns={4}>
 			{		
