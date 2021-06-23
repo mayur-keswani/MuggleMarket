@@ -1,13 +1,13 @@
-import React from 'react'
+import React,{lazy,Suspense}from 'react'
 import CreateStoreGuide from '../../Component/UI/CreateStoreGuide/CreateStoreGuide'
-
-import InputForm1 from '../../Component/InputForm/createStoreForm1'
-import InputForm2 from '../../Component/InputForm/createStoreForm2'
-import InputForm3 from '../../Component/InputForm/createStoreForm3'
-
 import {useParams } from 'react-router-dom'
 import { Header , Grid } from 'semantic-ui-react'
 import './CreateStore.css'
+const InputForm1 = lazy(()=>import('../../Component/InputForm/createStoreForm1'))
+const InputForm2 = lazy(()=>import('../../Component/InputForm/createStoreForm2')) 
+const InputForm3 = lazy(()=>import( '../../Component/InputForm/createStoreForm3'))
+
+
 
 const CreateStore = () =>{
 	const {page} = useParams()
@@ -15,13 +15,15 @@ const CreateStore = () =>{
 	const InputForm = () =>{
 		if(+page===1){
 			console.log("here")
-			return <InputForm1/>
+			return <Suspense fallback={<div>Loading...</div>}>
+				<InputForm1/>
+			</Suspense>
 		}
 		else if(+page===2){
-			return <InputForm2/>
+			return <Suspense fallback={<div>Loading...</div>}><InputForm2/></Suspense>
 		}
 		else if(+page===3){
-			return <InputForm3/>
+			return  <Suspense fallback={<div>Loading...</div>}><InputForm3/></Suspense>
 		}
 	}
 	return(

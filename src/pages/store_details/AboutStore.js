@@ -1,33 +1,35 @@
 import React from 'react';
 import {Header, Icon} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 import './StoreDetails.css'
 
-const AboutStore = () =>{
+const AboutStore = ({store}) =>{
+	
 	return(
 		<>
 		<div className="about-store p-5">
 		<Header as='h3' dividing>
-   			 Description
+   			Description
   		</Header>
-		<p className="text-muted">We offer sweat escape from world</p>
-		<p className="text-success"><i>Serving Since : 2020</i></p>
+		<p className="text-muted"> {store.description}</p>
+		<p className="text-success"><i>Serving Since : {store.year_of_establish}</i></p>
 		<Header as='h3' dividing>
    			 Address
   		</Header>
-		<p className="text-muted">471/A Sindhi colony nr Shanti-prakash Hospital Sardarnagar</p>
+		<p className="text-muted">{store.address}</p>
 
 		<Header as='h3' dividing>
    			 Contact No. 
 		</Header>
-		<p className="text-muted"><Icon name="phone"/>+91 9106963839</p>
-		Owner: <span className="text-muted"><u> Mayur Keswani</u></span>
+		<p className="text-muted"><Icon name="phone"/>+{store.contact_no}</p>
+		Owner: <span className="text-muted"><u> {store.owner}</u></span>
 		
 		<Header as='h3' dividing>
    			 Social Handles
 		</Header>
-		<span className="text-muted"><Icon name="instagram"/></span>
-		<span className="text-muted"><Icon name="facebook"/></span>
-		<span className="text-muted"><Icon name="youtube"/></span>
+		<a className="text-muted"  href={store.social.instagram}><Icon name="instagram"/></a>
+		<a className="text-muted"  href={store.social.facebook}><Icon name="facebook"/></a>
+		<a className="text-muted"  href={store.social.youtube}><Icon name="youtube" /></a>
 
 		</div>
 
