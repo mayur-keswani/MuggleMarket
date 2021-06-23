@@ -16,7 +16,7 @@ import StoreDetails from './pages/store_details/StoreDetails';
 
 const initialState={
   isAuth:false,
-  loading:false,
+  isLoading:false,
   token:null,
   expiryDate:null
 }
@@ -35,6 +35,7 @@ const App = () => {
   useEffect(()=>{
     const token=JSON.parse(localStorage.getItem('token'));
     const expiresIn=localStorage.getItem('expiresIn');
+    
     console.log(expiresIn)
     if(!token && !expiresIn){
       return 0
