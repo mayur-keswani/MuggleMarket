@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import Store from '../../Component/Store/Store'
+
 import userContext from '../../context/user-context'
 import {SET_LOADING} from '../../context/action-types'
 import {Header,Grid, Segment,Image} from 'semantic-ui-react'
@@ -54,8 +55,7 @@ const Stores = () =>{
 			<Image src={empty_state} centered style={{height:"35vh"}}/>
 			<Header textAlign='center' className="text-muted ">Oops! No Store Found</Header>
 			</>
-		
-		
+
 
 		
     )
