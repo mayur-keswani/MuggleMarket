@@ -31,6 +31,9 @@ const Stores = () =>{
 	}
 	useEffect(()=>{
 		fetchStores()
+		return () => {
+			setStores([]); // This worked for me
+		  };
 	},[])
 	
 	return(

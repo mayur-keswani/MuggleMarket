@@ -39,7 +39,7 @@ const SubmitForm = () =>{
 			method:"POST",
 			body:formData,
 			headers:{
-				'Authorization':token.token,	
+				'Authorization':token,	
 			}
 		})
 		.then(response=>{

@@ -18,7 +18,8 @@ const initialState={
   isAuth:false,
   isLoading:false,
   token:null,
-  expiryDate:null
+  expiryDate:null,
+  username:""
 }
 
 
@@ -35,6 +36,7 @@ const App = () => {
   useEffect(()=>{
     const token=JSON.parse(localStorage.getItem('token'));
     const expiresIn=localStorage.getItem('expiresIn');
+    const username=JSON.parse(localStorage.getItem('username'));
     
     console.log(expiresIn)
     if(!token && !expiresIn){
@@ -45,8 +47,11 @@ const App = () => {
       dispatch({type:onLogout,payload:null})
       return 0
     }
-
-    dispatch({type:onAuthentication,payload:token})
+    const payload={
+      token:token,
+      username:username
+    }
+    dispatch({type:onAuthentication,payload})
     let remainingTime=new Date(expiresIn).getTime()- new Date().getTime();
 
     autoLogoutHandler(remainingTime)
