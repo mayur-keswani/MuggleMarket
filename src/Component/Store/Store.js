@@ -15,10 +15,10 @@ const Store = ({store}) =>{
       			</Card.Description>
     		</Card.Content>
     		<Card.Content extra>
-      			<a href="/">
+      			
         			<Icon name='user' />
         			{store.owner}
-      			</a>
+      			
    	 		</Card.Content>
   		  </Card>
 	)

@@ -18,12 +18,15 @@
 }
 @media(max-width:768px){
 	.auth-flow{
-		padding: 0px;
+		padding: 0px !important;
 		width: 100%;
-		height: 10% !important;
+		height: 20% !important;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: flex-start;
+	}
+	.auth-flow #menu{
+		padding:  0.3rem 0.8 !important;
 	}
 }

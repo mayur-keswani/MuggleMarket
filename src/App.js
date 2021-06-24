@@ -13,6 +13,7 @@ import userContext from './context/user-context';
 import reducer from './context/reducer'
 import { onAuthentication , onLogout } from './context/action-types';
 import StoreDetails from './pages/store_details/StoreDetails';
+import MyStore from './pages/my-stores/MyStores'
 
 const initialState={
   isAuth:false,
@@ -72,7 +73,8 @@ const App = () => {
 
    {
      globalState.isAuth ?
-      <Route path="/create-your-store/:page" exact component={CreateStore}/>  
+
+     <Route path="/create-your-store/:page" exact component={CreateStore}/> 
       :
       null
    }
@@ -81,6 +83,7 @@ const App = () => {
         <StoreDetails/> 
       </>
    }/>
+    <Route path="/my-stores" exact component={MyStore}/>
    <Route path="/"  render={()=>
       <>
         <Navbar/>
