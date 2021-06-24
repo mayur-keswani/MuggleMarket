@@ -14,6 +14,7 @@ const MyStore = () =>{
 	
 	const fetchMySTORE =()=>{
 		const token = JSON.parse(localStorage.getItem('token'))
+		console.log(token)
 		dispatch({type:SET_LOADING,payload:true})
 		fetch('http://localhost:8080/my-stores',{
 			method: 'GET',
@@ -36,7 +37,7 @@ const MyStore = () =>{
 	}
 
 	const showStoreHandler = (id) =>{
-		history.push('my-stores/'+id)
+		history.push('/my-store/'+id)
 	}
 	useEffect(()=>{
 		fetchMySTORE()

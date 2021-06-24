@@ -1,4 +1,4 @@
-import { onAuthentication , SET_LOADING  } from "./action-types";
+import { onAuthentication , SET_LOADING, EDIT_STORE  } from "./action-types";
 import { onLogout } from "./action-types";
 const reducer = (state,action) =>{
 	switch (action.type) {
@@ -11,6 +11,9 @@ const reducer = (state,action) =>{
 		}
 		case SET_LOADING:{
 			return {...state,isLoading:action.payload}
+		}
+		case EDIT_STORE:{
+			return { ...state,editStoreKey:action.payload}
 		}
 		default:
 			break;

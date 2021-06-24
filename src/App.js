@@ -14,13 +14,16 @@ import reducer from './context/reducer'
 import { onAuthentication , onLogout } from './context/action-types';
 import StoreDetails from './pages/store_details/StoreDetails';
 import MyStore from './pages/my-stores/MyStores'
+import EditStore from './pages/EditStore/EditStore';
 
 const initialState={
   isAuth:false,
   isLoading:false,
   token:null,
   expiryDate:null,
-  username:""
+  username:"",
+  editStore:null,
+  editStoreKey:null
 }
 
 
@@ -78,12 +81,16 @@ const App = () => {
       :
       null
    }
+
    <Route path="/store/:id"  render={()=>
       <>
         <StoreDetails/> 
       </>
    }/>
-    <Route path="/my-stores" exact component={MyStore}/>
+
+   <Route path="/my-stores" exact component={MyStore}/>
+
+   <Route path="/my-store/:id" exact component={EditStore}/>
    <Route path="/"  render={()=>
       <>
         <Navbar/>
