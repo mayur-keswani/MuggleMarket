@@ -144,13 +144,14 @@ const MenuItems = (props) => {
    {/* <Button  className="mb-5" onClick={addNewItemHandler}><Icon name="add"/></Button> */}
     {/* <Button  className="mt-p" onClick={addNewItemHandler}><Icon name="Submit Menu"/></Button> */}
    <Form className="text-center mt-4" >	
-			  <Button animated  size="huge" className="" color='green' onClick={()=>history.push('/')}>
-     			<Button.Content visible>Submit Menu</Button.Content>
+			  <Button animated  size="huge" className="" color='green' onClick={()=>history.push('/store/'+editStoreKey+'/items')}>
+     			<Button.Content visible>Check Store</Button.Content>
       			<Button.Content hidden>
         			<Icon name='arrow right' />
       			</Button.Content>
     		</Button>
 	 </Form>
+
   </>
 )
 }

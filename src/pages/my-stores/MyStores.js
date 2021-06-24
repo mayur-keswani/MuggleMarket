@@ -9,7 +9,7 @@ import { Spinner } from '../../Component/UI/Spinner/Spinner'
 const MyStore = () =>{
 	const {globalState,dispatch}= useContext(userContext)
 	const {isLoading} = globalState
-	const [stores,setStores] = useState()
+	const [stores,setStores] = useState([])
 	const history = useHistory()
 	
 	const fetchMySTORE =()=>{
@@ -61,7 +61,7 @@ const MyStore = () =>{
 		isLoading ?
 		<Spinner/>
 		:
-		!stores?
+		!stores.length?
 		 <h4 className="text-danger">You Have No Store!</h4>
 		:
 		stores.map(store =>

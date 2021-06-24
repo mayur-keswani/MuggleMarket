@@ -90,7 +90,7 @@ const App = () => {
 
    <Route path="/my-stores" exact component={MyStore}/>
 
-   <Route path="/my-store/:id" exact component={EditStore}/>
+   <Route path="/my-store/:id"  component={EditStore}/>
    <Route path="/"  render={()=>
       <>
         <Navbar/>
