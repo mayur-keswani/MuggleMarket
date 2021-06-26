@@ -54,14 +54,12 @@ const Stores = () =>{
 			</Grid>
 			:
 			<>
-			<Image src={empty_state} centered style={{height:"35vh"}}/>
-			<Header textAlign='center' className="text-muted ">Oops! No Store Found</Header>
+			 <Image src={empty_state} centered style={{height:"35vh"}}/>
+			 <Header textAlign='center' className="text-muted ">Oops! No Store Found</Header>
 			</>
-		
-		
 
-		
-    )
+	
+ )
 }
 
 export default Stores

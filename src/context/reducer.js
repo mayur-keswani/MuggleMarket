@@ -21,6 +21,9 @@ const reducer = (state,action) =>{
 		case SET_LOADING:{
 			return {...state,isLoading:action.payload}
 		}
+		case SET_LOADING:{
+			return {...state,isLoading:action.payload}
+		}
 		default:
 			break;
 	}

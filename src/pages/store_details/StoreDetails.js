@@ -86,11 +86,8 @@ const StoreDetails = () =>{
 		<Route path="/store/:id/about-store" exact render={()=><AboutStore store={store}/>}/>
 		<Route path="/store/:id/items" exact render={()=><StoreItems store={store}/>}/>
 
-
 		</>
 
-			
-		
 	)
 }
 

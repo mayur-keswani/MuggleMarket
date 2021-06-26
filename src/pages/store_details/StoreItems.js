@@ -4,6 +4,7 @@ import {Header, Menu , Button, Image, Item } from 'semantic-ui-react'
 
 const paragraph = <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
 
+
 const StoreItems = ({store}) =>{
 	const [state,setState] = useState({ activeItem: 'home' })
 
@@ -37,6 +38,7 @@ const StoreItems = ({store}) =>{
 				</Menu.Item>
       		</Menu>
 			</div>
+
 			<div className="items-list" style={{width:"80%",border: "1px dotted black"}}>
 			{
 				store.store_items.length?
@@ -58,6 +60,7 @@ const StoreItems = ({store}) =>{
 				:
 				<h4>No Items Added Yet!</h4>
 			}		
+
 			</div>
 
 		</div>
