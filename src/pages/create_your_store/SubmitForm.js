@@ -1,18 +1,24 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import { Button, Header, Icon, Segment, Image } from 'semantic-ui-react'
 
 import userContext from '../../context/user-context'
+import  {EDIT_STORE} from '../../context/action-types'
+
 
 const SubmitForm = () =>{
 	const [errorMessage,setErrorMessage] = useState("")
 	const [storeImage,setStoreImage] = useState("")
 	const history=useHistory()
-	const {globalState} = useContext(userContext)
-	const {token} = globalState
+	const {globalState,dispatch} = useContext(userContext)
+	const {token,editStoreKey,editStore} = globalState
 
+	useEffect(()=>{
+		if(editStoreKey){
+			setStoreImage(editStore.store_picture)
+		}
+	},[])
 	const submitFormHandler = () =>{
-		console.log(token)
 		const outletDetails=JSON.parse(localStorage.getItem('outletDetails'))
 		const formData = new FormData();
 		formData.append('description',outletDetails.description)
@@ -33,13 +39,18 @@ const SubmitForm = () =>{
 		formData.append('youtube',outletDetails.youtube)
 		formData.append('storeImage',storeImage)
 		console.log(formData.get('storeImage'))
+		let url;
+		if(editStoreKey)
+			url='http://localhost:8080/edit-your-store/'+editStoreKey;
+		else
+			url='http://localhost:8080/create-your-store/'
 
-		
-		fetch('http://localhost:8080/create-your-store',{
+		console.log(url);
+		fetch(url,{
 			method:"POST",
 			body:formData,
 			headers:{
-				'Authorization':token.token,	
+				'Authorization':token,	
 			}
 		})
 		.then(response=>{
@@ -53,6 +64,7 @@ const SubmitForm = () =>{
 				return response.json()
 			}
 		}).then(store=>{
+			dispatch({type:EDIT_STORE,payload:{id:null,store:null}})
 			console.log(store)
 			history.push('/')
 		}).catch(error=>{
@@ -62,11 +74,10 @@ const SubmitForm = () =>{
 	}
 
 	let imageURL;
-	if(storeImage){
+	if(typeof storeImage !=="string" && storeImage){
 		imageURL = URL.createObjectURL(storeImage)
-	}else{
-		imageURL=""
 	}
+
 	return(
 		<Segment placeholder>
 			{errorMessage?<div className="text-center text-danger h3">{errorMessage}</div>:null}
@@ -76,20 +87,21 @@ const SubmitForm = () =>{
       			<Icon name='shopping bag' />
       			Only One-step to Go 🚀
     		</Header>
-			<div  className='text-center'> 		
-				<Image
-      			 centered
-				 className="store_image rounded-circle"
-      			 src={imageURL}/>
-			<br/>
-			&nbsp;
-			<input type="file" name="storeImage"
-				onChange={(e)=>
-					setStoreImage(e.target.files[0])
-					}/>
-     	 	<p className="text-muted" style={{fontSize:"1.5rem"}}>Store Image</p>	
-    	    </div>
-    		<Button primary onClick={submitFormHandler}>Proceed</Button>
+
+			<div  className='text-center'> 	
+					<Image
+      			centered
+						className="store_image rounded-circle"
+      			src={imageURL||storeImage}/> 
+           <br/> &nbsp;
+			    
+          <input type="file" name="storeImage"
+				   onChange={(e)=>
+					 setStoreImage(e.target.files[0])
+					 }/>
+     	 	   <p className="text-muted" style={{fontSize:"1.5rem"}}>Store Image</p>	
+    	 </div>
+    	 <Button primary onClick={submitFormHandler}>Proceed</Button>
 	  	</Segment>
 	)
 }

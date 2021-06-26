@@ -13,12 +13,17 @@ import userContext from './context/user-context';
 import reducer from './context/reducer'
 import { onAuthentication , onLogout } from './context/action-types';
 import StoreDetails from './pages/store_details/StoreDetails';
+import MyStore from './pages/my-stores/MyStores'
+import EditStore from './pages/EditStore/EditStore';
 
 const initialState={
   isAuth:false,
   isLoading:false,
   token:null,
-  expiryDate:null
+  expiryDate:null,
+  username:"",
+  editStore:null,
+  editStoreKey:null
 }
 
 
@@ -35,6 +40,7 @@ const App = () => {
   useEffect(()=>{
     const token=JSON.parse(localStorage.getItem('token'));
     const expiresIn=localStorage.getItem('expiresIn');
+    const username=JSON.parse(localStorage.getItem('username'));
     
     console.log(expiresIn)
     if(!token && !expiresIn){
@@ -45,8 +51,11 @@ const App = () => {
       dispatch({type:onLogout,payload:null})
       return 0
     }
-
-    dispatch({type:onAuthentication,payload:token})
+    const payload={
+      token:token,
+      username:username
+    }
+    dispatch({type:onAuthentication,payload})
     let remainingTime=new Date(expiresIn).getTime()- new Date().getTime();
 
     autoLogoutHandler(remainingTime)
@@ -67,15 +76,22 @@ const App = () => {
 
    {
      globalState.isAuth ?
-      <Route path="/create-your-store/:page" exact component={CreateStore}/>  
+
+     <Route path="/create-your-store/:page" exact component={CreateStore}/> 
       :
       null
    }
+
    <Route path="/store/:id"  render={()=>
       <>
         <StoreDetails/> 
       </>
    }/>
+
+   <Route path="/my-stores" exact component={MyStore}/>
+
+   <Route path="/my-store/:id"  component={EditStore}/>
+
    <Route path="/"  render={()=>
       <>
         <Navbar/>

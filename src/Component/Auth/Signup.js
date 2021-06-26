@@ -36,9 +36,14 @@ const Signup = (props) =>{
 			})
 			.then(result=>{
 				const expiresIN=new Date(new Date().getTime()+3600000)
-				localStorage.setItem('token',JSON.stringify(result))
+				localStorage.setItem('token',JSON.stringify(result.token))
+				localStorage.setItem('username',JSON.stringify(result.username))
 				localStorage.setItem('expiresIn',expiresIN.toISOString())
-				dispatch({type:onAuthentication,payload:result.token})
+				const payload ={
+					token:result.token,
+					username:result.username
+				}
+				dispatch({type:onAuthentication,payload:payload})
 				props.closeModal()
 				
 			})

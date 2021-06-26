@@ -1,0 +1,9 @@
+.mystore-section{
+	display: flex;
+}
+
+@media(max-width:799px){
+	.mystore-section {
+		display: block
+	}
+}

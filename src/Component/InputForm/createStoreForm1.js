@@ -1,6 +1,8 @@
-import React ,{ useState } from 'react'
+import React ,{ useState,useContext, useEffect} from 'react'
+import userContext from '../../context/user-context'
 import {Header,Form,Divider,Button,Icon} from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
+import { result } from 'lodash'
 
 const InputForm1 = () =>{
 
@@ -14,7 +16,24 @@ const InputForm1 = () =>{
 		ownerName:"",
 		personalNo:"",
 	})
+	const {globalState,dispatch} = useContext(userContext)
+	const {editStoreKey,editStore} = globalState;
 
+	useEffect(()=>{
+		if(editStoreKey){
+			console.log(editStoreKey)
+			setOutletDetails({
+				storeName:editStore.name||"",
+				description:editStore.description||"",
+				city:editStore.city||"",
+				address:editStore.address||"",
+				contactNo:editStore.contact_no||"",
+				landlineNo:editStore.landline_no||"",
+				ownerName:editStore.owner||"",
+				personalNo:editStore.personal_no||"",
+			})
+		}
+	},[])
 	const history = useHistory()
 	const submitFormHandler = () =>{
 		localStorage.setItem('outletDetails',JSON.stringify(outletDetails))

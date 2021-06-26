@@ -32,8 +32,8 @@ const CreateStoreGuide = (props) =>{
 		<Step completed={isCompleted(3)}>
 		  <Icon name='photo' />
 		  <Step.Content>
-			<Step.Title>Upload Images</Step.Title>
-			<Step.Description>store,product images</Step.Description>
+			<Step.Title>Upload Items</Step.Title>
+			<Step.Description>store-items,product images</Step.Description>
 		  </Step.Content>
 		</Step>
 	  </Step.Group>

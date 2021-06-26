@@ -1,6 +1,5 @@
 import React,{lazy,Suspense}from 'react'
 import CreateStoreGuide from '../../Component/UI/CreateStoreGuide/CreateStoreGuide'
-
 import {useParams } from 'react-router-dom'
 import { Header , Grid } from 'semantic-ui-react'
 import './CreateStore.css'

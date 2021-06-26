@@ -27,7 +27,7 @@ const Navigation = (props) => {
       <Navbar  light expand="md" >
         <NavbarBrand href="/" className="logo"> Muggle Market</NavbarBrand>
         <NavbarToggler onClick={toggle} />
-          <Collapse isOpen={isOpen} className="collapse-navbar" navbar style={{width:"100%",height:"100%"}}>
+          <Collapse isOpen={isOpen} className="collapse-navbar" navbar style={{zIndex:"100",width:"100%",height:"100%"}}>
             <Nav navbar style={{width:"100%"}} className="mr-auto nav-bar">
               <div className="input-box">
                 <DetectLocation/>

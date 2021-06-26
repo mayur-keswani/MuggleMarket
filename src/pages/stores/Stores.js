@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
 import Store from '../../Component/Store/Store'
-
 import userContext from '../../context/user-context'
 import {SET_LOADING} from '../../context/action-types'
 import {Header,Grid, Segment,Image} from 'semantic-ui-react'
@@ -32,6 +31,9 @@ const Stores = () =>{
 	}
 	useEffect(()=>{
 		fetchStores()
+		return () => {
+			setStores([]); // This worked for me
+		  };
 	},[])
 	
 	return(
@@ -39,11 +41,11 @@ const Stores = () =>{
 		<Spinner/>
 		:
 		stores.length?
-			<Grid stackable columns={4}>
+			<Grid stackable columns={5} className="mt-3">
 			{		
 		  	 stores.map(store=>
-			 	<Grid.Column key={store._id}>
-					<Segment className="d-flex justify-content-center mx-0 px-0">
+			 	<Grid.Column key={store._id} className="mx-3">
+					<Segment className="d-flex justify-content-center m-0 p-0">
 						<Store store={store}/>
 					</Segment>
 			   	</Grid.Column>
@@ -52,13 +54,12 @@ const Stores = () =>{
 			</Grid>
 			:
 			<>
-			<Image src={empty_state} centered style={{height:"35vh"}}/>
-			<Header textAlign='center' className="text-muted ">Oops! No Store Found</Header>
+			 <Image src={empty_state} centered style={{height:"35vh"}}/>
+			 <Header textAlign='center' className="text-muted ">Oops! No Store Found</Header>
 			</>
 
-
-		
-    )
+	
+ )
 }
 
 export default Stores
