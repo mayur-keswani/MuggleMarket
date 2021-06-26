@@ -6,7 +6,7 @@ import {useHistory} from 'react-router-dom'
 import './Auth.css'
 
 const options = [
-	{ key: 'create-store', icon: 'create', text: 'Create Store', value: 'create-store' },
+	{ key: 'create-store', icon: '', text: 'Create Store', value: 'create-store' },
 	{ key: 'your-store', icon: '', text: 'Your Store', value: 'your-store' },
 	{ key: 'logout', icon: '', text: 'Logout', value: 'logout' },
   ]

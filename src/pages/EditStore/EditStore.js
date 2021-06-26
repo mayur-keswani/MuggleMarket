@@ -19,7 +19,7 @@ const EditStore = () =>{
 	const [store,setStore] = useState()
 
 	const optionPreferred = (option)=>{
-		dispatch({type:EDIT_STORE,payload:id })
+		dispatch({type:EDIT_STORE,payload:{id:id,store:store} })
 		if(option==='edit-store-details')
 			history.push('/create-your-store/1');
 
@@ -44,7 +44,9 @@ const EditStore = () =>{
 		})
 		.then(result=>{
 			dispatch({type:SET_LOADING,payload:false})
+			// dispatch({type:})
 			setStore(result.store)
+
 		}).catch(error=>{
 			dispatch({type:SET_LOADING,payload:false})
 			console.log(error)

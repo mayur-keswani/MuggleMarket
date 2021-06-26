@@ -54,7 +54,7 @@ const StoreDetails = () =>{
 		</div>
 
 		<div className="bg-light jumbotron d-flex justify-items-start align-items-end" 
-			style={{height:"30vh",zIndex:"100"}}>
+			style={{height:"33vh",zIndex:"100"}}>
 			<Header as='h2' className="p-2">
     			{store.name}
     			<Header.Subheader className="text-muted">

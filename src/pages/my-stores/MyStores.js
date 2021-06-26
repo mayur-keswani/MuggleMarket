@@ -65,7 +65,7 @@ const MyStore = () =>{
 		 <h4 className="text-danger">You Have No Store!</h4>
 		:
 		stores.map(store =>
-			<Item className="mx-3" style={{width:"65%"}}>
+			<Item className="mx-3" style={{width:"65%"}} key={store._id}>
       		<Item.Image src={store.store_picture||'https://react.semantic-ui.com/images/wireframe/image.png'}
 			  size="small" className="rounded img-fluid"/>
   		    <Item.Content>

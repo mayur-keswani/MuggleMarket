@@ -13,7 +13,7 @@ const reducer = (state,action) =>{
 			return {...state,isLoading:action.payload}
 		}
 		case EDIT_STORE:{
-			return { ...state,editStoreKey:action.payload}
+			return { ...state,editStoreKey:action.payload.id,editStore:action.payload.store}
 		}
 		default:
 			break;
