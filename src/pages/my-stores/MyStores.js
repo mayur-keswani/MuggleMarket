@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { Button,Item,Icon,Header} from 'semantic-ui-react'
 import { SET_LOADING } from '../../context/action-types'
 import { Spinner } from '../../Component/UI/Spinner/Spinner'
-
+import './MyStore.css'
 
 const MyStore = () =>{
 	const {globalState,dispatch}= useContext(userContext)
@@ -64,11 +64,13 @@ const MyStore = () =>{
 		!stores.length?
 		 <h4 className="text-danger">You Have No Store!</h4>
 		:
+		<Item.Group relaxed className="mystore-section" >
+		{
 		stores.map(store =>
-			<Item className="mx-3" style={{width:"65%"}} key={store._id}>
+			<Item className="mx-2" style={{width:"100%",borderBottom:"1px dotted black"}} key={store._id}>
       		<Item.Image src={store.store_picture||'https://react.semantic-ui.com/images/wireframe/image.png'}
 			  size="small" className="rounded img-fluid"/>
-  		    <Item.Content>
+  		    <Item.Content verticalAlign='middle'>
      		   <Item.Header as='a'>{store.name}</Item.Header>
         	   <Item.Meta>
           			<span className='cinema'>{store.store_type}</span>
@@ -86,6 +88,8 @@ const MyStore = () =>{
     		</Item>
 		)
 		}
+		</Item.Group>
+	   }
 
 
 		

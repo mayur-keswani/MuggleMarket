@@ -41,11 +41,11 @@ const Stores = () =>{
 		<Spinner/>
 		:
 		stores.length?
-			<Grid stackable columns={4}>
+			<Grid stackable columns={5} className="mt-3">
 			{		
 		  	 stores.map(store=>
-			 	<Grid.Column key={store._id}>
-					<Segment className="d-flex justify-content-center mx-0 px-0">
+			 	<Grid.Column key={store._id} className="mx-3">
+					<Segment className="d-flex justify-content-center m-0 p-0">
 						<Store store={store}/>
 					</Segment>
 			   	</Grid.Column>
