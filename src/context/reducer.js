@@ -15,6 +15,9 @@ const reducer = (state,action) =>{
 		case EDIT_STORE:{
 			return { ...state,editStoreKey:action.payload.id,editStore:action.payload.store}
 		}
+		case SET_LOADING:{
+			return {...state,isLoading:action.payload}
+		}
 		default:
 			break;
 	}

@@ -1,5 +1,4 @@
-import React ,{useState,useEffect,useContext} from 'react'
-import userContext from '../../context/user-context'
+import React ,{useState} from 'react'
 import ModalWrapper from '../UI/ModalWrapper/ModalWrapper'
 import SubmitForm from '../../pages/create_your_store/SubmitForm'
 import {Header,Form,Divider,Button,Icon,Input} from 'semantic-ui-react'
@@ -19,23 +18,8 @@ const InputForm2 = () =>{
 
 	})
 	const [showConfirmBox,toggleConfirmBox] = useState(false)
-	const {globalState} = useContext(userContext)
-	const {editStoreKey,editStore} = globalState
-	useEffect(()=>{
-		if(editStoreKey){
-			console.log(editStore)
-			setOutletDetails({
-				storeType:editStore.store_type,
-				yearOfEstablishment:editStore.year_of_establish,
-				openingTime:editStore.opening_time,
-				closingTime:editStore.closing_time,
-				personalWebsite:editStore.social.personal_website,
-				instagram:editStore.social.instagram,
-				facebook:editStore.social.facebook,
-				youtube:editStore.social.youtube,
-			})
-		}
-	},[])
+
+
 	const submitFormHandler = () =>{
 		let prevDetails=JSON.parse(localStorage.getItem('outletDetails'))
 		let newDetails={...prevDetails,...outletDetails}
