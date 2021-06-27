@@ -2,7 +2,7 @@ import React, { useState , useContext} from 'react'
 import userContext from '../../context/user-context'
 import {SET_LOADING} from '../../context/action-types'
 import {useHistory} from 'react-router-dom'
-import {Form, Header, Icon, Label, Table, Button} from 'semantic-ui-react'
+import {Form, Header, Icon, Table, Button} from 'semantic-ui-react'
 import { Spinner } from '../UI/Spinner/Spinner'
 
 const MenuItems = (props) => {

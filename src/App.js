@@ -23,8 +23,14 @@ const initialState={
   expiryDate:null,
   username:"",
   editStore:null,
-  editStoreKey:null
+  editStoreKey:null,
+  orderItems:[],
+  selectedGroups:{},
+  totalPrice:0
 }
+
+
+
 
 
 const App = () => {

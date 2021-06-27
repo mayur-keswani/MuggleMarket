@@ -1,8 +1,6 @@
 import React,{useState} from 'react'
-import {Header, Menu , Button, Image, Item } from 'semantic-ui-react'
-
-
-const paragraph = <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+import {Header, Menu , Item } from 'semantic-ui-react'
+import OrderButton from '../../Component/orderButton/OrderButton'
 
 const StoreItems = ({store}) =>{
 	const [state,setState] = useState({ activeItem: 'home' })
@@ -47,9 +45,7 @@ const StoreItems = ({store}) =>{
       				  		  <Item.Content verticalAlign='middle'>
        								<Item.Header>{item.name}</Item.Header>
         							<Item.Description>{item.description}</Item.Description>
-        							<Item.Extra>
-          								<Button floated='right'>ADD TO CART</Button>
-        							</Item.Extra>
+									<OrderButton pid={item._id}/>
       				  		  </Item.Content>
     					</Item>
 					</Item.Group>

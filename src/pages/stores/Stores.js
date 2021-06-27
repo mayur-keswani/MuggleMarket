@@ -41,6 +41,8 @@ const Stores = () =>{
 		<Spinner/>
 		:
 		stores.length?
+			<>
+			<h2 className="mx-4 text-muted">Top brands in spotlight</h2>
 			<Grid stackable columns={5} className="mt-3">
 			{		
 		  	 stores.map(store=>
@@ -52,6 +54,7 @@ const Stores = () =>{
 			 )
 		 	}
 			</Grid>
+			</>
 			:
 			<>
 			<Image src={empty_state} centered style={{height:"35vh"}}/>
