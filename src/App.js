@@ -25,7 +25,7 @@ const initialState={
   editStore:null,
   editStoreKey:null,
   orderItems:[],
-  selectedGroups:{},
+  selectedItems:{},
   totalPrice:0
 }
 

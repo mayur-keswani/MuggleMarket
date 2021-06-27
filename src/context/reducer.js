@@ -18,32 +18,36 @@ const reducer = (state,action) =>{
 		}
 
 		case ADD_TO_CART:{
-			const existingItemIndex=state.orderItems.findIndex(item=> item.productID === action.payload)
-			let updatedSelectedGroups={...state.selectedGroups}
+			const existingItemIndex=state.orderItems.findIndex(item=> item.productID === action.payload.id)
+			let updatedSelectedItems={...state.selectedItems}
 			let updatedCart = [...state.orderItems]
+
 			if(existingItemIndex>=0){
 				updatedCart[existingItemIndex].quantity = updatedCart[existingItemIndex].quantity +1
 				console.log(updatedCart)
-				updatedSelectedGroups[action.payload]=updatedSelectedGroups[action.payload] + 1  
+				updatedSelectedItems[action.payload.id]=updatedSelectedItems[action.payload.id] + 1  
 			}else{
-				updatedCart = updatedCart.concat({productID:action.payload,quantity:1})
-				updatedSelectedGroups[action.payload.toString()] = 1
+				updatedCart = updatedCart.concat({productID:action.payload.id,quantity:1})
+				updatedSelectedItems[action.payload.id.toString()] = 1
 				
-			}	
-			console.log(updatedSelectedGroups)
+			}
+
+			let updatedPrice=state.totalPrice+action.payload.price
+			console.log(updatedSelectedItems)
 			console.log(updatedCart)
-			return {...state,orderItems:updatedCart,selectedGroups:updatedSelectedGroups}
+			console.log(updatedPrice)
+			return {...state,orderItems:updatedCart,selectedItems:updatedSelectedItems,totalPrice:updatedPrice}
 		}
 
 		case REMOVE_FROM_CART:{
-			const existingItemIndex=state.orderItems.findIndex(item=> item.productID === action.payload)
-			let updatedSelectedGroups={...state.selectedGroups}
+			const existingItemIndex=state.orderItems.findIndex(item=> item.productID === action.payload.id)
+			let updatedSelectedItems={...state.selectedItems}
 			let updatedCart = [...state.orderItems]
 			updatedCart[existingItemIndex].quantity = updatedCart[existingItemIndex].quantity - 1
-			console.log(updatedCart)
-			updatedSelectedGroups[action.payload]=updatedSelectedGroups[action.payload] - 1  
+			updatedSelectedItems[action.payload.id]=updatedSelectedItems[action.payload.id] - 1;
+			let updatedPrice=state.totalPrice-action.payload.price
 			
-			return {...state,orderItems:updatedCart,selectedGroups:updatedSelectedGroups}
+			return {...state,orderItems:updatedCart,selectedItems:updatedSelectedItems,totalPrice:updatedPrice}
 		}
 		default:
 			break;
