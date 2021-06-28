@@ -11,13 +11,14 @@ const Cart = ({totalItems}) =>{
 	
 	return(
 		showCartItems?
-		<div className="bg-info fixed-bottom" style={{height:"50vh"}}>
+		<div className="bg-dark fixed-bottom" style={{height:"50vh"}}>
 			<Button circular icon="chevron circle down" 
 				size="massive" 
 				className="" 
 				color="teal"
 				onClick={()=>toggleCart(false)} />
 			<OrderSummary/>
+			<Button className="d-block my-3 mx-auto" size="massive" color="green">Continue</Button>
 		</div>
 		:
 

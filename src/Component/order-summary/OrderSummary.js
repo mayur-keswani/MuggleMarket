@@ -1,37 +1,54 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import userContext from '../../context/user-context'
-import { Table } from 'semantic-ui-react'
+import { Table , Button} from 'semantic-ui-react'
 
 const OrderSummary = () =>{
-  return(
+	const {globalState} = useContext(userContext)
+	const {orderItems,totalPrice} = globalState;
 
-	  <Table unstackable style={{backgroundColor:"transparent"}}>
+  return(
+	  <>
+	  <Table unstackable  className="text-white" style={{backgroundColor:"transparent",width:"80%",margin:"auto"}} >
 		<Table.Header >
 		  <Table.Row >
+			<Table.HeaderCell  style={{backgroundColor:"transparent"}} textAlign="center">Item No.</Table.HeaderCell>
 			<Table.HeaderCell  style={{backgroundColor:"transparent"}}>Name</Table.HeaderCell>
-			<Table.HeaderCell  style={{backgroundColor:"transparent"}}>Status</Table.HeaderCell>
-			<Table.HeaderCell  style={{backgroundColor:"transparent"}} textAlign='right'>Notes</Table.HeaderCell>
+			<Table.HeaderCell  style={{backgroundColor:"transparent"}}>Price</Table.HeaderCell>
+			<Table.HeaderCell  style={{backgroundColor:"transparent"}}>Quantity</Table.HeaderCell>
+			<Table.HeaderCell  style={{backgroundColor:"transparent"}}>Total</Table.HeaderCell>
 		  </Table.Row>
 		</Table.Header>
 	
 		<Table.Body>
-		  <Table.Row>
-			<Table.Cell>John</Table.Cell>
-			<Table.Cell>Approved</Table.Cell>
-			<Table.Cell textAlign='right'>None</Table.Cell>
-		  </Table.Row>
-		  <Table.Row>
-			<Table.Cell>Jamie</Table.Cell>
-			<Table.Cell>Approved</Table.Cell>
-			<Table.Cell textAlign='right'>Requires call</Table.Cell>
-		  </Table.Row>
-		  <Table.Row>
-			<Table.Cell>Jill</Table.Cell>
-			<Table.Cell>Denied</Table.Cell>
-			<Table.Cell textAlign='right'>None</Table.Cell>
-		  </Table.Row>
-		</Table.Body>
+		{
+			orderItems.map((item,i)=>
+				 
+				 <Table.Row key={item.productID}>
+					<Table.Cell textAlign="center">{i+1}</Table.Cell>
+					<Table.Cell>{item.productName}</Table.Cell>
+					<Table.Cell >{item.productPrice}</Table.Cell>
+					<Table.Cell>{item.quantity}</Table.Cell>
+					<Table.Cell >{item.productPrice * item.quantity}</Table.Cell>
+		  		</Table.Row>
+		
+			)
+		}
+			</Table.Body>
+			<Table.Header>
+      			<Table.Row >
+      			  <Table.HeaderCell textAlign="center" style={{backgroundColor:"transparent"}}>Sub-Total</Table.HeaderCell>
+      			  <Table.HeaderCell style={{backgroundColor:"transparent"}}> </Table.HeaderCell>
+      			  <Table.HeaderCell style={{backgroundColor:"transparent"}}> </Table.HeaderCell>
+				  <Table.HeaderCell style={{backgroundColor:"transparent"}}> </Table.HeaderCell>
+  				  <Table.HeaderCell className="h5 text-danger">{totalPrice}</Table.HeaderCell>
+      			</Table.Row>
+			</Table.Header>
+    		
+		
+
 	  </Table>
+	 	
+	  </>
 	)
 	
 }

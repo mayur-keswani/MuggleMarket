@@ -24,18 +24,23 @@ const reducer = (state,action) =>{
 
 			if(existingItemIndex>=0){
 				updatedCart[existingItemIndex].quantity = updatedCart[existingItemIndex].quantity +1
-				console.log(updatedCart)
+				// console.log(updatedCart)
 				updatedSelectedItems[action.payload.id]=updatedSelectedItems[action.payload.id] + 1  
 			}else{
-				updatedCart = updatedCart.concat({productID:action.payload.id,quantity:1})
+				updatedCart = updatedCart.concat(
+					{
+						productID:action.payload.id,
+						productName:action.payload.name,
+						productPrice:action.payload.price,
+						quantity:1})
 				updatedSelectedItems[action.payload.id.toString()] = 1
 				
 			}
 
 			let updatedPrice=state.totalPrice+action.payload.price
-			console.log(updatedSelectedItems)
-			console.log(updatedCart)
-			console.log(updatedPrice)
+			// console.log(updatedSelectedItems)
+			// console.log(updatedCart)
+			// console.log(updatedPrice)
 			return {...state,orderItems:updatedCart,selectedItems:updatedSelectedItems,totalPrice:updatedPrice}
 		}
 

@@ -57,7 +57,7 @@ const StoreItems = ({store}) =>{
 									<Item.Extra className="text-lead text-danger h4">
 										<Icon name="inr"/>{item.price}
 									</Item.Extra>
-									<OrderButton pid={item._id} price={item.price}/>
+									<OrderButton item={item}/>
       				  		  </Item.Content>
     					</Item>
 					</Item.Group>
