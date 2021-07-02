@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import OrderSummary from '../../Component/order-summary/OrderSummary';
+import OrderSummary from '../../component/order-summary/OrderSummary';
 const Checkout = () =>{
 	
 	return(

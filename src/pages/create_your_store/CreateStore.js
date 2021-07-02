@@ -1,11 +1,11 @@
 import React,{lazy,Suspense}from 'react'
-import CreateStoreGuide from '../../Component/UI/CreateStoreGuide/CreateStoreGuide'
+import CreateStoreGuide from '../../component/ui/create-store-guide/CreateStoreGuide'
 import {useParams } from 'react-router-dom'
 import { Header , Grid } from 'semantic-ui-react'
 import './CreateStore.css'
-const InputForm1 = lazy(()=>import('../../Component/InputForm/createStoreForm1'))
-const InputForm2 = lazy(()=>import('../../Component/InputForm/createStoreForm2')) 
-const InputForm3 = lazy(()=>import( '../../Component/InputForm/createStoreForm3'))
+const InputForm1 = lazy(()=>import('../../component/InputForm/createStoreForm1'))
+const InputForm2 = lazy(()=>import('../../component/InputForm/createStoreForm2')) 
+const InputForm3 = lazy(()=>import( '../../component/InputForm/createStoreForm3'))
 
 
 

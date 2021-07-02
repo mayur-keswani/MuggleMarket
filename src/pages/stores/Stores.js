@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react'
-import Store from '../../Component/Store/Store'
+import Store from '../../component/store/Store'
 import userContext from '../../context/user-context'
 import {SET_LOADING} from '../../context/action-types'
 import {Header,Grid, Segment,Image} from 'semantic-ui-react'
 import empty_state from './empty_state.svg'
-import {Spinner} from '../../Component/UI/Spinner/Spinner'
+import {Spinner} from '../../component/ui/spinner/Spinner'
 
 const Stores = () =>{
 	const [stores,setStores] = useState([])

@@ -1,7 +1,7 @@
 import React , {useEffect, useState} from 'react';
 import AboutStore from './AboutStore';
 import StoreItems from './StoreItems';
-import {Spinner} from '../../Component/UI/Spinner/Spinner'
+import {Spinner} from '../../component/ui/spinner/Spinner'
 import {Route, useHistory, useParams} from 'react-router-dom'
 import { Grid , Header, Menu} from 'semantic-ui-react';
 

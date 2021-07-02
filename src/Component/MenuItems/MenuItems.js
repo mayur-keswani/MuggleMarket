@@ -3,7 +3,7 @@ import userContext from '../../context/user-context'
 import {SET_LOADING} from '../../context/action-types'
 import {useHistory} from 'react-router-dom'
 import {Form, Header, Icon, Table, Button} from 'semantic-ui-react'
-import { Spinner } from '../UI/Spinner/Spinner'
+import { Spinner } from '../ui/spinner/Spinner'
 
 const MenuItems = (props) => {
   const history = useHistory();

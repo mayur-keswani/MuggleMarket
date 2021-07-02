@@ -3,7 +3,7 @@ import userContext from '../../context/user-context'
 import { useHistory } from 'react-router-dom'
 import { Button,Item,Icon,Header} from 'semantic-ui-react'
 import { SET_LOADING } from '../../context/action-types'
-import { Spinner } from '../../Component/UI/Spinner/Spinner'
+import { Spinner } from '../../component/ui/spinner/Spinner'
 import './MyStore.css'
 
 const MyStore = () =>{

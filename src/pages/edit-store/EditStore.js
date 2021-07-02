@@ -1,5 +1,5 @@
 import React,{useContext,useEffect,useState} from "react"
-import {Spinner} from '../../Component/UI/Spinner/Spinner'
+import {Spinner} from '../../component/ui/spinner/Spinner'
 import userContext from '../../context/user-context'
 import {useHistory,useParams} from 'react-router-dom'
 import {

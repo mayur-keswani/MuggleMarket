@@ -1,10 +1,10 @@
 import React , { useState} from 'react'
-import DetectLocation from '../LocationFinder/DetectLocation';
+import DetectLocation from '../locationFinder/DetectLocation';
 import SearchBar from './SearchBar'
-import Auth from '../Auth/Auth'
-import ModalWrapper from '../UI/ModalWrapper/ModalWrapper';
-import Login from '../Auth/Login'
-import Signup from '../Auth/Signup'
+import Auth from '../auth/Auth'
+import ModalWrapper from '../ui/modal-wrapper/ModalWrapper';
+import Login from '../auth/Login'
+import Signup from '../auth/Signup'
 import './Header.css'
 import {
   Collapse,

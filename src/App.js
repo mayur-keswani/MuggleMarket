@@ -2,8 +2,8 @@ import React, { useEffect, useReducer } from 'react'
 import "bootstrap/dist/css/bootstrap.css"
 import 'semantic-ui-css/semantic.min.css'
 
-import Navbar from './Component/Header/Navigation';
-import Footer from './Component/Footer/Footer';
+import Navbar from './component/header/Navigation';
+import Footer from './component/footer/Footer';
 import Stores from './pages/stores/Stores';
 import {Route , Switch} from 'react-router-dom'
 
@@ -14,7 +14,7 @@ import reducer from './context/reducer'
 import { onAuthentication , onLogout } from './context/action-types';
 import StoreDetails from './pages/store_details/StoreDetails';
 import MyStore from './pages/my-stores/MyStores'
-import EditStore from './pages/EditStore/EditStore';
+import EditStore from './pages/edit-store/EditStore';
 import Checkout from './pages/checkout/Checkout';
 
 

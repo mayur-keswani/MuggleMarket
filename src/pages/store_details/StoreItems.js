@@ -1,8 +1,8 @@
 import React,{useState,useContext} from 'react'
 import userContext from '../../context/user-context';
 import {Header, Menu , Item, Icon} from 'semantic-ui-react'
-import Cart from '../../Component/order-summary/Cart';
-import OrderButton from '../../Component/orderButton/OrderButton'
+import Cart from '../../component/order-summary/Cart';
+import OrderButton from '../../component/orderButton/OrderButton'
 
 const StoreItems = ({store}) =>{
 	const [state,setState] = useState({ activeItem: 'home' })
