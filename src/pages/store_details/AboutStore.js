@@ -37,4 +37,5 @@ const AboutStore = ({store}) =>{
 	)
 }
 
+
 export default AboutStore

@@ -39,7 +39,8 @@ const StoreDetails = () =>{
 		<Spinner/>
 		:
 		<>
-		<div className="store-thumbnail jumbotron text-center" style={{height:"20vh",zIndex:"200"}}>
+		<div className="store-thumbnail jumbotron text-center" style={{height:"15vh",zIndex:"200"}}>
+
 			{/* <img src=""  */}
 			<Grid >
     			<Grid.Column mobile={8} tablet={6} computer={3}>
@@ -47,14 +48,16 @@ const StoreDetails = () =>{
 						src={store.store_picture || "https://img2.pngio.com/market-store-retail-shop-shop-shopping-store-store-icon-retail-shopping-icon-png-512_512.png"}
 						alt="store-thumbnail"
 						className="img-fluid img-thumbnail"
-						style={{width:"200px",height:"180px",borderRadius:"50%",position:"relative",bottom:"-30%",left:"10%",transform:"translateY(-10%)"}}
+						style={{width:"180px",height:"160px",borderRadius:"50%",position:"relative",bottom:"-10%",left:"10%",transform:"translateY(-10%)"}}
+
 						/>
    				</Grid.Column>	
 			</Grid>
 		</div>
 
 		<div className="bg-light jumbotron d-flex justify-items-start align-items-end" 
-			style={{height:"33vh",zIndex:"100"}}>
+			style={{height:"30vh",zIndex:"100"}}>
+
 			<Header as='h2' className="p-2">
     			{store.name}
     			<Header.Subheader className="text-muted">
@@ -87,6 +90,9 @@ const StoreDetails = () =>{
 		<Route path="/store/:id/items" exact render={()=><StoreItems store={store}/>}/>
 
 		</>
+
+			
+		
 
 	)
 }

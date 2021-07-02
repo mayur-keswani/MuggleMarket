@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom'
 
 const Footer= () =>{
   return(	
-
   	<div className="footer-section bg-light py-1">
     	<Header as='h2' floated='right' className="logo">
       		Muggle Market
@@ -87,5 +86,6 @@ const Footer= () =>{
   	</div>
    )
 }
+
 
 export default Footer

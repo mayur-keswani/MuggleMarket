@@ -5,7 +5,6 @@ import { Button, Header, Icon, Segment, Image } from 'semantic-ui-react'
 import userContext from '../../context/user-context'
 import  {EDIT_STORE} from '../../context/action-types'
 
-
 const SubmitForm = () =>{
 	const [errorMessage,setErrorMessage] = useState("")
 	const [storeImage,setStoreImage] = useState("")
@@ -77,7 +76,7 @@ const SubmitForm = () =>{
 	if(typeof storeImage !=="string" && storeImage){
 		imageURL = URL.createObjectURL(storeImage)
 	}
-
+	
 	return(
 		<Segment placeholder>
 			{errorMessage?<div className="text-center text-danger h3">{errorMessage}</div>:null}
@@ -87,23 +86,25 @@ const SubmitForm = () =>{
       			<Icon name='shopping bag' />
       			Only One-step to Go 🚀
     		</Header>
-
 			<div  className='text-center'> 	
+			
 					<Image
-      			centered
+      			 		centered
 						className="store_image rounded-circle"
-      			src={imageURL||storeImage}/> 
-           <br/> &nbsp;
-			    
-          <input type="file" name="storeImage"
-				   onChange={(e)=>
-					 setStoreImage(e.target.files[0])
-					 }/>
-     	 	   <p className="text-muted" style={{fontSize:"1.5rem"}}>Store Image</p>	
-    	 </div>
-    	 <Button primary onClick={submitFormHandler}>Proceed</Button>
+      			 		src={imageURL||storeImage}/>
+
+			<br/>
+			&nbsp;
+			<input type="file" name="storeImage"
+				onChange={(e)=>
+					setStoreImage(e.target.files[0])
+					}/>
+     	 	<p className="text-muted" style={{fontSize:"1.5rem"}}>Store Image</p>	
+    	    </div>
+    		<Button primary onClick={submitFormHandler}>Proceed</Button>
 	  	</Segment>
 	)
 }
+
 
 export default SubmitForm

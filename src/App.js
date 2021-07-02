@@ -15,6 +15,8 @@ import { onAuthentication , onLogout } from './context/action-types';
 import StoreDetails from './pages/store_details/StoreDetails';
 import MyStore from './pages/my-stores/MyStores'
 import EditStore from './pages/EditStore/EditStore';
+import Checkout from './pages/checkout/Checkout';
+
 
 const initialState={
   isAuth:false,
@@ -23,8 +25,14 @@ const initialState={
   expiryDate:null,
   username:"",
   editStore:null,
-  editStoreKey:null
+  editStoreKey:null,
+  orderItems:[],
+  selectedItems:{},
+  totalPrice:0
 }
+
+
+
 
 
 const App = () => {
@@ -91,6 +99,8 @@ const App = () => {
    <Route path="/my-stores" exact component={MyStore}/>
 
    <Route path="/my-store/:id"  component={EditStore}/>
+
+   <Route path="/checkout" component={Checkout}/>
 
    <Route path="/"  render={()=>
       <>

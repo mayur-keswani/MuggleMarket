@@ -16,7 +16,8 @@ const InputForm1 = () =>{
 		ownerName:"",
 		personalNo:"",
 	})
-	const {globalState,dispatch} = useContext(userContext)
+
+	const {globalState} = useContext(userContext)
 	const {editStoreKey,editStore} = globalState;
 
 	useEffect(()=>{

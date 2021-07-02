@@ -21,7 +21,6 @@ const Auth = ({toggleLoginModal,toggleSignUpModal})=>{
 		localStorage.removeItem('username');
 
 		dispatch({type:onLogout})
-
 	}
 	
 	const menuEventHandler =(e,{value})=>{
