@@ -20,10 +20,11 @@ const DetectLocation = () =>{
 	    navigator.geolocation.getCurrentPosition(position=>{
 			let latitude=position.coords.latitude;
 			let longitude=position.coords.longitude
+			console.log(latitude,longitude)
 			axios
 			.get(`https://us1.locationiq.com/v1/reverse.php?key=pk.726308e29885c04749be8ff916e042e1&lat=${latitude}&lon=${longitude}&format=json`)
 			.then(result=>{
-				let city=result.data.address.city
+				let city=result.data.address.state_district
 				console.log(result.data.address)
 				localStorage.setItem("location",JSON.stringify(city))
 				console.log(city)

@@ -5,10 +5,10 @@ import { Table , Button} from 'semantic-ui-react'
 const OrderSummary = () =>{
 	const {globalState} = useContext(userContext)
 	const {orderItems,totalPrice} = globalState;
-
+	console.log(orderItems)
   return(
 	  <>
-	  <Table unstackable  className="text-white" style={{backgroundColor:"transparent",width:"80%",margin:"auto"}} >
+	  <Table unstackable style={{backgroundColor:"transparent",width:"80%",margin:"auto",color:"white"}}  >
 		<Table.Header >
 		  <Table.Row >
 			<Table.HeaderCell  style={{backgroundColor:"transparent"}} textAlign="center">Item No.</Table.HeaderCell>

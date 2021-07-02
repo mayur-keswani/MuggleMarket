@@ -1,24 +1,46 @@
 import React,{useState,useContext} from 'react';
 import OrderSummary from './OrderSummary'
 import userContext from '../../context/user-context'
+import {useHistory} from 'react-router-dom';
 import './Cart.css'
 import {Button,Grid} from 'semantic-ui-react'
 
 const Cart = ({totalItems}) =>{
 	const [showCartItems,toggleCart] = useState(false)
 	const {globalState} = useContext(userContext)
-	const {totalPrice} = globalState
+	const {token,orderItems,totalPrice} = globalState
+	const history = useHistory()
 	
+	const proceedToCheckout = ()=>{
+		fetch('http://localhost:8080/checkout',{
+			method:"POST",
+			body:JSON.stringify(orderItems),
+			headers:{
+				'Content-Type':'application/json',
+				'Authorization':token
+			}
+		}).then(response=>{
+			if(response.status!==200 && response.status!==201)
+				throw new Error("Cant able to proceed");
+			
+			 return response.json()
+		}).then(result=>{
+			console.log(result)
+			history.push('/checkout')
+		}).catch(error=>{
+			console.log(error)
+		})
+	}
 	return(
 		showCartItems?
-		<div className="bg-dark fixed-bottom" style={{height:"50vh"}}>
+		<div className="bg-dark text-light fixed-bottom" style={{height:"50vh"}}>
 			<Button circular icon="chevron circle down" 
 				size="massive" 
 				className="" 
 				color="teal"
 				onClick={()=>toggleCart(false)} />
 			<OrderSummary/>
-			<Button className="d-block my-3 mx-auto" size="massive" color="green">Continue</Button>
+			<Button className="d-block my-3 mx-auto" size="massive" color="green" onClick={proceedToCheckout}>Continue</Button>
 		</div>
 		:
 
@@ -26,6 +48,7 @@ const Cart = ({totalItems}) =>{
       		<Grid.Column color="teal" style={{boxSizing:"border-box"}} >
 				  <Button circular 
 					icon="chevron circle up" 
+			
 					size="massive" 
 					className="cart-toggler mx-4 p-0" 
 					color="teal"
@@ -42,7 +65,12 @@ const Cart = ({totalItems}) =>{
 						</p>
 				</Grid.Column>
 				<Grid.Column textAlign='left' color="teal">
-					<Button floated='right'  className="my-0" size="large" color="green">Continue</Button>	
+					<Button floated='right'  
+						className="my-0" 
+						size="large" 
+						color="green" 
+						onClick={proceedToCheckout}>Continue
+					</Button>	
 				</Grid.Column>
 			</Grid>
 
