@@ -78,4 +78,5 @@ const StoreItems = ({store}) =>{
 	</>
 	)
 }
+
 export default StoreItems

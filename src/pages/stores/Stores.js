@@ -61,10 +61,8 @@ const Stores = () =>{
 			<Header textAlign='center' className="text-muted ">Oops! No Store Found</Header>
 			</>
 		
-		
-
-		
     )
+
 }
 
 export default Stores

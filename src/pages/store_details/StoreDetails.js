@@ -40,6 +40,7 @@ const StoreDetails = () =>{
 		:
 		<>
 		<div className="store-thumbnail jumbotron text-center" style={{height:"15vh",zIndex:"200"}}>
+
 			{/* <img src=""  */}
 			<Grid >
     			<Grid.Column mobile={8} tablet={6} computer={3}>
@@ -48,6 +49,7 @@ const StoreDetails = () =>{
 						alt="store-thumbnail"
 						className="img-fluid img-thumbnail"
 						style={{width:"180px",height:"160px",borderRadius:"50%",position:"relative",bottom:"-10%",left:"10%",transform:"translateY(-10%)"}}
+
 						/>
    				</Grid.Column>	
 			</Grid>
@@ -55,6 +57,7 @@ const StoreDetails = () =>{
 
 		<div className="bg-light jumbotron d-flex justify-items-start align-items-end" 
 			style={{height:"30vh",zIndex:"100"}}>
+
 			<Header as='h2' className="p-2">
     			{store.name}
     			<Header.Subheader className="text-muted">
@@ -85,12 +88,12 @@ const StoreDetails = () =>{
 		
 		<Route path="/store/:id/about-store" exact render={()=><AboutStore store={store}/>}/>
 		<Route path="/store/:id/items" exact render={()=><StoreItems store={store}/>}/>
-   
 
 		</>
 
 			
 		
+
 	)
 }
 

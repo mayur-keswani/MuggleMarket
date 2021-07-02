@@ -17,6 +17,7 @@ import MyStore from './pages/my-stores/MyStores'
 import EditStore from './pages/EditStore/EditStore';
 import Checkout from './pages/checkout/Checkout';
 
+
 const initialState={
   isAuth:false,
   isLoading:false,
@@ -100,6 +101,7 @@ const App = () => {
    <Route path="/my-store/:id"  component={EditStore}/>
 
    <Route path="/checkout" component={Checkout}/>
+
    <Route path="/"  render={()=>
       <>
         <Navbar/>
