@@ -44,7 +44,7 @@ const Auth = ({toggleLoginModal,toggleSignUpModal})=>{
 			<Menu compact className="mx-3" id="menu" >
     			<Dropdown text={username} options={options}  item onChange={menuEventHandler}/>
   			</Menu>
-			<Button basic className="m-3 px-5" size="huge" icon="shop" ></Button>
+			<Button basic className="m-3 px-5" size="huge" icon="shop" onClick={()=>history.push('/checkout')}></Button>
 			</>
 			:
 			<>	
