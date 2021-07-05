@@ -1,10 +1,12 @@
 import React,{useState,useEffect,useContext} from 'react';
 import UserDetails from '../../component/user-details/UserDetails';
 import userContext from '../../context/user-context';
-import {Button,Icon,Divider,Grid,Image} from 'semantic-ui-react'
+import {Button,Icon,Divider,Grid,Message} from 'semantic-ui-react'
 import { Spinner } from '../../component/ui/spinner/Spinner';
+import CheckoutSummary from '../../component/order-summary/CheckoutSummary';
 const Checkout = () =>{
 	const [user,setUser] = useState()
+	const [cartItems,setCartItem] = useState([])
 	const {globalState}= useContext(userContext)
 	const {token} = globalState;
 	const fetchUserDetails= () =>{
@@ -24,6 +26,7 @@ const Checkout = () =>{
 		.then(response=>{
 			console.log(response.user)
 			setUser(response.user)
+			setCartItem(response.user.cart)
 		})
 		.catch(error=>{
 			console.log(error)
@@ -32,6 +35,23 @@ const Checkout = () =>{
 	useEffect(()=>{
 		fetchUserDetails()
 	},[])
+	 
+	const updateItemsHandler = (itemID,type)=>{
+		
+			setCartItem((prevState)=>{
+				const updatedItems=prevState.map(item=>{
+					if(item._id.toString()===itemID.toString()){
+						type==='ADD'? item.quantity+=1 : item.quantity-=1
+						return item
+					}else{
+						return item
+					}
+				})
+
+				return updatedItems
+			})
+		
+	}
 	return(
 		<>
 		<div className="checkout-header px-5 py-2 my-0 d-flex align-items-center">
@@ -52,8 +72,15 @@ const Checkout = () =>{
       			<Grid.Column mobile={16} tablet={11} computer={11}>
         			<UserDetails username={user.username} email={user.email}/>
       			</Grid.Column>
-      			<Grid.Column mobile={16} tablet={4} computer={5}>
-        			<Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+
+
+      			<Grid.Column mobile={16} tablet={4} computer={5} className='text-center'>
+        			<CheckoutSummary cartItems={cartItems} updateItemsHandler={updateItemsHandler}/>
+					<Message warning>
+    					<Message.Header>Note:</Message.Header>
+    					<p>Order once placed cannot be cancelled and it is non-refundable</p>
+  					</Message>
+					<Button primary size='huge'>Place Order</Button>
       			</Grid.Column>
 			</Grid>
 		}

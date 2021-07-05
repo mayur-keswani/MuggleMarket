@@ -8,7 +8,7 @@ const OrderSummary = () =>{
 	console.log(orderItems)
   return(
 	  <>
-	  <Table unstackable style={{backgroundColor:"transparent",width:"80%",margin:"auto",color:"white"}}  >
+	  <Table unstackable style={{backgroundColor:"transparent",width:"80%",margin:"auto",color:"black"}}  >
 		<Table.Header >
 		  <Table.Row >
 			<Table.HeaderCell  style={{backgroundColor:"transparent"}} textAlign="center">Item No.</Table.HeaderCell>
