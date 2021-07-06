@@ -1,5 +1,5 @@
 import React,{useState,useEffect,useContext} from 'react'
-import MyOrder from '../../component/MyOrder/MyOrder'
+import MyOrder from '../../component/my-order/MyOrder'
 import {useHistory} from 'react-router-dom'
 import {Header,Icon,Button,Divider,Item} from 'semantic-ui-react'
 import userContext from '../../context/user-context'

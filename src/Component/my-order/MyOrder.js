@@ -1,7 +1,17 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import {Item,Divider,Button} from 'semantic-ui-react'
+import {useHistory} from 'react-router-dom' 
+import { ADD_TO_CART } from '../../context/action-types'
+import userContext from '../../context/user-context'
+
 const MyOrder = ({order}) =>{
-	
+	const {dispatch} = useContext(userContext)
+	const history = useHistory()
+
+	const orderAgainHandler= (product) =>{
+		dispatch({type:ADD_TO_CART,payload:{id:product._id,name:product.name,price:product.price}})
+		history.push('/store/'+product.storeID)
+	}
 	return(
 	<div className="order-section mx-3 px-2">
 	 <h6><b>Order id: </b><span className="text-secondary">{order._id}</span></h6>
@@ -20,7 +30,7 @@ const MyOrder = ({order}) =>{
         		<Item.Description>{item.description}</Item.Description>
 				<Item.Description className="text-danger h6">{item.price}*{item.quantity} = {item.price*item.quantity}</Item.Description>
         		<Item.Extra className="mx-5">
-         		 <Button color="teal">Buy Again</Button>
+         		 <Button color="teal" onClick={()=>orderAgainHandler(item.productID)}>Buy Again</Button>
         		</Item.Extra>
       		</Item.Content>
     		</Item>

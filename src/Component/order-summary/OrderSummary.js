@@ -8,7 +8,7 @@ const OrderSummary = () =>{
 	console.log(orderItems)
   return(
 	  <>
-	  <Table unstackable style={{backgroundColor:"transparent",width:"80%",margin:"auto",color:"black"}}  >
+	  <Table unstackable style={{backgroundColor:"transparent",width:"80%",margin:"auto",color:"white"}}  >
 		<Table.Header >
 		  <Table.Row >
 			<Table.HeaderCell  style={{backgroundColor:"transparent"}} textAlign="center">Item No.</Table.HeaderCell>
@@ -36,7 +36,7 @@ const OrderSummary = () =>{
 			</Table.Body>
 			<Table.Header>
       			<Table.Row >
-      			  <Table.HeaderCell textAlign="center" style={{backgroundColor:"transparent"}}>Sub-Total</Table.HeaderCell>
+      			  <Table.HeaderCell textAlign="center" style={{backgroundColor:"transparent",color:"white"}}>Sub-Total</Table.HeaderCell>
       			  <Table.HeaderCell style={{backgroundColor:"transparent"}}> </Table.HeaderCell>
       			  <Table.HeaderCell style={{backgroundColor:"transparent"}}> </Table.HeaderCell>
 				  <Table.HeaderCell style={{backgroundColor:"transparent"}}> </Table.HeaderCell>
