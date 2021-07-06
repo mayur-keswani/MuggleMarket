@@ -1,16 +1,11 @@
 import React from 'react'
-import { Header, Icon, Button, Item, Divider,Table } from 'semantic-ui-react'
+import { Header, Icon, Button, Item,Table } from 'semantic-ui-react'
 import './CheckoutSummary.css'
 
-const CheckoutSummary = ({cartItems,updateItemsHandler}) =>{
-	let subtotal = 0;
-	let grandTotal=0;
-	const taxCalculator = (total) =>{
-		const charges= (10*total)/100;
-		grandTotal=subtotal+charges;
-		return charges
-	}
-
+const CheckoutSummary = ({cartItems,updateItemsHandler,taxCalculator,grandTotalCalculator}) =>{
+	
+	let subtotal=0;
+	
 	return(
 		<div className="checkout-summary">
 		<Header as='h4' icon textAlign='center'>
@@ -25,7 +20,7 @@ const CheckoutSummary = ({cartItems,updateItemsHandler}) =>{
 				return <Item  key={item._id} className="px-2 m-0 py-2">
 				 <Item.Content >
         			<Item.Header as='a'>{item.productID.name}</Item.Header>
-        			<Item.Description  className="text-muted p-0 m-0" verticalAlign='middle'>
+        			<Item.Description  className="text-muted p-0 m-0" >
 						{item.productID.description}
 					</Item.Description>
         		 </Item.Content>		
@@ -47,18 +42,20 @@ const CheckoutSummary = ({cartItems,updateItemsHandler}) =>{
 		
 		
 		<Table attached>
+		 	<Table.Body>
 		 	<Table.Row>
-		 		<Table.HeaderCell textAlign='right'>Subtotal</Table.HeaderCell>
+		 		<Table.Cell textAlign='right'>Subtotal</Table.Cell>
       			<Table.Cell textAlign='center'>₹ {subtotal}</Table.Cell>
 			</Table.Row>
 			<Table.Row>
-		 		<Table.HeaderCell textAlign='right'>Taxes & Charges</Table.HeaderCell>
+		 		<Table.Cell textAlign='right'>Taxes & Charges</Table.Cell>
       			<Table.Cell textAlign='center'>{taxCalculator(subtotal)}</Table.Cell>
 			</Table.Row>
 			<Table.Row>
-		 		<Table.HeaderCell textAlign='right' className="h5">Grand Total</Table.HeaderCell>
-      			<Table.Cell textAlign='center' className="h5 text-danger">₹ {grandTotal}</Table.Cell>
+		 		<Table.Cell textAlign='right' className="h5">Grand Total</Table.Cell>
+      			<Table.Cell textAlign='center' className="h5 text-danger">₹ {grandTotalCalculator(subtotal)}</Table.Cell>
 			</Table.Row>
+			</Table.Body>
          </Table>
 		</div>
 	)

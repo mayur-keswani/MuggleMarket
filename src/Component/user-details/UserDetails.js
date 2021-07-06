@@ -8,7 +8,7 @@ const UserDetails = (props) =>{
   const [addresses,setAddresses] = useState([])
   const [isAddressPanelOpen,toggleAddressPanel] = useState(false)
   const [new_address,setNewAddress] = useState("")
-  const [selectedAddress,onSelectAddress] = useState("")
+ 
 
 
   
@@ -20,7 +20,7 @@ const UserDetails = (props) =>{
   }
   const selectAddressHandler=(args)=>{
     console.log(args)
-    onSelectAddress(args)
+    props.onSelectAddress(args)
   }
     const activeIndex= state
 	
@@ -42,16 +42,16 @@ const UserDetails = (props) =>{
         <Accordion.Content active={activeIndex === 0}  className="accordion-content mb-2 pb-2">
           {
             !addresses.length?
-            <p className="bg-warning p-3">You dont have any saved address:(</p>
+            <div className="bg-warning p-3">You dont have any saved address:(</div>
             :
-            addresses.map(address=> 
-              <p className="p-3" style={{backgroundColor:(selectedAddress===address)?"teal":"grey"}}>
+            addresses.map((address,i)=> 
+              <div className="p-3" key={i} style={{backgroundColor:(props.selectedAddress===address)?"teal":"grey"}}>
                 <Radio  
                   label={address} name='checkboxRadioGroup' 
                   size="large"
                   onClick={()=>selectAddressHandler(address)}
-                  /><b></b>
-              </p>
+                  />
+              </div>
             )
           }
           
@@ -88,12 +88,12 @@ const UserDetails = (props) =>{
           Mode Of Payment
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 1}  className="accordion-content mb-2 bg-light">
-          <p>
+          <div>
             <Message color='yellow'>Right Now, We are only accepting cash!</Message>
-          </p>
-          <p>
+          </div>
+          <div>
             <Radio label='Cash' size="massive"/>
-          </p>
+          </div>
         </Accordion.Content>
       </Accordion>
 
