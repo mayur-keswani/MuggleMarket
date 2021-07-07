@@ -105,7 +105,6 @@ const App = () => {
 
    <Route path="/my-orders" render={()=>
      <>
-      
       <MyOrders/>
      </>
     }/>

@@ -16,7 +16,7 @@ const MyStore = () =>{
 		const token = JSON.parse(localStorage.getItem('token'))
 		console.log(token)
 		dispatch({type:SET_LOADING,payload:true})
-		fetch('http://localhost:8080/my-stores',{
+		fetch('/my-stores',{
 			method: 'GET',
 			headers: {
 				'Authorization':token,

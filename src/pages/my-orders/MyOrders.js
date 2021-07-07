@@ -13,7 +13,7 @@ const MyOrders = () =>{
 	const {token} = globalState;
 
 	const fetchMyOrders = () =>{
-		fetch('http://localhost:8080/my-orders',{
+		fetch('/my-orders',{
 			method:"GET",
 			headers:{
 				'Authorization' :token || JSON.parse(localStorage.getItem('token'))

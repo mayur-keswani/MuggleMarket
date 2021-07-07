@@ -35,7 +35,7 @@ const MenuItems = (props) => {
     formData.append('price',menuItem.price)
     console.log(editStoreKey)
     dispatch({type:SET_LOADING,payload:true})
-    fetch('http://localhost:8080/upload-items/'+editStoreKey,{
+    fetch('/upload-items/'+editStoreKey,{
       method:"POST",
       body:formData,
       headers:{

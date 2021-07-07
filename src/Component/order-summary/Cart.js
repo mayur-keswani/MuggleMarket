@@ -12,7 +12,7 @@ const Cart = ({totalItems}) =>{
 	const history = useHistory()
 	
 	const proceedToCheckout = ()=>{
-		fetch('http://localhost:8080/checkout',{
+		fetch('/checkout',{
 			method:"POST",
 			body:JSON.stringify(orderItems),
 			headers:{

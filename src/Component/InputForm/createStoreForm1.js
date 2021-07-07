@@ -2,7 +2,6 @@ import React ,{ useState,useContext, useEffect} from 'react'
 import userContext from '../../context/user-context'
 import {Header,Form,Divider,Button,Icon} from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
-import { result } from 'lodash'
 
 const InputForm1 = () =>{
 

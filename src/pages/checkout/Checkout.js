@@ -21,7 +21,7 @@ const Checkout = () =>{
 	const history = useHistory()
 
 	const fetchUserDetails= () =>{
-		fetch('http://localhost:8080/auth-details/',{
+		fetch('/auth-details',{
 			method: 'GET',
 			headers: {
 				'Authorization':token||JSON.parse(localStorage.getItem('token')),
@@ -98,7 +98,7 @@ const Checkout = () =>{
 			items:(orderItems)
 		}
 		// const formData= new FormData(data)
-		fetch('http://localhost:8080/place-order',{
+		fetch('/place-order',{
 			method:'POST',
 			body:JSON.stringify(data),
 			headers:{

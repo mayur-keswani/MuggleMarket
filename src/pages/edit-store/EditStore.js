@@ -28,7 +28,7 @@ const EditStore = () =>{
 	}
 	const fetchStore = () =>{
 		dispatch({type:SET_LOADING,payload:true})
-		fetch('http://localhost:8080/store/'+id,{
+		fetch('/store/'+id,{
 			method:"GET",
 			headers:{
 				'Content-Type': 'application/json',

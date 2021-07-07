@@ -14,7 +14,7 @@ const Login = (props) =>{
 	const {dispatch} = useContext(userContext);
 
 	const onLoginHandler=()=>{
-		fetch('http://localhost:8080/auth/login',{
+		fetch('/auth/login',{
 			method:"POST",
 			body:JSON.stringify({email:email,password:password}),
 			headers:{

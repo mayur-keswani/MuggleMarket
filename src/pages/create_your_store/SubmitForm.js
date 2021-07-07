@@ -40,9 +40,9 @@ const SubmitForm = () =>{
 		console.log(formData.get('storeImage'))
 		let url;
 		if(editStoreKey)
-			url='http://localhost:8080/edit-your-store/'+editStoreKey;
+			url='/edit-your-store/'+editStoreKey;
 		else
-			url='http://localhost:8080/create-your-store/'
+			url='/create-your-store/'
 
 		console.log(url);
 		fetch(url,{

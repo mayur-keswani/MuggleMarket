@@ -18,7 +18,7 @@ const Signup = (props) =>{
 
 	const {dispatch} = useContext(userContext)
 	const onSignUpHandler=()=>{
-		fetch('http://localhost:8080/auth/signup',{
+		fetch('/auth/signup',{
 			method:"POST",
 			body:JSON.stringify({username:username,email:email,password:password}),
 			headers:{

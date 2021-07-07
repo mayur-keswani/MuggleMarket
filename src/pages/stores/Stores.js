@@ -13,7 +13,7 @@ const Stores = () =>{
 
 	const fetchStores =()=>{
 		dispatch({type:SET_LOADING,payload:true})
-		fetch('http://localhost:8080/',{
+		fetch('https://mugglemarket.herokuapp.com/',{
 			method:"GET"
 		}).then(response=>{
 			if(response.status!==200){
