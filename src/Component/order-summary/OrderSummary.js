@@ -36,7 +36,7 @@ const OrderSummary = () =>{
 			</Table.Body>
 			<Table.Header>
       			<Table.Row >
-      			  <Table.HeaderCell textAlign="center" style={{backgroundColor:"transparent"}}>Sub-Total</Table.HeaderCell>
+      			  <Table.HeaderCell textAlign="center" style={{backgroundColor:"transparent",color:"white"}}>Sub-Total</Table.HeaderCell>
       			  <Table.HeaderCell style={{backgroundColor:"transparent"}}> </Table.HeaderCell>
       			  <Table.HeaderCell style={{backgroundColor:"transparent"}}> </Table.HeaderCell>
 				  <Table.HeaderCell style={{backgroundColor:"transparent"}}> </Table.HeaderCell>

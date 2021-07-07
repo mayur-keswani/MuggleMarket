@@ -16,6 +16,7 @@ import StoreDetails from './pages/store_details/StoreDetails';
 import MyStore from './pages/my-stores/MyStores'
 import EditStore from './pages/edit-store/EditStore';
 import Checkout from './pages/checkout/Checkout';
+import MyOrders from './pages/my-orders/MyOrders';
 
 
 const initialState={
@@ -101,6 +102,13 @@ const App = () => {
    <Route path="/my-store/:id"  component={EditStore}/>
 
    <Route path="/checkout" component={Checkout}/>
+
+   <Route path="/my-orders" render={()=>
+     <>
+      
+      <MyOrders/>
+     </>
+    }/>
 
    <Route path="/"  render={()=>
       <>
