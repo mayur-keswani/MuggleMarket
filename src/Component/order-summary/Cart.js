@@ -12,7 +12,7 @@ const Cart = ({totalItems}) =>{
 	const history = useHistory()
 	
 	const proceedToCheckout = ()=>{
-		fetch('/checkout',{
+		fetch('https://mugglemarket.herokuapp.com/checkout',{
 			method:"POST",
 			body:JSON.stringify(orderItems),
 			headers:{

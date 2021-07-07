@@ -35,7 +35,7 @@ const MenuItems = (props) => {
     formData.append('price',menuItem.price)
     console.log(editStoreKey)
     dispatch({type:SET_LOADING,payload:true})
-    fetch('/upload-items/'+editStoreKey,{
+    fetch('https://mugglemarket.herokuapp.com/upload-items/'+editStoreKey,{
       method:"POST",
       body:formData,
       headers:{

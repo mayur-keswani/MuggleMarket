@@ -18,7 +18,7 @@ const Signup = (props) =>{
 
 	const {dispatch} = useContext(userContext)
 	const onSignUpHandler=()=>{
-		fetch('/auth/signup',{
+		fetch('https://mugglemarket.herokuapp.com/auth/signup',{
 			method:"POST",
 			body:JSON.stringify({username:username,email:email,password:password}),
 			headers:{

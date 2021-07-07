@@ -40,9 +40,9 @@ const SubmitForm = () =>{
 		console.log(formData.get('storeImage'))
 		let url;
 		if(editStoreKey)
-			url='/edit-your-store/'+editStoreKey;
+			url='https://mugglemarket.herokuapp.com/edit-your-store/'+editStoreKey;
 		else
-			url='/create-your-store/'
+			url='https://mugglemarket.herokuapp.com/create-your-store/'
 
 		console.log(url);
 		fetch(url,{

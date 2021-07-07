@@ -21,7 +21,7 @@ const Checkout = () =>{
 	const history = useHistory()
 
 	const fetchUserDetails= () =>{
-		fetch('/auth-details',{
+		fetch('https://mugglemarket.herokuapp.com/auth-details',{
 			method: 'GET',
 			headers: {
 				'Authorization':token||JSON.parse(localStorage.getItem('token')),
@@ -98,7 +98,7 @@ const Checkout = () =>{
 			items:(orderItems)
 		}
 		// const formData= new FormData(data)
-		fetch('/place-order',{
+		fetch('https://mugglemarket.herokuapp.com/place-order',{
 			method:'POST',
 			body:JSON.stringify(data),
 			headers:{

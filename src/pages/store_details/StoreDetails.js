@@ -16,7 +16,7 @@ const StoreDetails = () =>{
 	}
 
 	const fetchSingleStore = (id) =>{
-		fetch('/store/'+id)
+		fetch('https://mugglemarket.herokuapp.com/store/'+id)
 			.then(response =>{
 				if(response.status!==200)
 					throw new Error("Couldn't abled to Fetch Store!'")	

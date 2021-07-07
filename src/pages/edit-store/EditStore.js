@@ -28,7 +28,7 @@ const EditStore = () =>{
 	}
 	const fetchStore = () =>{
 		dispatch({type:SET_LOADING,payload:true})
-		fetch('/store/'+id,{
+		fetch('https://mugglemarket.herokuapp.com/store/'+id,{
 			method:"GET",
 			headers:{
 				'Content-Type': 'application/json',

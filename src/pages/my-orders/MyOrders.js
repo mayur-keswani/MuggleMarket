@@ -13,7 +13,7 @@ const MyOrders = () =>{
 	const {token} = globalState;
 
 	const fetchMyOrders = () =>{
-		fetch('/my-orders',{
+		fetch('https://mugglemarket.herokuapp.com/my-orders',{
 			method:"GET",
 			headers:{
 				'Authorization' :token || JSON.parse(localStorage.getItem('token'))

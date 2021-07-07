@@ -16,7 +16,7 @@ const MyStore = () =>{
 		const token = JSON.parse(localStorage.getItem('token'))
 		console.log(token)
 		dispatch({type:SET_LOADING,payload:true})
-		fetch('/my-stores',{
+		fetch('https://mugglemarket.herokuapp.com/my-stores',{
 			method: 'GET',
 			headers: {
 				'Authorization':token,
