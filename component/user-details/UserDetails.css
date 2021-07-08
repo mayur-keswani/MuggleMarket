@@ -1,0 +1,7 @@
+.accordion-title{
+	font-size: 1.3rem !important;
+}
+.accordion-content{
+	cursor: pointer;
+	border:	1px dotted black;
+}

@@ -1,0 +1,32 @@
+/* Auth.js */
+.auth-flow{
+	padding: 1rem;
+	width: 30%;
+	height: 100% !important;
+	
+	text-align: center;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+}
+.auth-flow .btn-login,.auth-flow .btn-signup{
+	background-color: transparent !important;
+	font-family: Okra, Helvetica, sans-serif;
+	font-size: 1.0rem;
+	
+}
+@media(max-width:768px){
+	.auth-flow{
+		padding: 0px !important;
+		width: 100%;
+		height: 20% !important;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+	}
+	.auth-flow #menu{
+		padding:  0.3rem 0.8 !important;
+	}
+}
