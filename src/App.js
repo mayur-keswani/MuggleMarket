@@ -34,7 +34,7 @@ const initialState={
 
 
 
-
+// updated via sending otp
 
 const App = () => {
 
