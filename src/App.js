@@ -33,9 +33,6 @@ const initialState={
 }
 
 
-
-// updated via sending otp
-
 const App = () => {
 
   const autoLogoutHandler = (remainingTime) =>{

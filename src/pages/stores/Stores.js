@@ -2,7 +2,8 @@ import React, { useEffect, useState, useContext } from 'react'
 import Store from '../../component/store/Store'
 import userContext from '../../context/user-context'
 import {SET_LOADING} from '../../context/action-types'
-import {Header,Grid, Segment,Image} from 'semantic-ui-react'
+import {Header,Grid, Segment,Image,Button} from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 import empty_state from './empty_state.svg'
 import {Spinner} from '../../component/ui/spinner/Spinner'
 
@@ -54,6 +55,13 @@ const Stores = () =>{
 			 )
 		 	}
 			</Grid>
+			<div className="m-4 p-4 bg-light" style={{border:"2px dotted black"}}>
+			<div className='m-2 h2'>Partner with Muggle-Market</div>
+			<p className="h5 mx-3 text-lead">for free and get more customers!</p>
+			<div>
+    			<Button as={Link} to="/partner_with_us"  positive  size='large' className="mx-3 px-5">Register Your Store</Button>	
+  			</div>
+	    	</div>
 			</>
 			:
 			<>
