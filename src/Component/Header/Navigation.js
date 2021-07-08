@@ -1,5 +1,5 @@
 import React , { useState} from 'react'
-import DetectLocation from '../locationFinder/DetectLocation';
+import DetectLocation from '../location-finder/DetectLocation';
 import SearchBar from './SearchBar'
 import Auth from '../auth/Auth'
 import ModalWrapper from '../ui/modal-wrapper/ModalWrapper';

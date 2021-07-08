@@ -1,5 +1,5 @@
 import React , {useState} from 'react'
-import MenuItems from '../menuItems/MenuItems'
+import MenuItems from '../menu-items/MenuItems'
 import {Form,Input} from 'semantic-ui-react'
 
 
