@@ -1,4 +1,4 @@
-import { onAuthentication , SET_LOADING, EDIT_STORE , ADD_TO_CART, REMOVE_FROM_CART } from "./action-types";
+import { onAuthentication , SET_LOADING, EDIT_STORE , ADD_TO_CART, REMOVE_FROM_CART, SET_SHOP_ITEMS } from "./action-types";
 import { onLogout } from "./action-types";
 
 const reducer = (state,action) =>{
@@ -53,6 +53,10 @@ const reducer = (state,action) =>{
 			let updatedPrice=state.totalPrice-action.payload.price
 			
 			return {...state,orderItems:updatedCart,selectedItems:updatedSelectedItems,totalPrice:updatedPrice}
+		}
+
+		case SET_SHOP_ITEMS:{
+			return {...state,shopItems:action.payload}
 		}
 		default:
 			break;

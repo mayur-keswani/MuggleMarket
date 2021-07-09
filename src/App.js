@@ -29,7 +29,8 @@ const initialState={
   editStoreKey:null,
   orderItems:[],
   selectedItems:{},
-  totalPrice:0
+  totalPrice:0,
+  shopItems:[]
 }
 
 

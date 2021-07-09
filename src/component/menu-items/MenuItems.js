@@ -15,7 +15,8 @@ const MenuItems = (props) => {
     name:"",
     description:"",
     product_pic:"",
-    price:""
+    price:"",
+    filter:""
   })
   const [newItemSlot,setNewItemSlot] = useState(true)
   
@@ -26,13 +27,13 @@ const MenuItems = (props) => {
   // }
 
   const uploadItemHandler = () =>{
-    
+    console.log(menuItem)
     const formData = new FormData()
     formData.append('name',menuItem.name)
     formData.append('description',menuItem.description)
     formData.append('storeImage',menuItem.product_pic)
-    console.log(formData.get('storeImage'))
     formData.append('price',menuItem.price)
+    formData.append('filter',menuItem.filter)
     console.log(editStoreKey)
     dispatch({type:SET_LOADING,payload:true})
     fetch('https://mugglemarket.herokuapp.com/upload-items/'+editStoreKey,{
@@ -77,6 +78,7 @@ const MenuItems = (props) => {
         <Table.HeaderCell>Description</Table.HeaderCell>
         <Table.HeaderCell>Product Image</Table.HeaderCell>
         <Table.HeaderCell>Price</Table.HeaderCell>
+        <Table.HeaderCell>Filter</Table.HeaderCell>
         <Table.HeaderCell></Table.HeaderCell> 
       </Table.Row>
     </Table.Header>
@@ -92,6 +94,7 @@ const MenuItems = (props) => {
         <Table.Cell>{item.description}</Table.Cell>
         <Table.Cell>{item.product_pic}</Table.Cell>
         <Table.Cell>{item.price}</Table.Cell>
+        <Table.Cell>{item.filterType}</Table.Cell>
       </Table.Row>
      })
     }
@@ -122,6 +125,7 @@ const MenuItems = (props) => {
             onChange={(event)=>setMenuItem({...menuItem,product_pic:event.target.files[0]})}
             />
         </Table.Cell>
+
         <Table.Cell>
           <textarea name="price" rows="2" cols="20"
              value={menuItem.price}
@@ -129,6 +133,12 @@ const MenuItems = (props) => {
              />
 
           <div className="text-muted text-center">Enter Price In INR(₹)</div>
+        </Table.Cell>
+        <Table.Cell className="my-4">
+          <textarea name="filter" rows="5" cols="20"
+            value={menuItem.filter}
+            onChange={(event)=>setMenuItem({...menuItem,filter:event.target.value})}
+            />
         </Table.Cell>
         <Table.Cell>
           <Button default onClick={()=>uploadItemHandler()}>ADD</Button>
