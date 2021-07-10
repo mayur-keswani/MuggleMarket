@@ -86,7 +86,7 @@ const Signup = (props) =>{
       			 icon='google'
       			/>
 			<Divider/>
-			<div className="d-flex"><h3><b>Already a member! </b></h3><span className="text-muted">Login</span></div>
+			
 		</Form> 
 	)
 }
