@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import {Form,Input,Divider ,Button} from 'semantic-ui-react'
+import {Form,Input,Divider ,Button,Message} from 'semantic-ui-react'
 
 import userContext from '../../context/user-context'
 import { onAuthentication } from '../../context/action-types'
@@ -80,7 +80,7 @@ const Login = (props) =>{
 				 	 value={phoneNo} onChange={(e)=>setPhoneNo(e.target.value)}/>
 				</Form.Field>
 			</Form.Group> 
-			<Button fluid type='submit' size="huge" >Send OTP</Button>
+			<Button fluid type='submit' size="huge" >Send OTP </Button>
 			<Divider horizontal>Or</Divider>
 			<Button fluid basic
 				 size="large"
@@ -94,9 +94,15 @@ const Login = (props) =>{
 			     size="large"
       			 content='Continue with Google'
       			 icon='google'
-      			 iconposition='left'/>
+      			 iconposition='left'
+				 disabled
+				   />
 			<Divider/>
-			<div className="d-flex"><h3><b>New to MuggleMarket? </b></h3><span className="text-muted"> Create account</span></div>
+			<Message
+   				 icon='user'
+    			 header='Demo Credentials'
+    			 content='johndoe@gmail.com  (Email), john123 (Password)'  />
+
 		  </>
 		}
 		</Form> 
