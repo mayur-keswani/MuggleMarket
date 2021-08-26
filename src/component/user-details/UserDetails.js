@@ -7,8 +7,9 @@ const UserDetails = (props) =>{
   const [state,setState]=useState(0);
   const [addresses,setAddresses] = useState([])
   const [isAddressPanelOpen,toggleAddressPanel] = useState(false)
-  const [new_address,setNewAddress] = useState("")
- 
+  const [new_address,setNewAddress] = useState("");
+  // const [ paymentMethod,setPaymentMethod]= useState("cash")
+  
 
 
   
@@ -22,8 +23,10 @@ const UserDetails = (props) =>{
     console.log(args)
     props.onSelectAddress(args)
   }
-    const activeIndex= state
+  
+  const activeIndex= state
 	
+  
 	return(
 		<>
 		 <Message success
@@ -91,8 +94,41 @@ const UserDetails = (props) =>{
           <div>
             <Message color='yellow'>Right Now, We are only accepting cash!</Message>
           </div>
-          <div>
-            <Radio label='Cash' size="massive"/>
+
+          <div className="mt-2">
+            <div className="m-2">
+              <input type="radio"  
+                name="payment-method" 
+                className="mx-2" 
+                id="btnradio1" 
+                autocomplete="off"
+                onChange={()=>props.changePaymentMethod("cash")} />
+              <label 
+                class="text-primary" 
+                className="fw-bold fs-6" 
+                for="btnradio1">
+                 Cash
+              </label>
+            </div>
+
+            <div className="m-2">
+              <input type="radio"  name="payment-method" 
+                className="mx-2" id="btnradio2" 
+                autocomplete="off" 
+                onChange={()=>props.changePaymentMethod("card")} />
+              <label class="text-primary" for="btnradio2" className="fw-bold fs-6">Pay Using Card</label>
+              
+            </div>
+            <div className="m-2">
+              <input type="radio"  
+                name="payment-method" 
+                className="mx-2" 
+                id="btnradio3" 
+                autocomplete="off"
+                onChange={()=>props.changePaymentMethod("paypal")} ></input>
+              <label class="text-primary" for="btnradio3" className="fw-bold fs-6">Pay Using Paypal</label>
+            </div>
+
           </div>
         </Accordion.Content>
       </Accordion>

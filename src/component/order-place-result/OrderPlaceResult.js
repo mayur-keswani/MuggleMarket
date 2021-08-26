@@ -2,8 +2,8 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import {Icon,Header,Button} from 'semantic-ui-react'
 
-const OrderPlaceResult  = ({status,message,closeModal}) =>{
-	console.log(status,message)
+const OrderPlaceResult  = ({status,message,invoice,closeModal}) =>{
+	console.log(invoice)
 	const history= useHistory()
 	return (
 		status==='success'?
@@ -16,7 +16,12 @@ const OrderPlaceResult  = ({status,message,closeModal}) =>{
       				{message}
     			</Header.Subheader>
     		</Header>
-			<Button size='huge' color='green' onClick={()=>history.push('/')}>Continue Shopping!</Button>
+			{invoice?
+			   <a href={invoice} 
+						target="_blank"
+						className="btn btn-success btn-lg text-dark ml-3 px-4">Check Invoice</a>:<></>}
+			
+			<button className="btn btn-lg btn-primary mx-2" size='huge'  onClick={()=>history.push('/')}>Continue Shopping!</button>
   		</div>
 		:
 		<div className="text-center">
