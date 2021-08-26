@@ -145,7 +145,7 @@ const Checkout = () =>{
 			username:user.username,
 			items:(items)
 		}
-		fetch('http://localhost:5000/make-online-payment',{
+		fetch('https://mugglemarket.herokuapp.com/make-online-payment',{
 			method:"POST",
 			body:JSON.stringify(payload),
 			headers:{
