@@ -8,6 +8,7 @@ import {useHistory} from 'react-router-dom'
 import userContext from '../../context/user-context';
 import {Button,Icon,Divider,Grid,Message} from 'semantic-ui-react'
 import StripeCheckout from 'react-stripe-checkout'
+import { FetchUserDetails, PlaceOrder, ProcessCardPayment } from './CheckoutHelper';
 
 
 const Checkout = () =>{
@@ -26,26 +27,10 @@ const Checkout = () =>{
 	const history = useHistory()
 
 	const fetchUserDetails= () =>{
-		fetch('https://mugglemarket.herokuapp.com/auth-details',{
-			method: 'GET',
-			headers: {
-				'Authorization':token||JSON.parse(localStorage.getItem('token')),
-				'Content-Type': 'application/json',		
-			}
-		})
-		.then(response=>{
-			if(response.status!==200)
-				throw new Error("Couldn't able to fetch details'")
 
-			return response.json()
-		})
-		.then(response=>{
-			console.log(response.user)
+		FetchUserDetails(token,(response)=>{
 			setUser(response.user)
 			setCartItem(response.user.cart)
-		})
-		.catch(error=>{
-			console.log(error)
 		})
 	}
 	useEffect(()=>{
@@ -103,32 +88,21 @@ const Checkout = () =>{
 			username:user.username,
 			items:(orderItems)
 		}
-		// const formData= new FormData(data)
-		fetch('https://mugglemarket.herokuapp.com/place-order',{
-			method:'POST',
-			body:JSON.stringify(data),
-			headers:{
-				'Content-Type':'application/json',
-				'Authorization':token || JSON.parse(localStorage.getItem('token')),	
+		
+		PlaceOrder(data,token,(flag,message)=>{
+			if(flag){
+				onOrderPlaced({flag:true,status:"success",message:message})
+				receipt_url?setInvoice(receipt_url):setInvoice("")
+			}else{
+				onOrderPlaced({flag:true,status:"fail",message:message})
 			}
-		}).then(response=>{
-			if(response.status!==200 && response.status!==201)
-				throw new Error("Failed to place your order!")
-
-			return (response.json())
-		}).then(result=>{
-			console.log(result);
-			onOrderPlaced({flag:true,status:"success",message:result.message})
-			receipt_url?setInvoice(receipt_url):setInvoice("")
-		}).catch(error=>{
-			onOrderPlaced({flag:true,status:"fail",message:error.message})
 		})
 
 	}
 
 
 	const tokenHandler=(stripe_token)=>{
-		
+	
 		const items=cartItems.map(item=>{
 			return {  
 					productID:item.productID._id,
@@ -145,28 +119,14 @@ const Checkout = () =>{
 			username:user.username,
 			items:(items)
 		}
-		fetch('https://mugglemarket.herokuapp.com/make-online-payment',{
-			method:"POST",
-			body:JSON.stringify(payload),
-			headers:{
-				'Content-Type':'application/json',
-				'Authorization':token || JSON.parse(localStorage.getItem('token')),	
-			}
-		})
-		.then(response=>{
-			if(response.status!==200 && response.status!==201)
-				throw new Error("Failed to place your order!")
-
-			return response.json()
-		})
-		.then(result=>{
-			console.log(result);
-			
+		
+		ProcessCardPayment(payload,token,(result)=>{
 			orderHandler(result.result.receipt_url)
-			
 		})
 	
 	}
+
+
 	const PaymentMethod=()=>{
 		if(paymentMethod==='card')
 		  return (
