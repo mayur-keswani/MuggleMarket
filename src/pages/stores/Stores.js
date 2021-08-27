@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import Store from '../../component/store/Store'
 import userContext from '../../context/user-context'
 import {SET_LOADING} from '../../context/action-types'
-import {Header,Grid, Segment,Image,Button} from 'semantic-ui-react'
+import {Header,Image,Button} from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import empty_state from './empty_state.svg'
 import {Spinner} from '../../component/ui/spinner/Spinner'
@@ -44,17 +44,17 @@ const Stores = () =>{
 		stores.length?
 			<>
 			<h2 className="mx-4 text-muted">Top brands in spotlight</h2>
-			<Grid stackable columns={5} className="mt-3">
+			<div className="row mt-3 ">
 			{		
 		  	 stores.map(store=>
-			 	<Grid.Column key={store._id} className="mx-3">
-					<Segment className="d-flex justify-content-center m-0 p-0">
+			 	<div className="col-lg-2 col-md-4 col-6 d-flex justify-content-center" key={store._id}>
+					{/* <div className="d-flex justify-content-center m-0 p-0"> */}
 						<Store store={store}/>
-					</Segment>
-			   	</Grid.Column>
+					{/* </div> */}
+			   	</div>
 			 )
 		 	}
-			</Grid>
+			</div>
 			<div className="m-4 p-4 bg-light" style={{border:"2px dotted black"}}>
 			<div className='m-2 h2'>Partner with Muggle-Market</div>
 			<p className="h5 mx-3 text-lead">for free and get more customers!</p>
