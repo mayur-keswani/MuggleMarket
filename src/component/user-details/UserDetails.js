@@ -119,15 +119,7 @@ const UserDetails = (props) =>{
               <label class="text-primary" for="btnradio2" className="fw-bold fs-6">Pay Using Card</label>
               
             </div>
-            <div className="m-2">
-              <input type="radio"  
-                name="payment-method" 
-                className="mx-2" 
-                id="btnradio3" 
-                autocomplete="off"
-                onChange={()=>props.changePaymentMethod("paypal")} ></input>
-              <label class="text-primary" for="btnradio3" className="fw-bold fs-6">Pay Using Paypal</label>
-            </div>
+            
 
           </div>
         </Accordion.Content>
