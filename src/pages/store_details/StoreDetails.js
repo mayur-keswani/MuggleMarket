@@ -1,15 +1,18 @@
-import React , {useEffect, useState} from 'react';
+import React , {useEffect, useState,useContext} from 'react';
 import AboutStore from './AboutStore';
 import StoreItems from './StoreItems';
 import {Spinner} from '../../component/ui/spinner/Spinner'
 import {Route, useHistory, useParams} from 'react-router-dom'
 import { Grid , Header, Menu} from 'semantic-ui-react';
+import { SET_SHOP_ITEMS } from '../../context/action-types';
+import userContext from '../../context/user-context';
 
 const StoreDetails = () =>{
 	const [navItem,setnavItem] = useState({ activeItem: 'about-store' })
 	const history = useHistory()
 	const {id} = useParams()
-	const [store,setStore] = useState()
+	const [store,setStore] = useState();
+	const {dispatch} = useContext(userContext)
 	const handleItemClick = (e, { name }) => {
 		setnavItem({ activeItem: name })
 		history.push('/store/'+id+'/'+name)
@@ -24,7 +27,7 @@ const StoreDetails = () =>{
 				return response.json()
 			}).then(result=>{
 				const {store} = result;
-				console.log(store)
+				dispatch({type:SET_SHOP_ITEMS,payload:store.store_items})
 				setStore(store)
 			}).catch(error=>{
 				console.log(error)
