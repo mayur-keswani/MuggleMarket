@@ -4,6 +4,7 @@ import {SET_LOADING} from '../../context/action-types'
 import {useHistory} from 'react-router-dom'
 import {Form, Header, Icon, Table, Button} from 'semantic-ui-react'
 import { Spinner } from '../ui/spinner/Spinner'
+import { uploadItemToStore } from '../../lib/market.api'
 
 const MenuItems = (props) => {
   const history = useHistory();
@@ -25,44 +26,26 @@ const MenuItems = (props) => {
   //   })
   // }
 
-  const uploadItemHandler = () =>{
+  const uploadItemHandler = async() =>{
     
     const formData = new FormData()
     formData.append('name',menuItem.name)
     formData.append('description',menuItem.description)
     formData.append('storeImage',menuItem.product_pic)
     console.log(formData.get('storeImage'))
-    formData.append('price',menuItem.price)
-    console.log(editStoreKey)
-    dispatch({type:SET_LOADING,payload:true})
-    fetch('https://mugglemarket.herokuapp.com/upload-items/'+editStoreKey,{
-      method:"POST",
-      body:formData,
-      headers:{
-        'Authorization':token
-      }
-    }).then(response =>{
-      if(response.status===422){
-        throw new Error("Validation Failed")
-      }
-      if(response.status!==200 && response.status!==201){
-        throw new Error("Couldnt able to Store-item")
-      }
-      else
-        return response.json()
-    })
-    .then(result =>{
-      dispatch({type:SET_LOADING,payload:false})
-        // console.log(result.product)
-        console.log("Item Stored Succeessfully")
-        setItems((prevState)=>{
-          return prevState.concat(result.product)})
-    })
-    .catch(error =>{
-      console.log(error)
-      dispatch({type:SET_LOADING,payload:false})
-      
-    })
+    formData.append('price',menuItem.price) 
+    try{
+       dispatch({ type: SET_LOADING, payload: true });
+       const {data:result} = await uploadItemToStore(editStoreKey,formData)
+       setItems((prevState) => {
+         return prevState.concat(result.product);
+       });
+       dispatch({ type: SET_LOADING, payload: false });
+
+    }catch(error){
+       dispatch({ type: SET_LOADING, payload: false });
+
+    }
   }
  
  return(
