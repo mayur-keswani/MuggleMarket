@@ -1,10 +1,13 @@
 import React , { useState} from 'react'
-import DetectLocation from '../location-finder/DetectLocation';
 import SearchBar from './SearchBar'
-import Auth from '../auth/Auth'
-import ModalWrapper from '../ui/modal-wrapper/ModalWrapper';
-import Login from '../auth/Login'
-import Signup from '../auth/Signup'
+import Login from '../../auth/Login'
+import Signup from "../../auth/Signup";
+import DetectLocation from "../../location-finder/DetectLocation";
+import Auth from "../../auth/Auth";
+import ModalWrapper from "../../ui/modal-wrapper/ModalWrapper";
+
+
+
 import './Header.css'
 import {
   Collapse,
@@ -16,7 +19,7 @@ import {
 
 
 
-const Navigation = (props) => {
+const Header = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoginModalOpen,toggleLoginModal] = useState(false)
   const [isSignUpModalOpen,toggleSignUpModal] = useState(false)
@@ -57,4 +60,4 @@ const Navigation = (props) => {
   );
 }
 
-export default Navigation
+export default Header

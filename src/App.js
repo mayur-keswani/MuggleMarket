@@ -1,77 +1,57 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "semantic-ui-css/semantic.min.css";
 
-import Navbar from "./component/header/Navigation";
-import Footer from "./component/footer/Footer";
 import Stores from "./pages/stores/Stores";
 import { Route, Switch } from "react-router-dom";
 
 import PartnerWithUs from "./pages/partner_with_us/PartnerWithUs";
 import CreateStore from "./pages/create_your_store/CreateStore";
-import userContext from "./context/user-context";
-import reducer from "./context/reducer";
 import { onAuthentication, onLogout } from "./context/action-types";
 import StoreDetails from "./pages/store_details/StoreDetails";
 import MyStore from "./pages/my-stores/MyStores";
 import EditStore from "./pages/edit-store/EditStore";
 import Checkout from "./pages/checkout/Checkout";
 import MyOrders from "./pages/my-orders/MyOrders";
-
-const initialState = {
-  isAuth: false,
-  isLoading: false,
-  token: null,
-  expiryDate: null,
-  username: "",
-  editStore: null,
-  editStoreKey: null,
-  orderItems: [],
-  selectedItems: {},
-  totalPrice: 0,
-  shopItems: [],
-};
+import BaseLayout from "./component/layout/BaseLayout";
+import UserContext from "./context/user-context";
 
 const App = () => {
-  const autoLogoutHandler = (remainingTime) => {
-    console.log(remainingTime);
-    setTimeout(() => {
-      localStorage.removeItem("token");
-      dispatch({ type: onLogout, payload: null, expiresIn: null });
-    }, remainingTime);
-  };
+  // const autoLogoutHandler = (remainingTime) => {
+  //   console.log(remainingTime);
+  //   setTimeout(() => {
+  //     localStorage.removeItem("token");
+  //     dispatch({ type: onLogout, payload: null, expiresIn: null });
+  //   }, remainingTime);
+  // };
 
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    const expiresIn = localStorage.getItem("expiresIn");
-    const username = JSON.parse(localStorage.getItem("username"));
+  // useEffect(() => {
+  //   const token = JSON.parse(localStorage.getItem("token"));
+  //   const expiresIn = localStorage.getItem("expiresIn");
+  //   const username = JSON.parse(localStorage.getItem("username"));
 
-    console.log(expiresIn);
-    if (!token && !expiresIn) {
-      return 0;
-    }
+  //   console.log(expiresIn);
+  //   if (!token && !expiresIn) {
+  //     return 0;
+  //   }
 
-    if (new Date(expiresIn) < new Date()) {
-      dispatch({ type: onLogout, payload: null });
-      return 0;
-    }
-    const payload = {
-      token: token,
-      username: username,
-    };
-    dispatch({ type: onAuthentication, payload });
-    let remainingTime = new Date(expiresIn).getTime() - new Date().getTime();
+  //   if (new Date(expiresIn) < new Date()) {
+  //     dispatch({ type: onLogout, payload: null });
+  //     return 0;
+  //   }
+  //   const payload = {
+  //     token: token,
+  //     username: username,
+  //   };
+  //   dispatch({ type: onAuthentication, payload });
+  //   let remainingTime = new Date(expiresIn).getTime() - new Date().getTime();
 
-    autoLogoutHandler(remainingTime);
-  }, []);
-
-  const [globalState, dispatch] = useReducer(reducer, initialState);
+  //   autoLogoutHandler(remainingTime);
+  // }, []);
 
   return (
     <>
-      <userContext.Provider
-        value={{ globalState: globalState, dispatch: dispatch }}
-      >
+      <UserContext>
         <Switch>
           <Route
             path="/partner_with_us"
@@ -118,15 +98,13 @@ const App = () => {
           <Route
             path="/"
             render={() => (
-              <>
-                <Navbar />
+              <BaseLayout>
                 <Stores />
-                <Footer />
-              </>
+              </BaseLayout>
             )}
           />
         </Switch>
-      </userContext.Provider>
+      </UserContext>
     </>
   );
 };
