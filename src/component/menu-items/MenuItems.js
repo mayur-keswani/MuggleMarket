@@ -1,14 +1,14 @@
 import React, { useState , useContext} from 'react'
-import userContext from '../../context/user-context'
+import {UserContext} from '../../context/user-context'
 import {SET_LOADING} from '../../context/action-types'
-import {useHistory} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import {Form, Header, Icon, Table, Button} from 'semantic-ui-react'
 import { Spinner } from '../ui/spinner/Spinner'
 import { uploadItemToStore } from '../../lib/market.api'
 
 const MenuItems = (props) => {
-  const history = useHistory();
-  const {globalState,dispatch} = useContext(userContext)
+  const navigate = useNavigate();
+  const {globalState,dispatch} = useContext(UserContext)
   const {token,editStoreKey,isLoading} = globalState
   const [items,setItems]=useState([])
   const [menuItem,setMenuItem] = useState({
@@ -127,7 +127,7 @@ const MenuItems = (props) => {
    {/* <Button  className="mb-5" onClick={addNewItemHandler}><Icon name="add"/></Button> */}
     {/* <Button  className="mt-p" onClick={addNewItemHandler}><Icon name="Submit Menu"/></Button> */}
    <Form className="text-center mt-4" >	
-			  <Button animated  size="huge" className="" color='green' onClick={()=>history.push('/store/'+editStoreKey+'/items')}>
+			  <Button animated  size="huge" className="" color='green' onClick={()=>navigate('/store/'+editStoreKey+'/items')}>
      			<Button.Content visible>Check Store</Button.Content>
       			<Button.Content hidden>
         			<Icon name='arrow right' />

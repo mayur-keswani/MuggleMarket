@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import userContext from "../../context/user-context";
-import { useHistory } from "react-router-dom";
+import {UserContext} from "../../context/user-context";
+import { useNavigate } from "react-router-dom";
 import { Button, Item, Icon, Header } from "semantic-ui-react";
 import { SET_LOADING } from "../../context/action-types";
 import { Spinner } from "../../component/ui/spinner/Spinner";
@@ -8,10 +8,10 @@ import "./MyStore.css";
 import { fetchMyStores } from "../../lib/market.api";
 
 const MyStore = () => {
-  const { globalState, dispatch } = useContext(userContext);
+  const { globalState, dispatch } = useContext(UserContext);
   const { isLoading } = globalState;
   const [stores, setStores] = useState([]);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const fetchMySTORE = async () => {
     try {
@@ -25,7 +25,7 @@ const MyStore = () => {
   };
 
   const showStoreHandler = (id) => {
-    history.push("/my-store/" + id);
+    navigate("/my-store/" + id);
   };
   useEffect(() => {
     fetchMySTORE();

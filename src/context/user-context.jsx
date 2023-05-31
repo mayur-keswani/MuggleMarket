@@ -1,7 +1,6 @@
 import { createContext, useReducer } from "react";
 import reducer from "./reducer";
 
-export const userContext = createContext({});
 const initialState = {
   isAuth: false,
   isLoading: false,
@@ -16,15 +15,17 @@ const initialState = {
   shopItems: [],
 };
 
-const UserContext = (props) => {
-  const [globalState, dispatch] = useReducer(reducer, initialState);
+export const UserContext = createContext(initialState);
 
+const UserContextProvider = (props) => {
+  const [globalState, dispatch] = useReducer(reducer, initialState);
+  console.log({globalState})
   return (
-    <userContext.Provider
+    <UserContext.Provider
       value={{ globalState: globalState, dispatch: dispatch }}
     >
       {props.children}
-    </userContext.Provider>
+    </UserContext.Provider>
   );
 };
-export default UserContext;
+export default UserContextProvider;

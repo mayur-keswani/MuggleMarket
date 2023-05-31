@@ -2,12 +2,12 @@ import React,{useContext} from 'react'
 import ItemFilters from '../../component/item-filters/ItemFilters';
 import Cart from '../../component/order-summary/Cart';
 import OrderButton from '../../component/orderButton/OrderButton'
-import userContext from '../../context/user-context';
+import {UserContext} from '../../context/user-context';
 import { Item, Icon} from 'semantic-ui-react'
 
 
 const StoreItems = ({store}) =>{
-	const {globalState} = useContext(userContext)
+	const {globalState} = useContext(UserContext)
 	const {selectedItems,shopItems} = globalState
 
 

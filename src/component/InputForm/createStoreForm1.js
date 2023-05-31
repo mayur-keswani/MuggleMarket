@@ -1,7 +1,7 @@
 import React ,{ useState,useContext, useEffect} from 'react'
-import userContext from '../../context/user-context'
+import {UserContext} from '../../context/user-context'
 import {Header,Form,Divider,Button,Icon} from 'semantic-ui-react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const InputForm1 = () =>{
 
@@ -16,7 +16,7 @@ const InputForm1 = () =>{
 		personalNo:"",
 	})
 
-	const {globalState} = useContext(userContext)
+	const {globalState} = useContext(UserContext)
 	const {editStoreKey,editStore} = globalState;
 
 	useEffect(()=>{
@@ -34,10 +34,10 @@ const InputForm1 = () =>{
 			})
 		}
 	},[])
-	const history = useHistory()
+	const navigate = useNavigate()
 	const submitFormHandler = () =>{
 		localStorage.setItem('outletDetails',JSON.stringify(outletDetails))
-		history.push('/create-your-store/2')
+		navigate('/create-your-store/2')
 	}
 
 	return(<>

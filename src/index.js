@@ -4,12 +4,15 @@ import App from './App';
 import {BrowserRouter} from 'react-router-dom'
 
 import './index.css';
+import UserContextProvider from './context/user-context';
 
-const rootApp =(
+const rootApp = (
   <BrowserRouter>
-    <App/>
+    <UserContextProvider>
+      <App />
+    </UserContextProvider>
   </BrowserRouter>
-)
+);
 
 ReactDOM.render(rootApp,document.getElementById('root'));
 

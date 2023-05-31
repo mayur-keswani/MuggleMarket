@@ -2,21 +2,22 @@ import React, { useEffect, useState, useContext } from "react";
 import AboutStore from "./AboutStore";
 import StoreItems from "./StoreItems";
 import { Spinner } from "../../component/ui/spinner/Spinner";
-import { Route, useHistory, useParams } from "react-router-dom";
+import { Route, useNavigate, useParams } from "react-router-dom";
 import { Grid, Header, Menu } from "semantic-ui-react";
 import { SET_SHOP_ITEMS } from "../../context/action-types";
-import userContext from "../../context/user-context";
+import { UserContext } from "../../context/user-context";
 import { fetchStoreDetailAPI } from "../../lib/market.api";
 
 const StoreDetails = () => {
   const [navItem, setnavItem] = useState({ activeItem: "about-store" });
-  const history = useHistory();
+  const navigate = useNavigate();
   const { id } = useParams();
   const [store, setStore] = useState();
-  const { dispatch } = useContext(userContext);
+  const { dispatch } = useContext(UserContext);
+
   const handleItemClick = (e, { name }) => {
     setnavItem({ activeItem: name });
-    history.push("/store/" + id + "/" + name);
+    navigate("/store/" + id + "/" + name);
   };
 
   const fetchSingleStore = async (id) => {
@@ -99,12 +100,12 @@ const StoreDetails = () => {
       <Route
         path="/store/:id/about-store"
         exact
-        render={() => <AboutStore store={store} />}
+        element={<AboutStore store={store} />}
       />
       <Route
         path="/store/:id/items"
         exact
-        render={() => <StoreItems store={store} />}
+        element={<StoreItems store={store} />}
       />
     </>
   );

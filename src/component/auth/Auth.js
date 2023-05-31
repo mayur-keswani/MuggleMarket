@@ -1,8 +1,8 @@
 import React ,{useContext} from 'react'
-import userContext from '../../context/user-context'
+import {UserContext} from '../../context/user-context'
 import {onLogout} from '../../context/action-types'
 import {Button,Dropdown,Menu} from 'semantic-ui-react'
-import {useHistory} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import './Auth.css'
 
 const options = [
@@ -12,9 +12,9 @@ const options = [
 	{ key: 'logout', icon: '', text: 'Logout', value: 'logout' },
   ]
 const Auth = ({toggleLoginModal,toggleSignUpModal})=>{
-	const {globalState,dispatch} = useContext(userContext)
+	const {globalState,dispatch} = useContext(UserContext)
 	const {isAuth,username} = globalState
-	const history = useHistory()
+	const navigate = useNavigate()
 
 	const logoutHandler=()=>{
 		localStorage.removeItem('token');
@@ -29,13 +29,13 @@ const Auth = ({toggleLoginModal,toggleSignUpModal})=>{
 		if(value==="logout") logoutHandler()
 
 		else if(value==="your-store")
-			history.push('/my-stores')
+			navigate('/my-stores')
 
 		else if(value==="create-store")
-			history.push('/partner_with_us')
+			navigate('/partner_with_us')
 
 		else if(value==='my-orders')
-			history.push('/my-orders')
+			navigate('/my-orders')
 	}
 
 	return (
@@ -48,7 +48,7 @@ const Auth = ({toggleLoginModal,toggleSignUpModal})=>{
 			<Menu compact className="mx-3" id="menu" >
     			<Dropdown text={username} options={options}  item onChange={menuEventHandler}/>
   			</Menu>
-			<Button basic className="m-3 px-5" size="huge" icon="shop" onClick={()=>history.push('/checkout')}></Button>
+			<Button basic className="m-3 px-5" size="huge" icon="shop" onClick={()=>navigate('/checkout')}></Button>
 			</>
 			:
 			<>	

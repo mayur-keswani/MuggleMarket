@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Form, Input, Divider, Checkbox, Button } from "semantic-ui-react";
 
-import userContext from "../../context/user-context";
+import {UserContext} from "../../context/user-context";
 import { onAuthentication } from "../../context/action-types";
 import { signupAPI } from "../../lib/market.api";
 
@@ -11,7 +11,7 @@ const Signup = (props) => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { dispatch } = useContext(userContext);
+  const { dispatch } = useContext(UserContext);
   const onSignUpHandler = async () => {
     try {
       const { data: result } = await signupAPI({ username, email, password });

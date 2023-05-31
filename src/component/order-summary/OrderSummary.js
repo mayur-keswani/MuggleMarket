@@ -1,9 +1,9 @@
 import React,{useContext} from 'react';
-import userContext from '../../context/user-context'
+import {UserContext} from '../../context/user-context'
 import { Table , Button} from 'semantic-ui-react'
 
 const OrderSummary = () =>{
-	const {globalState} = useContext(userContext)
+	const {globalState} = useContext(UserContext)
 	const {orderItems,totalPrice} = globalState;
 	console.log(orderItems)
   return(

@@ -1,16 +1,16 @@
 import React,{useContext} from 'react'
 import {Item,Divider,Button} from 'semantic-ui-react'
-import {useHistory} from 'react-router-dom' 
+import {useNavigate} from 'react-router-dom' 
 import { ADD_TO_CART } from '../../context/action-types'
-import userContext from '../../context/user-context'
+import {UserContext} from '../../context/user-context'
 
 const MyOrder = ({order}) =>{
-	const {dispatch} = useContext(userContext)
-	const history = useHistory()
+	const {dispatch} = useContext(UserContext)
+	const navigate = useNavigate()
 
 	const orderAgainHandler= (product) =>{
 		dispatch({type:ADD_TO_CART,payload:{id:product._id,name:product.name,price:product.price}})
-		history.push('/store/'+product.storeID)
+		navigate('/store/'+product.storeID)
 	}
 	return(
 	<div className="order-section mx-3 px-2">

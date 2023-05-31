@@ -1,16 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router";
 import { Button, Header, Icon, Segment, Image } from "semantic-ui-react";
-
-import userContext from "../../context/user-context";
+import {UserContext} from "../../context/user-context";
 import { EDIT_STORE } from "../../context/action-types";
 import { createStoreAPI, editStoreAPI } from "../../lib/market.api";
+import { useNavigate } from "react-router";
 
 const SubmitForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [storeImage, setStoreImage] = useState("");
-  const history = useHistory();
-  const { globalState, dispatch } = useContext(userContext);
+  const navigate = useNavigate();
+  const { globalState, dispatch } = useContext(UserContext);
   const { token, editStoreKey, editStore } = globalState;
 
   useEffect(() => {
@@ -49,7 +48,7 @@ const SubmitForm = () => {
         response = await createStoreAPI(formData);
       }
 
-      history.push("/");
+      navigate("/");
     } catch (error) {}
   };
 

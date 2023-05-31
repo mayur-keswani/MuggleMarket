@@ -4,8 +4,8 @@ import { Spinner } from '../../component/ui/spinner/Spinner';
 import ModalWrapper from '../../component/ui/modal-wrapper/ModalWrapper'
 import CheckoutSummary from '../../component/order-summary/CheckoutSummary';
 import OrderPlaceResult from '../../component/order-place-result/OrderPlaceResult';
-import {useHistory} from 'react-router-dom'
-import userContext from '../../context/user-context';
+import {useNavigate} from 'react-router-dom'
+import {UserContext} from '../../context/user-context';
 import {Button,Icon,Divider,Grid,Message} from 'semantic-ui-react'
 import StripeCheckout from 'react-stripe-checkout'
 import { FetchUserDetails, PlaceOrder, ProcessCardPayment } from './CheckoutHelper';
@@ -22,9 +22,9 @@ const Checkout = () =>{
 	const [invoice,setInvoice]=useState("")
 	
 
-	const {globalState}= useContext(userContext)
+	const {globalState}= useContext(UserContext)
 	const {token} = globalState;
-	const history = useHistory()
+	const navigate = useNavigate()
 
 	const fetchUserDetails= () =>{
 
@@ -150,7 +150,7 @@ const Checkout = () =>{
 	return(
 		<>
 		<div className="checkout-header px-5 py-2 my-0 d-flex align-items-center">
-		<Button animated  basic size="small" onClick={()=> history.goBack()}>
+		<Button animated  basic size="small" onClick={()=> navigate(-1)}>
       		<Button.Content visible>Back to Home</Button.Content>
       		<Button.Content hidden>
         	<Icon name='arrow left' />

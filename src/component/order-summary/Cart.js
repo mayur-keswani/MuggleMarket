@@ -1,21 +1,21 @@
 import React, { useState, useContext } from "react";
 import OrderSummary from "./OrderSummary";
-import userContext from "../../context/user-context";
-import { useHistory } from "react-router-dom";
+import {UserContext} from "../../context/user-context";
+import { useNavigate } from "react-router-dom";
 import "./Cart.css";
 import { Button, Grid } from "semantic-ui-react";
 import { checkoutAPI } from "../../lib/market.api";
 
 const Cart = ({ totalItems }) => {
   const [showCartItems, toggleCart] = useState(false);
-  const { globalState } = useContext(userContext);
+  const { globalState } = useContext(UserContext);
   const { token, orderItems, totalPrice } = globalState;
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const proceedToCheckout = async () => {
     try {
       const { data } = await checkoutAPI(orderItems);
-      history.push("/checkout");
+      navigate("/checkout");
     } catch (error) {}
   };
   return showCartItems ? (

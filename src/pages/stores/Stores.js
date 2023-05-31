@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import Store from "../../component/store/Store";
-import userContext from "../../context/user-context";
+import {UserContext} from "../../context/user-context";
 import { SET_LOADING } from "../../context/action-types";
 import { Header, Image, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
@@ -10,7 +10,7 @@ import { fetchStoresAPI } from "../../lib/market.api";
 
 const Stores = () => {
   const [stores, setStores] = useState([]);
-  const { globalState, dispatch } = useContext(userContext);
+  const { globalState, dispatch } = useContext(UserContext);
   const { isLoading } = globalState;
 
   const fetchStores = async () => {

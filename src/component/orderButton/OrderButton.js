@@ -1,11 +1,11 @@
 import React,{useContext} from 'react'
-import userContext from '../../context/user-context'
+import {UserContext} from '../../context/user-context'
 import {Item,Button,Icon} from 'semantic-ui-react'
 import { ADD_TO_CART,REMOVE_FROM_CART } from '../../context/action-types'
 
 
 const OrderButton = ({item}) =>{
-	const {globalState,dispatch} = useContext(userContext)
+	const {globalState,dispatch} = useContext(UserContext)
 	const{ selectedItems } = globalState;
 
 	const addToCart = (id,name,price) =>{

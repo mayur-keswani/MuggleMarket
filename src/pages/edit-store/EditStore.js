@@ -1,22 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Spinner } from "../../component/ui/spinner/Spinner";
-import userContext from "../../context/user-context";
-import { useHistory, useParams } from "react-router-dom";
+import {UserContext} from "../../context/user-context";
+import { useNavigate, useParams } from "react-router-dom";
 import { Divider, Grid, Header, Icon, Segment } from "semantic-ui-react";
 import { EDIT_STORE, SET_LOADING } from "../../context/action-types";
 import { fetchStoreDetail, fetchStoreDetailAPI } from "../../lib/market.api";
 
 const EditStore = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { id } = useParams();
-  const { globalState, dispatch } = useContext(userContext);
+  const { globalState, dispatch } = useContext(UserContext);
   const { token, isLoading } = globalState;
   const [store, setStore] = useState();
 
   const optionPreferred = (option) => {
     dispatch({ type: EDIT_STORE, payload: { id: id, store: store } });
-    if (option === "edit-store-details") history.push("/create-your-store/1");
-    else if (option === "add-items") history.push("/create-your-store/3");
+    if (option === "edit-store-details") navigate("/create-your-store/1");
+    else if (option === "add-items") navigate("/create-your-store/3");
   };
   const fetchStore = async (id) => {
     try {
@@ -67,7 +67,7 @@ const EditStore = () => {
                   <Icon name="add circle" />
                   Add Store-Items
                 </Header>
-                {/* <Button primary onClick={()=>history.push('/create-your-store/1')}>Create</Button> */}
+                {/* <Button primary onClick={()=>navigate('/create-your-store/1')}>Create</Button> */}
               </Grid.Column>
             </Grid.Row>
           </Grid>

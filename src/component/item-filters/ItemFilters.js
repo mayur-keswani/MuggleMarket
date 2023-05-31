@@ -1,11 +1,11 @@
 import React,{useContext, useState} from 'react'
 import { Header,Menu } from 'semantic-ui-react'
 import { SET_SHOP_ITEMS } from '../../context/action-types'
-import userContext from '../../context/user-context'
+import {UserContext} from '../../context/user-context'
 
 const ItemFilters = ({store}) =>{
 	const [state,setState] = useState({ activeItem: 'Boys' })
-	const {dispatch} = useContext(userContext)
+	const {dispatch} = useContext(UserContext)
 
 	const handleItemClick = (e, { name }) => { 
 			let filteredItems;

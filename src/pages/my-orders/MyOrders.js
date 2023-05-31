@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import MyOrder from "../../component/my-order/MyOrder";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Header, Icon, Button, Divider, Item } from "semantic-ui-react";
 import userContext from "../../context/user-context";
 import { Spinner } from "../../component/ui/spinner/Spinner";
 
 const MyOrders = () => {
   const [orders, setOrders] = useState(null);
-  const history = useHistory();
-  const { globalState } = useContext(userContext);
-  const { token } = globalState;
+  const navigate = useNavigate();
 
   const fetchMyOrders = async () => {
     try {
@@ -24,7 +22,7 @@ const MyOrders = () => {
   return (
     <>
       <div className="checkout-header px-5 py-2 my-0 d-flex align-items-center">
-        <Button animated basic size="small" onClick={() => history.goBack()}>
+        <Button animated basic size="small" onClick={() => navigate(-1)}>
           <Button.Content visible>Back to Home</Button.Content>
           <Button.Content hidden>
             <Icon name="arrow left" />

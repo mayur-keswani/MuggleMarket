@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "semantic-ui-css/semantic.min.css";
 
 import Stores from "./pages/stores/Stores";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import PartnerWithUs from "./pages/partner_with_us/PartnerWithUs";
 import CreateStore from "./pages/create_your_store/CreateStore";
@@ -14,7 +14,7 @@ import EditStore from "./pages/edit-store/EditStore";
 import Checkout from "./pages/checkout/Checkout";
 import MyOrders from "./pages/my-orders/MyOrders";
 import BaseLayout from "./component/layout/BaseLayout";
-import UserContext from "./context/user-context";
+import UserContextProvider from "./context/user-context";
 
 const App = () => {
   // const autoLogoutHandler = (remainingTime) => {
@@ -50,62 +50,50 @@ const App = () => {
   // }, []);
 
   return (
-    <>
-      <UserContext>
-        <Switch>
-          <Route
-            path="/partner_with_us"
-            exact
-            render={() => (
-              <>
-                <PartnerWithUs />
-              </>
-            )}
-          />
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <BaseLayout>
+            <Stores />
+          </BaseLayout>
+        }
+      />
 
-          {globalState.isAuth ? (
+      <Route
+        path="/partner_with_us"
+        render={() => (
+          <BaseLayout>
+            <PartnerWithUs />
+          </BaseLayout>
+        )}
+      />
+
+      {/* {globalState.isAuth ? (
             <Route
               path="/create-your-store/:page"
               exact
               component={CreateStore}
             />
-          ) : null}
+          ) : null} */}
 
-          <Route
-            path="/store/:id"
-            render={() => (
-              <>
-                <StoreDetails />
-              </>
-            )}
-          />
+      <Route path="/store/:id" element={<StoreDetails />} />
 
-          <Route path="/my-stores" exact component={MyStore} />
+      <Route path="/my-stores" element={<MyStore />} />
 
-          <Route path="/my-store/:id" component={EditStore} />
+      <Route path="/my-store/:id" element={<EditStore />} />
 
-          <Route path="/checkout" component={Checkout} />
+      <Route path="/checkout" element={<Checkout />} />
 
-          <Route
-            path="/my-orders"
-            render={() => (
-              <>
-                <MyOrders />
-              </>
-            )}
-          />
-
-          <Route
-            path="/"
-            render={() => (
-              <BaseLayout>
-                <Stores />
-              </BaseLayout>
-            )}
-          />
-        </Switch>
-      </UserContext>
-    </>
+      <Route
+        path="/my-orders"
+        render={() => (
+          <BaseLayout>
+            <MyOrders />
+          </BaseLayout>
+        )}
+      />
+    </Routes>
   );
 };
 
