@@ -1,0 +1,36 @@
+footer {
+  width: 100%;
+  background: rgb(248, 248, 248);
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.footer .basicInfo {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 100%;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  margin-bottom: 4rem;
+}
+footer span{
+	font-size: 1.2rem;
+	 color: rgb(105, 105, 105);
+}
+footer a{
+	font-size: 1.0rem;
+	text-decoration: none;
+    line-height: 1.5rem;
+    color: rgb(105, 105, 105);
+    margin: 0.2rem 0px
+}
+.info-box {
+  border-width: 0px !important;
+}
+@media (min-width: 678px) {
+  footer {
+     padding: 2.8rem 2.4rem 2.2rem
+  }
+}

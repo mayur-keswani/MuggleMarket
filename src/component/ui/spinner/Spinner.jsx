@@ -1,3 +1,4 @@
+import React from 'react'
 import {Segment,Loader,Dimmer,Image} from 'semantic-ui-react'
 
 export const Spinner = () =>{

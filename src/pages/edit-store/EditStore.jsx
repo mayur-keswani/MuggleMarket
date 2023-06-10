@@ -4,7 +4,7 @@ import {UserContext} from "../../context/user-context";
 import { useNavigate, useParams } from "react-router-dom";
 import { Divider, Grid, Header, Icon, Segment } from "semantic-ui-react";
 import { EDIT_STORE, SET_LOADING } from "../../context/action-types";
-import { fetchStoreDetail, fetchStoreDetailAPI } from "../../lib/market.api";
+import { fetchStoreDetailAPI } from "../../lib/market.api";
 
 const EditStore = () => {
   const navigate = useNavigate();

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import "semantic-ui-css/semantic.min.css";
 
 import Stores from "./pages/stores/Stores";
 import { Route, Routes } from "react-router-dom";
@@ -14,41 +13,9 @@ import EditStore from "./pages/edit-store/EditStore";
 import Checkout from "./pages/checkout/Checkout";
 import MyOrders from "./pages/my-orders/MyOrders";
 import BaseLayout from "./component/layout/BaseLayout";
-import UserContextProvider from "./context/user-context";
 
 const App = () => {
-  // const autoLogoutHandler = (remainingTime) => {
-  //   console.log(remainingTime);
-  //   setTimeout(() => {
-  //     localStorage.removeItem("token");
-  //     dispatch({ type: onLogout, payload: null, expiresIn: null });
-  //   }, remainingTime);
-  // };
-
-  // useEffect(() => {
-  //   const token = JSON.parse(localStorage.getItem("token"));
-  //   const expiresIn = localStorage.getItem("expiresIn");
-  //   const username = JSON.parse(localStorage.getItem("username"));
-
-  //   console.log(expiresIn);
-  //   if (!token && !expiresIn) {
-  //     return 0;
-  //   }
-
-  //   if (new Date(expiresIn) < new Date()) {
-  //     dispatch({ type: onLogout, payload: null });
-  //     return 0;
-  //   }
-  //   const payload = {
-  //     token: token,
-  //     username: username,
-  //   };
-  //   dispatch({ type: onAuthentication, payload });
-  //   let remainingTime = new Date(expiresIn).getTime() - new Date().getTime();
-
-  //   autoLogoutHandler(remainingTime);
-  // }, []);
-
+ 
   return (
     <Routes>
       <Route

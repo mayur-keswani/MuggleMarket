@@ -1,0 +1,20 @@
+.searchBarWrapper {
+  border-radius: 0.8rem;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.searchField {
+  border: none;
+  font-size: 1.4rem;
+  width: 100%;
+  border-radius: 0.8rem;
+  font-family: Okra, Helvetica, sans-serif;
+}
+.searchField:active,
+:focus {
+  outline: 0 !important;
+}
