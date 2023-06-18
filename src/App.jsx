@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.css";
 
 import Stores from "./pages/stores/Stores";
 import { Route, Routes } from "react-router-dom";
 
 import PartnerWithUs from "./pages/partner_with_us/PartnerWithUs";
-import CreateStore from "./pages/create_your_store/CreateStore";
-import { onAuthentication, onLogout } from "./context/action-types";
 import StoreDetails from "./pages/store_details/StoreDetails";
 import MyStore from "./pages/my-stores/MyStores";
 import EditStore from "./pages/edit-store/EditStore";

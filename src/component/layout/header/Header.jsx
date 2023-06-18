@@ -21,7 +21,7 @@ const Header = (props) => {
     <header>
       <div className={styles.navbar}>
         <div className={styles.logoWrapper}>
-          <span className="mx-2">
+          <span className={`mx-2 ${styles.hamburger}`}>
             {isMenuOpen ? (
               <GrClose
                 onClick={() => {
@@ -46,7 +46,7 @@ const Header = (props) => {
               <SearchBar />
             </div>
           </div>
-          <div className={styles.rightSide}>
+          <div className={`${styles.rightSide} ${isMenuOpen && styles.open}`}>
             <ul className={styles.navList}>
               <li className="btn-login px-2 mx-2">Log in</li>
               <li className="btn-signup px-2">Sign Up</li>

@@ -1,12 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import App from './App';
+import { createRoot } from "react-dom/client";
 import {BrowserRouter} from 'react-router-dom'
 
 import './index.css';
 import UserContextProvider from './context/user-context';
 
-const rootApp = (
+const domNode = document.getElementById("root");
+const root = createRoot(domNode);
+root.render(
   <BrowserRouter>
     <UserContextProvider>
       <App />
@@ -14,6 +16,6 @@ const rootApp = (
   </BrowserRouter>
 );
 
-ReactDOM.render(rootApp,document.getElementById('root'));
+// ReactDOM.render(rootApp,document.getElementById('root'));
 
 
