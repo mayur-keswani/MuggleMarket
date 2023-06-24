@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ModalWrapper from '../ui/ModalWrapper/ModalWrapper'
+import ModalWrapper from '../commons/ModalWrapper/ModalWrapper'
 
 class withErrorHandler extends Component{
 		state={

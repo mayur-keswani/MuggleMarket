@@ -1,5 +1,4 @@
 import React,{useContext} from 'react'
-import {Item,Divider,Button} from 'semantic-ui-react'
 import {useNavigate} from 'react-router-dom' 
 import { ADD_TO_CART } from '../../context/action-types'
 import {UserContext} from '../../context/user-context'
@@ -20,7 +19,7 @@ const MyOrder = ({order}) =>{
 	 <p><b>Amount (grand-total): </b>
 	 	<span className="text-danger h6">₹{order.grand_total} (including ₹{order.charges} taxes/charges)</span>
 	 </p>
-	  <Item.Group>
+	  {/* <Item.Group>
 		{
 			order.items.map(item=>
 			<Item className="mx-3" key={item._id}>
@@ -37,7 +36,7 @@ const MyOrder = ({order}) =>{
 			)
 		}		
 		<Divider/>
-	  </Item.Group>
+	  </Item.Group> */}
 	</div>
 	
 	)

@@ -1,5 +1,5 @@
 import React ,{useState} from 'react'
-import ModalWrapper from '../ui/modal-wrapper/ModalWrapper'
+import ModalWrapper from '../commons/modal-wrapper/ModalWrapper'
 import SubmitForm from '../../pages/create_your_store/SubmitForm'
 import {Header,Form,Divider,Button,Icon,Input} from 'semantic-ui-react'
 

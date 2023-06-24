@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Spinner } from "../../component/ui/spinner/Spinner";
+import { Skeleton } from "../../component/commons/skeleton/card";
 import {UserContext} from "../../context/user-context";
 import { useNavigate, useParams } from "react-router-dom";
-import { Divider, Grid, Header, Icon, Segment } from "semantic-ui-react";
+// import { Divider, Grid, Header, Icon, Segment } from "semantic-ui-react";
 import { EDIT_STORE, SET_LOADING } from "../../context/action-types";
 import { fetchStoreDetailAPI } from "../../lib/market.api";
 
@@ -32,7 +32,7 @@ const EditStore = () => {
     fetchStore(id);
   }, [id]);
   return isLoading ? (
-    <Spinner />
+    <Skeleton />
   ) : !store ? (
     <h3>No Store Found</h3>
   ) : (
@@ -43,7 +43,7 @@ const EditStore = () => {
       </div>
 
       <div className="to-edit-page d-flex justify-content-center mt-5">
-        <Segment
+        {/* <Segment
           placeholder
           style={{ width: "60%", borderRadius: "20px" }}
           color="teal"
@@ -60,18 +60,18 @@ const EditStore = () => {
                   Edit Store-Details
                 </Header>
                 {/* <Search placeholder='Search countries...' /> */}
-              </Grid.Column>
+              {/* </Grid.Column> */}
 
-              <Grid.Column onClick={() => optionPreferred("add-items")}>
+              {/* <Grid.Column onClick={() => optionPreferred("add-items")}>
                 <Header icon>
                   <Icon name="add circle" />
                   Add Store-Items
                 </Header>
                 {/* <Button primary onClick={()=>navigate('/create-your-store/1')}>Create</Button> */}
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Segment>
+              {/* </Grid.Column> */} 
+            {/* </Grid.Row> */}
+          {/* </Grid> */}
+        {/* </Segment>  */}
       </div>
     </>
   );

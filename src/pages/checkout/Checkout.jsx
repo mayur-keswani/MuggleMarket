@@ -1,12 +1,12 @@
 import React,{useState,useEffect,useContext} from 'react';
 import UserDetails from '../../component/user-details/UserDetails';
-import { Spinner } from '../../component/ui/spinner/Spinner';
-import ModalWrapper from '../../component/ui/modal-wrapper/ModalWrapper'
+import { Skeleton } from '../../component/commons/skeleton/card';
+import ModalWrapper from '../../component/commons/modal-wrapper/ModalWrapper'
 import CheckoutSummary from '../../component/order-summary/CheckoutSummary';
 import OrderPlaceResult from '../../component/order-place-result/OrderPlaceResult';
 import {useNavigate} from 'react-router-dom'
 import {UserContext} from '../../context/user-context';
-import {Button,Icon,Divider,Grid,Message} from 'semantic-ui-react'
+// import {Button,Icon,Divider,Grid,Message} from 'semantic-ui-react'
 import StripeCheckout from 'react-stripe-checkout'
 import { FetchUserDetails, PlaceOrder, ProcessCardPayment } from './CheckoutHelper';
 
@@ -147,60 +147,74 @@ const Checkout = () =>{
 	}
 
 
-	return(
-		<>
-		<div className="checkout-header px-5 py-2 my-0 d-flex align-items-center">
-		<Button animated  basic size="small" onClick={()=> navigate(-1)}>
-      		<Button.Content visible>Back to Home</Button.Content>
-      		<Button.Content hidden>
-        	<Icon name='arrow left' />
-      		</Button.Content>
-    	</Button>
-		<span className="h4 mx-5">MuggleMarket</span>
-		</div>
-		<Divider/>
-		{
-			!user?
-			<Spinner/>
-			:
-			<Grid>
-      			<Grid.Column mobile={16} tablet={11} computer={11}>
-        			<UserDetails username={user.username} 
-						email={user.email} 
-						selectedAddress={selectedAddress} 
-						onSelectAddress={(address)=>onSelectAddress(address)}
-						changePaymentMethod={setPaymentMethod}
-						/>
-      			</Grid.Column>
+	return (
+    <>
+      <div className="checkout-header px-5 py-2 my-0 d-flex align-items-center">
+        <Button animated basic size="small" onClick={() => navigate(-1)}>
+          <Button.Content visible>Back to Home</Button.Content>
+          <Button.Content hidden>
+            <Icon name="arrow left" />
+          </Button.Content>
+        </Button>
+        <span className="h4 mx-5">MuggleMarket</span>
+      </div>
+      {/* <Divider /> */}
+      <div>
+         
+          {/* <Grid> */}
+            {/* <Grid.Column mobile={16} tablet={11} computer={11}> */}
+              {/* <UserDetails
+                username={user.username}
+                email={user.email}
+                selectedAddress={selectedAddress}
+                onSelectAddress={(address) => onSelectAddress(address)}
+                changePaymentMethod={setPaymentMethod}
+              /> */}
+            {/* </Grid.Column> */}
 
-
-      			<Grid.Column mobile={16} tablet={4} computer={5} className='text-center'>
-        			<CheckoutSummary 
-						cartItems={cartItems} 
-						updateItemsHandler={(itemID,type)=>updateItemsHandler(itemID,type)} 
-						taxCalculator={taxCalculator}
-						grandTotalCalculator={grandTotalCalculator}
-						/>
-					<Message warning>
-    					<Message.Header>Note:</Message.Header>
-    					<span>Order once placed cannot be cancelled and it is non-refundable</span>
-  					</Message>
-					{/* <Button primary size='huge' onClick={orderHandler}>Place Order</Button> */}
-					{PaymentMethod()}
-      			</Grid.Column>
-			</Grid>
-		
-		}
-			<ModalWrapper isOpen={ordered.flag} closeModal={()=>onOrderPlaced({flag:false,message:null,status:null})}>
-					<OrderPlaceResult  
-						status={ordered.status} 
-						message={ordered.message} 
-						invoice={invoice}
-						closeModal={()=>onOrderPlaced({flag:false,message:null,status:null})}/>
-			</ModalWrapper>
-		
-		</>
-	)
+            {/* <Grid.Column
+              mobile={16}
+              tablet={4}
+              computer={5}
+              className="text-center"
+            >
+              <CheckoutSummary
+                cartItems={cartItems}
+                updateItemsHandler={(itemID, type) =>
+                  updateItemsHandler(itemID, type)
+                }
+                taxCalculator={taxCalculator}
+                grandTotalCalculator={grandTotalCalculator}
+              />
+              <Message warning>
+                <Message.Header>Note:</Message.Header>
+                <span>
+                  Order once placed cannot be cancelled and it is non-refundable
+                </span>
+              </Message>
+              {/* <Button primary size='huge' onClick={orderHandler}>Place Order</Button> */}
+              {PaymentMethod()}
+            {/* </Grid.Column> */} 
+          {/* </Grid> */}
+        
+      </div>
+      {/* <ModalWrapper
+        isOpen={ordered.flag}
+        closeModal={() =>
+          onOrderPlaced({ flag: false, message: null, status: null })
+        }
+      >
+        <OrderPlaceResult
+          status={ordered.status}
+          message={ordered.message}
+          invoice={invoice}
+          closeModal={() =>
+            onOrderPlaced({ flag: false, message: null, status: null })
+          }
+        />
+      </ModalWrapper> */}
+    </>
+  );
 }
 
 export default Checkout

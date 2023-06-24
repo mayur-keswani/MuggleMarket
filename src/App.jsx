@@ -25,12 +25,12 @@ const App = () => {
       />
 
       <Route
-        path="/partner_with_us"
-        render={() => (
-          <BaseLayout>
+        path="/partner-with-us"
+        element={
+          <BaseLayout forBusiness={true}>
             <PartnerWithUs />
           </BaseLayout>
-        )}
+        }
       />
 
       {/* {globalState.isAuth ? (

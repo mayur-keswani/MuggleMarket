@@ -3,7 +3,7 @@ import {UserContext} from '../../context/user-context'
 import {SET_LOADING} from '../../context/action-types'
 import {useNavigate} from 'react-router-dom'
 import {Form, Header, Icon, Table, Button} from 'semantic-ui-react'
-import { Spinner } from '../ui/spinner/Spinner'
+import { Skeleton } from '../commons/skeleton/card'
 import { uploadItemToStore } from '../../lib/market.api'
 
 const MenuItems = (props) => {
@@ -50,7 +50,7 @@ const MenuItems = (props) => {
  
  return(
   isLoading?
-    <Spinner/>:
+    <Skeleton/>:
   <>
   <Table unstackable style={{width:"100%"}} className="m-0">
     <Table.Header>

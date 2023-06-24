@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import MyOrder from "../../component/my-order/MyOrder";
 import { useNavigate } from "react-router-dom";
-import { Header, Icon, Button, Divider, Item } from "semantic-ui-react";
+// import { Header, Icon, Button, Divider, Item } from "semantic-ui-react";
 import userContext from "../../context/user-context";
-import { Spinner } from "../../component/ui/spinner/Spinner";
+import { Skeleton } from "../../component/commons/skeleton/card";
 
 const MyOrders = () => {
   const [orders, setOrders] = useState(null);
@@ -21,7 +21,7 @@ const MyOrders = () => {
   }, []);
   return (
     <>
-      <div className="checkout-header px-5 py-2 my-0 d-flex align-items-center">
+      {/* <div className="checkout-header px-5 py-2 my-0 d-flex align-items-center">
         <Button animated basic size="small" onClick={() => navigate(-1)}>
           <Button.Content visible>Back to Home</Button.Content>
           <Button.Content hidden>
@@ -42,7 +42,7 @@ const MyOrders = () => {
       </Header>
 
       {!orders ? (
-        <Spinner />
+        <Skeleton />
       ) : !orders.length ? (
         <div> No Orders Yet </div>
       ) : (
@@ -53,7 +53,7 @@ const MyOrders = () => {
             </>
           ))}
         </Item.Group>
-      )}
+      )} */}
     </>
   );
 };

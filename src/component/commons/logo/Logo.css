@@ -1,7 +1,7 @@
-.logo {
+.logoWrapper {
   /* text-align: center; */
   font-family: "Fredoka One", cursive;
-  font-size: 1.5rem;
+  
   text-shadow: #7e7777;
   box-sizing: border-box;
 }

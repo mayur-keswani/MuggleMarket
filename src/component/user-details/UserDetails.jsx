@@ -1,11 +1,4 @@
 import React, { useState } from "react";
-import {
-  Message,
-  Accordion,
-  Button,
-  Form,
-  Radio,
-} from "semantic-ui-react";
 import "./UserDetails.css";
 
 const UserDetails = (props) => {
@@ -36,7 +29,7 @@ const UserDetails = (props) => {
         content="You are securely logged un"
       />
 
-      <Accordion styled fluid className="px-3 pb-3">
+      {/* <Accordion styled fluid className="px-3 pb-3">
         <Accordion.Title
           active={activeIndex === 0}
           index={0}
@@ -158,7 +151,7 @@ const UserDetails = (props) => {
             </div>
           </div>
         </Accordion.Content>
-      </Accordion>
+      </Accordion> */}
     </>
   );
 };
