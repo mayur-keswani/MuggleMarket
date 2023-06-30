@@ -17,7 +17,11 @@ const PartnerWithUs = () => {
           ></img>
         </div>
         <div
-          className="absolute top-0 left-0 h-full w-full -translate-x-1/2 "
+          className="absolute sm:top-0 left-[50%] md:bottom-[74px] h-full w-full -translate-x-1/2 "
+          style={{
+            background:
+              "linear-gradient(rgba(0, 0, 0, 0) 57.17%, rgba(0, 0, 0, 0.46) 100%), rgba(0, 0, 0, 0.3)",
+          }}
         >
           <span className="h-11">Partner with MugggleMarket</span>
           <p className="h5 mx-3">for free and get more customers!</p>

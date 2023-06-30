@@ -1,9 +1,9 @@
-import { onAuthentication , SET_LOADING, EDIT_STORE , ADD_TO_CART, REMOVE_FROM_CART , SET_SHOP_ITEMS } from "./action-types";
+import {  SET_LOADING, EDIT_STORE , ADD_TO_CART, REMOVE_FROM_CART , SET_SHOP_ITEMS, LOGIN } from "./action-types";
 import { onLogout } from "./action-types";
 
 const reducer = (state,action) =>{
 	switch (action.type) {
-		case onAuthentication:{
+		case LOGIN:{
 			console.log(action.payload)
 			return {...state,isAuth:true,token:action.payload.token,username:action.payload.username}
 		}

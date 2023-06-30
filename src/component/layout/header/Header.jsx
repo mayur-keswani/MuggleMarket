@@ -7,15 +7,25 @@ import { UserContext } from "../../../context/user-context";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GrClose } from "react-icons/gr";
 import ForBusiness from "../../commons/logo/ForBusiness";
+import LoginModal from "../../modals/LoginModal";
 
 const Header = (props) => {
+  const [showLoginDialog,setShowLoginModal] =useState(false)
+  const [showSignupDialog, setShowSignupModal] = useState(false);
+
   const { globalState, dispatch } = useContext(UserContext);
   const { isAuth, username } = globalState;
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
+  console.log(showLoginDialog)
   return (
     <>
-      <header className={`bg-white ${props?.forBusiness && 'relative bg-transparent'} `}>
+      <header
+        className={`bg-white ${props?.forBusiness &&
+          "relative bg-transparent"} `}
+      >
+        <LoginModal isOpen={showLoginDialog} onClose={()=>{ 
+         setShowLoginModal(false)}} />
         <div className={styles.navbar}>
           <div className={styles.logoWrapper}>
             <span className={`mx-2 ${styles.hamburger}`}>
@@ -48,8 +58,23 @@ const Header = (props) => {
 
             <div className={`${styles.rightSide} ${isMenuOpen && styles.open}`}>
               <ul className={styles.navList}>
-                <li className="btn-login px-2 mx-2">Log in</li>
-                <li className="btn-signup px-2">Sign Up</li>
+                <li
+                  className="btn-login px-2 mx-2"
+                  onClick={() => {
+                    console.log("PRESSED")
+                    setShowLoginModal(true);
+                  }}
+                >
+                  Log in
+                </li>
+                <li
+                  className="btn-signup px-2"
+                  onClick={() => {
+                    setShowSignupModal();
+                  }}
+                >
+                  Sign Up
+                </li>
               </ul>
             </div>
           </div>
