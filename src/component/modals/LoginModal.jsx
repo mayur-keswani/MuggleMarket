@@ -6,6 +6,7 @@ import ModalLayout from "./ModalLayout";
 import { onLogin } from "../../context/action-creators";
 import Spinner from "../commons/spinner/Spinner";
 import { data } from "autoprefixer";
+import { toast } from "react-toastify";
 
 const LoginModal = (props) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -19,6 +20,7 @@ const LoginModal = (props) => {
       console.log(values)
       // setIsLoading(true)
       const { email, password } = values
+      setIsLoading(true)
       const { data: result } = await loginAPI({ email, password });
       console.log(data)
       setIsLoading(false)
@@ -29,10 +31,15 @@ const LoginModal = (props) => {
 
       const { token, username } = result
       dispatch(onLogin({ token, username }));
-      props.onClose();
+      toast.success("Login Successfull !", {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      props.closeModal();
     } catch (error) {
       if (error && error?.response && error?.response?.status == '401') {
-
+        toast.error(error.response?.data?.message, {
+          position: toast.POSITION.TOP_RIGHT
+        }); 
       }
       console.log(error?.response)
       setIsLoading(false)
@@ -40,7 +47,7 @@ const LoginModal = (props) => {
   };
 
   return (
-    <ModalLayout title={'Login'} onClose={props?.onClose} isOpen={props?.isOpen}>
+    <ModalLayout title={'Login'} closeModal={props?.closeModal} isOpen={props?.isOpen}>
       <form className="shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit(onSubmitHandler)} >
 
         <div className="mb-4">
@@ -89,9 +96,6 @@ const LoginModal = (props) => {
 
       </form>
     </ModalLayout>
-
-
-
   );
   // <Form>
   //   {loginWithEmail ? (

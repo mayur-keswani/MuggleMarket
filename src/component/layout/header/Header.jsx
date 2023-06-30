@@ -8,24 +8,28 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { GrClose } from "react-icons/gr";
 import ForBusiness from "../../commons/logo/ForBusiness";
 import LoginModal from "../../modals/LoginModal";
+import SignupModal from "../../modals/SignupModal";
 
 const Header = (props) => {
-  const [showLoginDialog,setShowLoginModal] =useState(false)
+  const [showLoginDialog, setShowLoginModal] = useState(false)
   const [showSignupDialog, setShowSignupModal] = useState(false);
 
   const { globalState, dispatch } = useContext(UserContext);
   const { isAuth, username } = globalState;
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  console.log(showLoginDialog)
   return (
     <>
       <header
         className={`bg-white ${props?.forBusiness &&
           "relative bg-transparent"} `}
       >
-        <LoginModal isOpen={showLoginDialog} onClose={()=>{ 
-         setShowLoginModal(false)}} />
+        <LoginModal isOpen={showLoginDialog} closeModal={() => {
+          setShowLoginModal(false)
+        }} />
+        <SignupModal isOpen={showSignupDialog} closeModal={() => {
+          setShowSignupModal(false)
+        }} />
         <div className={styles.navbar}>
           <div className={styles.logoWrapper}>
             <span className={`mx-2 ${styles.hamburger}`}>
@@ -61,7 +65,6 @@ const Header = (props) => {
                 <li
                   className="btn-login px-2 mx-2"
                   onClick={() => {
-                    console.log("PRESSED")
                     setShowLoginModal(true);
                   }}
                 >
@@ -70,7 +73,7 @@ const Header = (props) => {
                 <li
                   className="btn-signup px-2"
                   onClick={() => {
-                    setShowSignupModal();
+                    setShowSignupModal(true);
                   }}
                 >
                   Sign Up

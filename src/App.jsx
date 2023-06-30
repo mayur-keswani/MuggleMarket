@@ -11,6 +11,7 @@ import Checkout from "./pages/checkout/Checkout";
 import MyOrders from "./pages/my-orders/MyOrders";
 import BaseLayout from "./component/layout/BaseLayout";
 
+import "react-toastify/dist/ReactToastify.css";
 const App = () => {
  
   return (

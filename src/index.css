@@ -2,16 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer utilities {
   .error {
     @apply text-red-700 hover:text-red-800 before:content-['⚠'] pl-1;
   }
 }
 
-  :root {
-    --primary: rgb(211, 24, 42);
-  }
+:root {
+  --primary: rgb(211, 24, 42);
+}
 
 body {
   margin: 0;
@@ -20,7 +19,7 @@ body {
     sans-serif; */
   font-family: Okra, Helvetica, sans-serif;
   font-weight: 300;
-    box-sizing: border-box;
+  box-sizing: border-box;
   overflow-y: scroll;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -29,4 +28,9 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+button:disabled{
+  cursor: not-allowed;
+  background-color: gray;
 }
