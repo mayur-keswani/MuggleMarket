@@ -1,7 +1,6 @@
 import React,{lazy,Suspense}from 'react'
 import CreateStoreGuide from '../../component/create-store-guide/CreateStoreGuide'
 import {useParams } from 'react-router-dom'
-import { Header , Grid } from 'semantic-ui-react'
 import './CreateStore.css'
 const InputForm1 = lazy(()=>import('../../component/InputForm/createStoreForm1'))
 const InputForm2 = lazy(()=>import('../../component/InputForm/createStoreForm2')) 
@@ -28,23 +27,15 @@ const CreateStore = () =>{
 	}
 	return(
 		<>
-		 <Header
-   			 as='h2'
-			 color='red'
-    		 content='MuggleMarket'
-   			 subheader='For Business'
-			 className="p-3 mx-5"
-  		/>
-		
-		 <Grid style={{boxSizing:"border-box"}}>
-      		<Grid.Column mobile={16} tablet={6} computer={4} className="create-store-guide">
+		 <div className='grid grid-cols-2 space-x-2'>
+      		<div  className="create-store-guide">
 				<CreateStoreGuide page={page}/>
-			</Grid.Column>
-			<Grid.Column mobile={16} tablet={10} computer={12} className="create-store-form">
-				{InputForm()}
-			</Grid.Column>
+			</div>
+			<div className="create-store-form">
+				{/* {InputForm()} */}
+			</div>
 
-         </Grid>
+         </div>
 		 </>
 		
 	)

@@ -63,23 +63,27 @@ const Header = (props) => {
             )}
 
             <div className={`${styles.rightSide} ${isMenuOpen && styles.open}`}>
-              <ul className={styles.navList}>
-                <li
-                  className="btn-login px-2 mx-2"
-                  onClick={() => {
-                    setShowLoginModal(true);
-                  }}
-                >
-                  Log in
-                </li>
-                <li
-                  className="btn-signup px-2"
-                  onClick={() => {
-                    setShowSignupModal(true);
-                  }}
-                >
-                  Sign Up
-                </li>
+              <ul className={`${styles.navList} ${props?.forBusiness ? 'text-white' : 'text-slate-600'} text-xl`}>
+                {
+                  !isAuth && <><li
+                    className="btn-login px-2 mx-2"
+                    onClick={() => {
+                      setShowLoginModal(true);
+                    }}
+                  >
+                    Log in
+                  </li>
+                    <li
+                      className="btn-signup px-2"
+                      onClick={() => {
+                        setShowSignupModal(true);
+                      }}
+                    >
+                      Sign Up
+                    </li>
+                  </>
+                }
+
               </ul>
             </div>
           </div>

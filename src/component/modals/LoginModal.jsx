@@ -24,10 +24,11 @@ const LoginModal = (props) => {
       const { data: result } = await loginAPI({ email, password });
       console.log(data)
       setIsLoading(false)
-      const expiresIN = new Date(new Date().getTime() + 3600000);
-      localStorage.setItem("token", JSON.stringify(result.token));
-      localStorage.setItem("username", JSON.stringify(result.username));
-      localStorage.setItem("expiresIn", expiresIN.toISOString());
+      const expiresIN = new Date(new Date().getTime() + 3600000)?.toISOString();
+      localStorage.setItem('auth',JSON.stringify({token:result?.tolken,username:result?.username,expiresIN}))
+      // localStorage.setItem("token", JSON.stringify(result.token));
+      // localStorage.setItem("username", JSON.stringify(result.username));
+      // localStorage.setItem("expiresIn", expiresIN);
 
       const { token, username } = result
       dispatch(onLogin({ token, username }));
@@ -41,7 +42,7 @@ const LoginModal = (props) => {
           position: toast.POSITION.TOP_RIGHT
         }); 
       }
-      console.log(error?.response)
+      console.log(error)
       setIsLoading(false)
     }
   };

@@ -10,7 +10,7 @@
 
 :root {
   --primary: rgb(211, 24, 42);
-  --secondary: rgba(209, 25, 44, 0.78);
+  --secondary: rgb(183, 16, 33);
 
 }
 
@@ -32,7 +32,14 @@ code {
     monospace;
 }
 
+button{
+  background-color: var(--primary);
+}
+button:hover{
+  background-color: var(--secondary);
+}
 button:disabled{
+  background-color: var(--primary);
   cursor: not-allowed;
   background-color: gray;
 }

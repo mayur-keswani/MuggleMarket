@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 
 import Stores from "./pages/stores/Stores";
 import { Route, Routes } from "react-router-dom";
@@ -12,8 +12,25 @@ import MyOrders from "./pages/my-orders/MyOrders";
 import BaseLayout from "./component/layout/BaseLayout";
 
 import "react-toastify/dist/ReactToastify.css";
+import { UserContext } from "./context/user-context";
+import CreateStore from "./pages/create_your_store/CreateStore";
+import { onLogin } from "./context/action-creators";
+import { checkIsAuthenticated } from "./lib/localStorage";
+
 const App = () => {
- 
+  const { globalState, dispatch } = useContext(UserContext)
+
+
+
+  useEffect(() => {
+    (async () => {
+      const auth = await checkIsAuthenticated();
+      console.log({auth})
+      if (auth) {
+        dispatch(onLogin(auth))
+      }
+    })()
+  }, [])
   return (
     <Routes>
       <Route
@@ -34,13 +51,12 @@ const App = () => {
         }
       />
 
-      {/* {globalState.isAuth ? (
-            <Route
-              path="/create-your-store/:page"
-              exact
-              component={CreateStore}
-            />
-          ) : null} */}
+      {globalState.isAuth || true ? (
+        <Route
+          path="/create-your-store/:page"
+          element={<BaseLayout forBusiness={true}><CreateStore /></BaseLayout>}
+        />
+      ) : null}
 
       <Route path="/store/:id" element={<StoreDetails />} />
 
