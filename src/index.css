@@ -10,6 +10,8 @@
 
 :root {
   --primary: rgb(211, 24, 42);
+  --secondary: rgba(209, 25, 44, 0.78);
+
 }
 
 body {

@@ -6,7 +6,7 @@ import { SET_LOADING } from "../../context/action-types";
 import { Link } from "react-router-dom";
 import { Skeleton } from "../../component/commons/skeleton/card";
 import { fetchStoresAPI } from "../../lib/market.api";
-
+import StoreImage from './store.png'
 const Stores = () => {
   const [stores, setStores] = useState([]);
   const { globalState, dispatch } = useContext(UserContext);
@@ -69,9 +69,9 @@ const Stores = () => {
           </div>
         </>
       ) : (
-        <div className="flex align-middle items-center justify-center font-bold">
-          {" "}
-          No Stores Found Near By...
+        <div className="flex align-middle items-center justify-center flex-col">
+          <img src={StoreImage} alt={"No Store"} />
+          <span className="text-xl font-extralight text-gray-600">Oops!, No Stores Found! </span>
         </div>
       )}
     </main>

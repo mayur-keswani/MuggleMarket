@@ -21,8 +21,8 @@ const Header = (props) => {
   return (
     <>
       <header
-        className={`bg-white ${props?.forBusiness &&
-          "relative bg-transparent"} `}
+        className={`${props?.forBusiness &&
+          "absolute top-0 left-0 bg-white dark:bg-slate-800 md:bg-transparent z-10 "} `}
       >
         <LoginModal isOpen={showLoginDialog} closeModal={() => {
           setShowLoginModal(false)
@@ -38,12 +38,14 @@ const Header = (props) => {
                   onClick={() => {
                     setIsMenuOpen(false);
                   }}
+                  className={`${props?.forBusiness && ' md:text-white'}`}
                 />
               ) : (
                 <GiHamburgerMenu
                   onClick={() => {
                     setIsMenuOpen(true);
                   }}
+                  className={`${props?.forBusiness && 'md:text-white'}`}
                 />
               )}
             </span>
@@ -83,12 +85,12 @@ const Header = (props) => {
           </div>
         </div>
       </header>
-      <div className={`h-12 grid grid-cols-4 gap-4 md:hidden`}>
+      {!props?.forBusiness && <div className={`h-12 grid grid-cols-4 gap-4 md:hidden`}>
         <div className="col-span-3">
           <SearchBar />
         </div>
         <DetectLocation />
-      </div>
+      </div>}
     </>
   );
 };

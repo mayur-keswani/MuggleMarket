@@ -4,7 +4,7 @@ import styles from "./Location.module.css";
 import { Menu } from "@headlessui/react";
 // import { Button } from 'bootstrap'
 
-const DetectLocation = ({isMobileView}) => {
+const DetectLocation = ({ isMobileView }) => {
   const [location, setLocation] = useState("");
   useEffect(() => {
     if (localStorage.getItem("location")) {
@@ -36,7 +36,7 @@ const DetectLocation = ({isMobileView}) => {
     return classes.filter(Boolean).join(" ");
   }
   return (
-    <div  className="flex justify-center items-center">
+    <div className="flex justify-center items-center">
       <i className="px-1" color="#FF7E8B" size="20">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -54,52 +54,22 @@ const DetectLocation = ({isMobileView}) => {
       </i>
 
       <Menu as="div" className={`hidden relative md:inline-block text-left mx-2 `}>
-          <Menu.Button className="inline-flex w-full justify-center gap-x-1.5  bg-white px-3 py-2 text-sm font-semibold text-gray-900 ">
-            Options
-          </Menu.Button>
-          <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg  ring-black ring-opacity-5 focus:outline-none">
-            <div className="py-1">
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    href="#"
-                    className={classNames(
-                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                      "block px-4 py-2 text-sm"
-                    )}
-                  >
-                    Account settings
-                  </a>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    href="#"
-                    className={classNames(
-                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                      "block px-4 py-2 text-sm"
-                    )}
-                  >
-                    Support
-                  </a>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    href="#"
-                    className={classNames(
-                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                      "block px-4 py-2 text-sm"
-                    )}
-                  >
-                    License
-                  </a>
-                )}
-              </Menu.Item>
-            </div>
-          </Menu.Items>
+        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5  bg-white bg- px-3 py-2 text-sm font-semibold text-gray-900 ">
+          Location
+        </Menu.Button>
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg  ring-black ring-opacity-5 focus:outline-none">
+          <div className="py-1">
+            <Menu.Item className="block px-4 py-2 text-sm text-primary">
+
+              <a
+                href="#"
+              >
+                Detect You Current Location
+              </a>
+            </Menu.Item>
+
+          </div>
+        </Menu.Items>
       </Menu>
     </div>
   );
