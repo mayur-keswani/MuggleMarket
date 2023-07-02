@@ -2,11 +2,12 @@ import React,{ createContext, useReducer } from "react";
 import reducer from "./reducer";
 
 const initialState = {
-  isAuth: false,
-  isLoading: false,
-  token: null,
-  expiryDate: null,
-  username: "",
+  auth:{
+    isLoggedIn:false,
+    token:null,
+    expiryDate: null,
+    username: null,
+  },
   editStore: null,
   editStoreKey: null,
   orderItems: [],

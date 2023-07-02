@@ -1,5 +1,4 @@
 import {
-  SET_LOADING,
   EDIT_STORE,
   ADD_TO_CART,
   REMOVE_FROM_CART,
@@ -8,29 +7,35 @@ import {
   LOGOUT,
 } from "./action-types";
 
-const reducer = (state,action) =>{
-	switch (action.type) {
+const reducer = (state, action) => {
+  switch (action.type) {
     case LOGIN: {
-      console.log(action.payload);
+      console.log(state);
       return {
         ...state,
-        isAuth: true,
-        token: action.payload.token,
-        username: action.payload.username,
+        auth: {
+          ...state?.auth,
+          isLoggedIn: true,
+          token: action.payload.token,
+          username: action.payload.username,
+        },
       };
     }
     case LOGOUT: {
       return {
         ...state,
-        isAuth: false,
-        token: null,
-        expiryDate: null,
-        username: null,
+        auth: {
+          ...state?.auth,
+          isLoggedIn: false,
+          token: null,
+          expiryDate: null,
+          username: null,
+        },
       };
     }
-    case SET_LOADING: {
-      return { ...state, isLoading: action.payload };
-    }
+    // case SET_LOADING: {
+    //   return { ...state, isLoading: action.payload };
+    // }
     case EDIT_STORE: {
       return {
         ...state,
@@ -100,7 +105,6 @@ const reducer = (state,action) =>{
     default:
       break;
   }
-}
+};
 
-
-export default reducer
+export default reducer;

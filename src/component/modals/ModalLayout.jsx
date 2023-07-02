@@ -17,7 +17,7 @@ const ModalLayout = (props) => {
                 {/* The actual dialog panel  */}
                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                     <Dialog.Title as="h3" className='flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600'>
-                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">
+                        <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
                             {props?.title}
                         </h3>
                         <button type="button"

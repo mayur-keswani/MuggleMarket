@@ -124,7 +124,7 @@ const UserDetails = (props) => {
                 onChange={() => props.changePaymentMethod("cash")}
               />
               <label
-                class="text-primary"
+                className="text-primary"
                 className="fw-bold fs-6"
                 for="btnradio1"
               >
@@ -142,7 +142,7 @@ const UserDetails = (props) => {
                 onChange={() => props.changePaymentMethod("card")}
               />
               <label
-                class="text-primary"
+                className="text-primary"
                 for="btnradio2"
                 className="fw-bold fs-6"
               >

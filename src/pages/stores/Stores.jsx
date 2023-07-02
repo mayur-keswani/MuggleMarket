@@ -1,25 +1,22 @@
 import React, { useEffect, useState, useContext } from "react";
 import Store from "../../component/store/Store";
-import { UserContext } from "../../context/user-context";
-import { SET_LOADING } from "../../context/action-types";
 // import { Header, Image, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { Skeleton } from "../../component/commons/skeleton/card";
 import { fetchStoresAPI } from "../../lib/market.api";
-import StoreImage from './store.png'
+import StoreImage from "./store.png";
 const Stores = () => {
   const [stores, setStores] = useState([]);
-  const { globalState, dispatch } = useContext(UserContext);
-  const { isLoading } = globalState;
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchStores = async () => {
     try {
-      dispatch({ type: SET_LOADING, payload: true });
+      setIsLoading(true);
       const { data } = await fetchStoresAPI();
       setStores(data.stores);
-      dispatch({ type: SET_LOADING, payload: false });
+      setIsLoading(false);
     } catch (error) {
-      dispatch({ type: SET_LOADING, payload: false });
+      setIsLoading(false);
     }
   };
 
@@ -71,7 +68,9 @@ const Stores = () => {
       ) : (
         <div className="flex align-middle items-center justify-center flex-col">
           <img src={StoreImage} alt={"No Store"} />
-          <span className="text-xl font-extralight text-gray-600">Oops!, No Stores Found! </span>
+          <span className="text-xl font-extralight text-gray-600">
+            Oops!, No Stores Found!{" "}
+          </span>
         </div>
       )}
     </main>

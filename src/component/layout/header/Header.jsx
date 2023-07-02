@@ -14,8 +14,8 @@ const Header = (props) => {
   const [showLoginDialog, setShowLoginModal] = useState(false)
   const [showSignupDialog, setShowSignupModal] = useState(false);
 
-  const { globalState, dispatch } = useContext(UserContext);
-  const { isAuth, username } = globalState;
+  const { globalState } = useContext(UserContext);
+  const { auth:{isLoggedIn} } = globalState;
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   return (
@@ -65,7 +65,7 @@ const Header = (props) => {
             <div className={`${styles.rightSide} ${isMenuOpen && styles.open}`}>
               <ul className={`${styles.navList} ${props?.forBusiness ? 'text-white' : 'text-slate-600'} text-xl`}>
                 {
-                  !isAuth && <><li
+                  !isLoggedIn && <><li
                     className="btn-login px-2 mx-2"
                     onClick={() => {
                       setShowLoginModal(true);

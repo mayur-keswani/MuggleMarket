@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 
 import Stores from "./pages/stores/Stores";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 
 import PartnerWithUs from "./pages/partner_with_us/PartnerWithUs";
 import StoreDetails from "./pages/store_details/StoreDetails";
@@ -17,20 +17,25 @@ import CreateStore from "./pages/create_your_store/CreateStore";
 import { onLogin } from "./context/action-creators";
 import { checkIsAuthenticated } from "./lib/localStorage";
 
+const ProtectedRoute = (props) => {
+  if (!props?.auth?.isLoggedIn) {
+    return <Navigate to={"/"} replace />;
+  }
+
+  return props.children ? props.children : <Outlet />;
+};
 const App = () => {
-  const { globalState, dispatch } = useContext(UserContext)
-
-
+  const { globalState, dispatch } = useContext(UserContext);
 
   useEffect(() => {
     (async () => {
       const auth = await checkIsAuthenticated();
-      console.log({auth})
+      console.log({ auth });
       if (auth) {
         dispatch(onLogin(auth))
       }
-    })()
-  }, [])
+    })();
+  }, []);
   return (
     <Routes>
       <Route
@@ -45,18 +50,23 @@ const App = () => {
       <Route
         path="/partner-with-us"
         element={
-          <BaseLayout forBusiness={true}>
-            <PartnerWithUs />
-          </BaseLayout>
+          <ProtectedRoute auth={globalState?.auth}>
+            <BaseLayout forBusiness={true}>
+              <Outlet />
+            </BaseLayout>
+          </ProtectedRoute>
         }
-      />
-
-      {globalState.isAuth || true ? (
+      >
+        <Route path="/partner-with-us" element={<PartnerWithUs />} />
         <Route
-          path="/create-your-store/:page"
-          element={<BaseLayout forBusiness={true}><CreateStore /></BaseLayout>}
+          path="/partner-with-us/create-your-store/:page"
+          element={
+            <BaseLayout forBusiness={true}>
+              <CreateStore />
+            </BaseLayout>
+          }
         />
-      ) : null}
+      </Route>
 
       <Route path="/store/:id" element={<StoreDetails />} />
 
