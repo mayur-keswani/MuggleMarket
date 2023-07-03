@@ -51,17 +51,22 @@ const App = () => {
         path="/partner-with-us"
         element={
           <ProtectedRoute auth={globalState?.auth}>
-            <BaseLayout forBusiness={true}>
-              <Outlet />
-            </BaseLayout>
+            <Outlet />
           </ProtectedRoute>
         }
       >
-        <Route path="/partner-with-us" element={<PartnerWithUs />} />
+        <Route
+          path="/partner-with-us"
+          element={
+            <BaseLayout forBusiness={true} overLap={true}>
+              <PartnerWithUs />
+            </BaseLayout>
+          }
+        />
         <Route
           path="/partner-with-us/create-your-store/:page"
           element={
-            <BaseLayout forBusiness={true}>
+            <BaseLayout forBusiness={true} >
               <CreateStore />
             </BaseLayout>
           }
