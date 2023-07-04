@@ -14,8 +14,6 @@ import BaseLayout from "./component/layout/BaseLayout";
 import "react-toastify/dist/ReactToastify.css";
 import { UserContext } from "./context/user-context";
 import CreateStore from "./pages/create_your_store/CreateStore";
-import { onLogin } from "./context/action-creators";
-import { checkIsAuthenticated } from "./lib/localStorage";
 
 const ProtectedRoute = (props) => {
   if (!props?.auth?.isLoggedIn) {
@@ -24,18 +22,11 @@ const ProtectedRoute = (props) => {
 
   return props.children ? props.children : <Outlet />;
 };
+
+
 const App = () => {
   const { globalState, dispatch } = useContext(UserContext);
 
-  useEffect(() => {
-    (async () => {
-      const auth = await checkIsAuthenticated();
-      console.log({ auth });
-      if (auth) {
-        dispatch(onLogin(auth))
-      }
-    })();
-  }, []);
   return (
     <Routes>
       <Route
@@ -66,7 +57,7 @@ const App = () => {
         <Route
           path="/partner-with-us/create-your-store/:page"
           element={
-            <BaseLayout forBusiness={true} >
+            <BaseLayout forBusiness={true}>
               <CreateStore />
             </BaseLayout>
           }

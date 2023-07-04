@@ -1,7 +1,7 @@
 
 
-export const checkIsAuthenticated=async()=>{
-    const auth =  await localStorage?.getItem('auth') ?? {}
+export const getAuthDetails=()=>{
+    const auth =  localStorage?.getItem('auth') ?? {}
     return JSON.parse(auth)
 }
 export const clearLocalStorage=async ()=>{

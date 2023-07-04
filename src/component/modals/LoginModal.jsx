@@ -25,7 +25,7 @@ const LoginModal = (props) => {
       console.log(data)
       setIsLoading(false)
       const expiresIN = new Date(new Date().getTime() + 3600000)?.toISOString();
-      localStorage.setItem('auth',JSON.stringify({token:result?.tolken,username:result?.username,expiresIN}))
+      localStorage.setItem('auth',JSON.stringify({token:result?.token,username:result?.username,expiresIN}))
       // localStorage.setItem("token", JSON.stringify(result.token));
       // localStorage.setItem("username", JSON.stringify(result.username));
       // localStorage.setItem("expiresIn", expiresIN);

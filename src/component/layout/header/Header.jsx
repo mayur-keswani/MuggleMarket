@@ -71,7 +71,11 @@ const Header = (props) => {
               )}
             </span>
 
-            {props?.forBusiness ? <ForBusiness overLap={props?.overLap} /> : <Logo />}
+            {props?.forBusiness ? (
+              <ForBusiness overLap={props?.overLap} />
+            ) : (
+              <Logo />
+            )}
           </div>
           <div className={styles.navbarInner}>
             {!props?.forBusiness && (
