@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MenuItems from "../menu-items/MenuItems";
+import FormItem from "../commons/Input";
 
 const OutletItemsForm = () => {
   const [avgExpense, setAvgExpense] = useState("200");
@@ -11,26 +12,23 @@ const OutletItemsForm = () => {
   };
   // console.log(showConfirmBox)
   return (
-    <>
-      <div>
-        <form>
-         
-            <input
-              placeholder="Mobile number at store"
-              label="Average Expense"
-              value={avgExpense}
-              onChange={(event) => setAvgExpense(event.target.value)}
-            />
-        </form>
-        <div
-          className="menu-items-entry p-4 text-center"
-          style={{ overflowX: "scroll" }}
-        >
-          <h3>Add Items</h3>
-          <MenuItems submitForm={submitFormHandler} />
-        </div>
+    <form>
+      <FormItem
+        type="text"
+        placeholder="Mobile number at store"
+        label="Average Expense"
+        value={avgExpense}
+        onChange={(event) => setAvgExpense(event.target.value)}
+      />
+
+      <div
+        className="menu-items-entry p-4 text-center"
+        style={{ overflowX: "scroll" }}
+      >
+        <div className="text">Add Items</div>
+        <MenuItems submitForm={submitFormHandler} />
       </div>
-    </>
+    </form>
   );
 };
 

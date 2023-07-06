@@ -55,10 +55,10 @@ header {
   align-items: center;
   justify-content: center;
   height: 5.4rem;
-  background: rgb(255, 255, 255);
+  /* background: rgb(255, 255, 255); */
   border-radius: 0.8rem;
-  box-shadow: rgba(28, 28, 28, 0.08) 0px 2px 8px;
-  border: 1px solid rgb(232, 232, 232);
+  /* box-shadow: rgba(28, 28, 28, 0.08) 0px 2px 8px; */
+  /* border: 1px solid rgb(232, 232, 232); */
 }
 .navbarInner .rightSide {
   display: flex;
@@ -118,7 +118,7 @@ header {
 
     top: calc(100vh - (100vh - 5.6rem));
     left: 0;
-    background-color: rgb(245, 239, 239);
+    /* background-color: rgb(245, 239, 239); */
     transition-property: all;
     transition-duration: 300ms;
 

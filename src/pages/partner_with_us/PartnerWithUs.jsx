@@ -2,20 +2,18 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/user-context";
 
-
 const PartnerWithUs = () => {
-
-  const { globalState } = useContext(UserContext)
-  const navigate = useNavigate()
+  const { globalState } = useContext(UserContext);
+  const navigate = useNavigate();
 
   return (
     <>
       <div
         className="zumbotron h-[420px] flex items-center justify-start flex-col relative text-white"
-      // style={{
-      //   background:
-      //     "linear-gradient(rgba(0, 0, 0, 0) 57.17%, rgba(0, 0, 0, 0.46) 100%), rgba(0, 0, 0, 0.3)",
-      // }}
+        // style={{
+        //   background:
+        //     "linear-gradient(rgba(0, 0, 0, 0) 57.17%, rgba(0, 0, 0, 0.46) 100%), rgba(0, 0, 0, 0.3)",
+        // }}
       >
         <div className="w-full h-full absolute top-0 left-0 after:absolute after:top-0 after:w-full after:h-full  after:shadow-inner after:block  after:content-['']">
           <img
@@ -29,9 +27,13 @@ const PartnerWithUs = () => {
           <span className="text-4xl">Partner with MugggleMarket</span>
           <p className="text-2xl ">for free and get more customers!</p>
           <div className="flex justify-center items-center p-2 mt-3 h-16 ">
-            <button className="rounded w-44 lg:w-1/5 h-full" disabled={!globalState?.auth?.isLoggedIn} onClick={()=>{
-              navigate('/partner-with-us/create-your-store/1')
-            }}>
+            <button
+              className="btn btn-primary rounded w-48  lg:w-1/5 h-full "
+              disabled={!globalState?.auth?.isLoggedIn}
+              onClick={() => {
+                navigate("/partner-with-us/create-your-store/1");
+              }}
+            >
               Register your Store
             </button>
           </div>
@@ -193,7 +195,7 @@ const PartnerWithUs = () => {
     //   </Segment>
     //   {/* <Footer/> */}
     // </>
-  )
+  );
 };
 
 export default PartnerWithUs;

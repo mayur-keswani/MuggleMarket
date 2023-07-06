@@ -35,9 +35,7 @@ const Header = (props) => {
   return (
     <>
       <header
-        className={`${props?.forBusiness &&
-          props?.overLap &&
-          "absolute top-0 left-0 bg-white dark:bg-slate-800 md:bg-transparent z-10 "} `}
+        className={`dark:border-gray-dark dark:bg-gray-dark z-10  `}
       >
         <LoginModal
           isOpen={showLoginDialog}
@@ -59,14 +57,12 @@ const Header = (props) => {
                   onClick={() => {
                     setIsMenuOpen(false);
                   }}
-                  className={`${props?.forBusiness && " md:text-white"}`}
                 />
               ) : (
                 <GiHamburgerMenu
                   onClick={() => {
                     setIsMenuOpen(true);
                   }}
-                  className={`${props?.forBusiness && "md:text-white"}`}
                 />
               )}
             </span>
@@ -89,9 +85,7 @@ const Header = (props) => {
 
             <div className={`${styles.rightSide} ${isMenuOpen && styles.open}`}>
               <ul
-                className={`${styles.navList} ${
-                  props?.forBusiness ? "text-white" : "text-slate-600"
-                } text-xl`}
+                className={`text-xl`}
               >
                 {!isLoggedIn ? (
                   <>
@@ -131,7 +125,7 @@ const Header = (props) => {
                     className="relative inline-block text-left mx-5"
                   >
                     <div>
-                      <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-full bg-white px-2 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                      <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-full px-2 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                         <i color="#FF7E8B" size="20">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -154,14 +148,14 @@ const Header = (props) => {
 
                     <Transition
                       as={Fragment}
-                      enter="transition ease-out duration-100"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
+                      // enter="transition ease-out duration-100"
+                      // enterFrom="transform opacity-0 scale-95"
+                      // enterTo="transform opacity-100 scale-100"
+                      // leave="transition ease-in duration-75"
+                      // leaveFrom="transform opacity-100 scale-100"
+                      // leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="absolute right-0 z-20 mt-2 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         {/* <div className="px-1 py-1 "> */}
                         <Menu.Item>
                           {({ active }) => (

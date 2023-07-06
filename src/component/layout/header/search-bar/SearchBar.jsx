@@ -21,7 +21,7 @@ const SearchBar = () => {
       </i>
 
       <input
-        className="appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        className="appearance-none rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline"
         id="username"
         type="text"
         placeholder="Search for restaurant, cuisine or a dish"

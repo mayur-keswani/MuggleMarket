@@ -1,142 +1,196 @@
-import React, { useState , useContext} from 'react'
-import {UserContext} from '../../context/user-context'
-import {SET_LOADING} from '../../context/action-types'
-import {useNavigate} from 'react-router-dom'
-import {Form, Header, Icon, Table, Button} from 'semantic-ui-react'
-import { Skeleton } from '../commons/skeleton/card'
-import { uploadItemToStore } from '../../lib/market.api'
+import React, { useState, useContext } from "react";
+import { UserContext } from "../../context/user-context";
+import { useNavigate } from "react-router-dom";
+import { Skeleton } from "../commons/skeleton/card";
+import { uploadItemToStore } from "../../lib/market.api";
+import FormItem from "../commons/Input";
 
 const MenuItems = (props) => {
   const navigate = useNavigate();
-  const {globalState,dispatch} = useContext(UserContext)
-  const {token,editStoreKey,isLoading} = globalState
-  const [items,setItems]=useState([])
-  const [menuItem,setMenuItem] = useState({
-    id:1,
-    name:"",
-    description:"",
-    product_pic:"",
-    price:""
-  })
-  const [newItemSlot,setNewItemSlot] = useState(true)
-  
+  const { globalState, dispatch } = useContext(UserContext);
+  const { token, editStoreKey } = globalState;
+  const [items, setItems] = useState([]);
+  const [menuItem, setMenuItem] = useState({
+    id: 1,
+    name: "",
+    description: "",
+    product_pic: "",
+    price: "",
+  });
+  const [newItemSlot, setNewItemSlot] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   // const addNewItemHandler = async () =>{
   //   await setItems((prevState)=>{
   //     return prevState.concat(menuItem)
   //   })
   // }
 
-  const uploadItemHandler = async() =>{
-    
-    const formData = new FormData()
-    formData.append('name',menuItem.name)
-    formData.append('description',menuItem.description)
-    formData.append('storeImage',menuItem.product_pic)
-    console.log(formData.get('storeImage'))
-    formData.append('price',menuItem.price) 
-    try{
-       dispatch({ type: SET_LOADING, payload: true });
-       const {data:result} = await uploadItemToStore(editStoreKey,formData)
-       setItems((prevState) => {
-         return prevState.concat(result.product);
-       });
-       dispatch({ type: SET_LOADING, payload: false });
-
-    }catch(error){
-       dispatch({ type: SET_LOADING, payload: false });
-
+  const uploadItemHandler = async () => {
+    const formData = new FormData();
+    formData.append("name", menuItem.name);
+    formData.append("description", menuItem.description);
+    formData.append("storeImage", menuItem.product_pic);
+    console.log(formData.get("storeImage"));
+    formData.append("price", menuItem.price);
+    try {
+      setIsLoading(true);
+      const { data: result } = await uploadItemToStore(editStoreKey, formData);
+      setItems((prevState) => {
+        return prevState.concat(result.product);
+      });
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
     }
-  }
- 
- return(
-  isLoading?
-    <Skeleton/>:
-  <>
-  <Table unstackable style={{width:"100%"}} className="m-0">
-    <Table.Header>
-      <Table.Row>
-        <Table.HeaderCell>Items No.</Table.HeaderCell>
-        <Table.HeaderCell>Name</Table.HeaderCell>
-        <Table.HeaderCell>Description</Table.HeaderCell>
-        <Table.HeaderCell>Product Image</Table.HeaderCell>
-        <Table.HeaderCell>Price</Table.HeaderCell>
-        <Table.HeaderCell></Table.HeaderCell> 
-      </Table.Row>
-    </Table.Header>
+  };
 
-    <Table.Body>
-    {
-     items.map((item)=> {
-      return <Table.Row key={item._id}>
-        <Table.Cell>
-          {item._id}
-        </Table.Cell>
-        <Table.Cell className="my-4">{item.name}</Table.Cell>
-        <Table.Cell>{item.description}</Table.Cell>
-        <Table.Cell>{item.product_pic}</Table.Cell>
-        <Table.Cell>{item.price}</Table.Cell>
-      </Table.Row>
-     })
-    }
-    {
-      newItemSlot?
-      (
-       <Table.Row>
-        <Table.Cell>
-          <h4 className="text-danger">{menuItem.id}</h4>
-        </Table.Cell>
-        <Table.Cell className="my-4">
-          <textarea name="name" rows="5" cols="20"
-            value={menuItem.name}
-            onChange={(event)=>setMenuItem({...menuItem,name:event.target.value})}
-            />
-        </Table.Cell>
-        <Table.Cell  style={{height:"100%"}}>
-          <textarea name="description" rows="5" cols="30"
-            value={menuItem.description}
-            onChange={(event)=>setMenuItem({...menuItem,description:event.target.value})}
-            />
-        </Table.Cell>
-        <Table.Cell>
-          <Header as='h4' image>
-            <Icon name='picture'  size='huge' />
-          </Header><br/>
-          <input type="file" name="picture" 
-            onChange={(event)=>setMenuItem({...menuItem,product_pic:event.target.files[0]})}
-            />
-        </Table.Cell>
-        <Table.Cell>
-          <textarea name="price" rows="2" cols="20"
-             value={menuItem.price}
-              onChange={(event)=>setMenuItem({...menuItem,price:event.target.value})}
-             />
+  return isLoading ? (
+    <Skeleton />
+  ) : (
+    <div className=" border border-gray-200 md:rounded-lg">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="text-xs text-gray-700 uppercase  dark:bg-gray-dark dark:text-gray-400">
+          <tr scope="col" class="bg-gray-50">
+            <th
+              scope="col"
+              class="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+            >
+              Items No.
+            </th>
+            <th
+              scope="col"
+              class="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+            >
+              Name
+            </th>
+            <th
+              scope="col"
+              class="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+            >
+              Description
+            </th>
+            <th
+              scope="col"
+              class="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+            >
+              Product Image
+            </th>
+            <th
+              scope="col"
+              class="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+            >
+              Price
+            </th>
+            <th
+              scope="col"
+              class="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+            ></th>
+          </tr>
+        </thead>
 
-          <div className="text-muted text-center">Enter Price In INR(₹)</div>
-        </Table.Cell>
-        <Table.Cell>
-          <Button default onClick={()=>uploadItemHandler()}>ADD</Button>
-        </Table.Cell>
-    
-      </Table.Row>)
-    :
-    ""
-    }
-    </Table.Body>
-   </Table>
+        <tbody>
+          {/* {items.map((item) => {
+            return (
+              <tr
+                key={item._id}
+                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              >
+                <td class="">{item._id}</td>
+                <td className="">{item.name}</td>
+                <td class="">{item.description}</td>
+                <td class="">{item.product_pic}</td>
+                <td class="">{item.price}</td>
+              </tr>
+            );
+          })} */}
+          {true && (
+            <tr >
+              <td>
+                <span className="text-danger">{menuItem.id}</span>
+              </td>
+              <td className="my-4">
+                <FormItem
+                  type="text"
+                  name="name"
+                  rows="5"
+                  cols="20"
+                  value={menuItem.name}
+                  onChange={(event) =>
+                    setMenuItem({ ...menuItem, name: event.target.value })
+                  }
+                />
+              </td>
+              <td style={{ height: "100%" }}>
+                <FormItem
+                  type="textarea"
+                  name="description"
+                  rows="5"
+                  cols="10"
+                  value={menuItem.description}
+                  onChange={(event) =>
+                    setMenuItem({
+                      ...menuItem,
+                      description: event.target.value,
+                    })
+                  }
+                />
+              </td>
+              <td>
+                <div className="text-xl" image>
+                  {/* <Icon name="picture" size="huge" /> */}
+                </div>
+                <FormItem
+                  type="file"
+                  name="picture"
+                  onChange={(event) =>
+                    setMenuItem({
+                      ...menuItem,
+                      product_pic: event.target.files[0],
+                    })
+                  }
+                />
+              </td>
+              <td>
+                <FormItem
+                  type="text"
+                  name="price"
+                  rows="2"
+                  cols="10"
+                  value={menuItem.price}
+                  onChange={(event) =>
+                    setMenuItem({ ...menuItem, price: event.target.value })
+                  }
+                />
 
-   {/* <Button  className="mb-5" onClick={addNewItemHandler}><Icon name="add"/></Button> */}
-    {/* <Button  className="mt-p" onClick={addNewItemHandler}><Icon name="Submit Menu"/></Button> */}
-   <Form className="text-center mt-4" >	
-			  <Button animated  size="huge" className="" color='green' onClick={()=>navigate('/store/'+editStoreKey+'/items')}>
-     			<Button.Content visible>Check Store</Button.Content>
-      			<Button.Content hidden>
-        			<Icon name='arrow right' />
-      			</Button.Content>
-    		</Button>
-	 </Form>
+              </td>
+              <td>
+                <button default onClick={() => uploadItemHandler()}>
+                  ADD
+                </button>
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
 
-  </>
-)
-}
+    // {/* <Button  className="mb-5" onClick={addNewItemHandler}><Icon name="add"/></Button> */}
+    // {/* <Button  className="mt-p" onClick={addNewItemHandler}><Icon name="Submit Menu"/></Button> */}
+    // {/* <Form className="text-center mt-4"> */}
+    // {/* <button
+    //   animated
+    //   size="huge"
+    //   className=""
+    //   color="green"
+    //   onClick={() => navigate("/store/" + editStoreKey + "/items")}
+    // > */}
+    //   {/* <Button.Content visible>Check Store</Button.Content>
+    //   <Button.Content hidden>
+    //     <Icon name="arrow right" />
+    //   </Button.Content> */}
+    // {/* </button> */}
+    // {/* </Form> */}
+  );
+};
 
-export default MenuItems
+export default MenuItems;

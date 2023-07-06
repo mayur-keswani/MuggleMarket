@@ -6,12 +6,18 @@
   .error {
     @apply text-red-700 hover:text-red-800 before:content-['⚠'] pl-1;
   }
+  .btn-primary {
+    @apply py-2 px-4 bg-primary text-white font-semibold  rounded-lg shadow-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-blue focus:ring-opacity-75;
+  }
+
+  .text-muted {
+    @apply  text-slate-500
+  }
 }
 
 :root {
-  --primary: rgb(211, 24, 42);
-  --secondary: rgb(183, 16, 33);
-
+  --primary-color: rgb(211, 24, 42);
+  --primary-dark: rgb(183, 16, 33);
 }
 
 body {
@@ -27,19 +33,32 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.dark {
+  color: rgb(228, 227, 227);
+  --tw-bg-opacity: 1;
+  /* background-color: rgb(30 41 59 / var(--tw-bg-opacity)); */
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-button{
+/* button {
   background-color: var(--primary);
 }
-button:hover{
+button:hover {
   background-color: var(--secondary);
 }
-button:disabled{
+button:disabled {
   background-color: var(--primary);
   cursor: not-allowed;
   background-color: gray;
+} */
+
+/* --------------- Input Form---------------- */
+input {
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }

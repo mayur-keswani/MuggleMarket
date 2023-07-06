@@ -16,33 +16,36 @@ const CreateStore = () => {
   const { page } = useParams();
 
   const InputForm = () => {
-    if (+page === 0 || true) {
+    if (+page === 1) {
+      return (
+        <Suspense fallback={<div>Loading...</div>}>
+          <main>
+            <div className="text-xl">Outlet Details</div>
+            <hr />
+           
+            <OutletInformationForm />
+          </main>
+        </Suspense>
+      );
+    } else if (+page === 2) {
       return (
         <Suspense fallback={<div>Loading...</div>}>
           <main>
             <div className="text-2xl">Outlet Details</div>
             <hr />
-            <span>Store Details</span>
-            <span className="text-slate-600">Name, address, Location</span>
-            <OutletInformationForm />
+           
+            <OutletTimingsForm />
           </main>
         </Suspense>
       );
-    } 
-    // else if (+page === 2) {
-    //   return (
-    //     <Suspense fallback={<div>Loading...</div>}>
-
-    //       <OutletTimingsForm />
-    //     </Suspense>
-    //   );
-    // } else if (+page === 3) {
-    //   return (
-    //     <Suspense fallback={<div>Loading...</div>}>
-    //       <OutletItemsForm />
-    //     </Suspense>
-    //   );
-    // }
+    }
+    else if (+page === 3) {
+      return (
+        <Suspense fallback={<div>Loading...</div>}>
+          <OutletItemsForm />
+        </Suspense>
+      );
+    }
   };
   return (
     <>

@@ -11,7 +11,7 @@ const Guide = (props) => {
 
   return (
     <div>
-      <div className="sr-only text-xl">Steps</div>
+      <div className="sr-only text-xl dark">Steps</div>
 
       <div className="w-full">
         <ol className="grid grid-cols-1 divide-x divide-gray-100 overflow-hidden rounded-lg border border-gray-100 text-sm text-gray-500 sm:grid-cols-3">

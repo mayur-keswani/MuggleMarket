@@ -53,7 +53,7 @@ const DetectLocation = ({ isMobileView }) => {
       </i>
 
       <Menu as="div" className={`hidden relative md:inline-block text-left mx-2 `}>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5  bg-white bg- px-3 py-2 text-sm font-semibold text-gray-900 ">
+        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900 ">
           Location
         </Menu.Button>
         <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg  ring-black ring-opacity-5 focus:outline-none">
