@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "./interceptors"
 
 const endpoint = "https://muggle-market.onrender.com";
 
