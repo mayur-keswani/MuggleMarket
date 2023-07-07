@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MenuItems from "../menu-items/MenuItems";
-import FormItem from "../commons/Input";
+import FormItem from "../commons/form-item";
 
 const OutletItemsForm = () => {
   const [avgExpense, setAvgExpense] = useState("200");

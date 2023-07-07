@@ -3,7 +3,7 @@ import { UserContext } from "../../context/user-context";
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "../commons/skeleton/card";
 import { uploadItemToStore } from "../../lib/market.api";
-import FormItem from "../commons/Input";
+import FormItem from "../commons/form-item";
 
 const MenuItems = (props) => {
   const navigate = useNavigate();

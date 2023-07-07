@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ModalWrapper from "../commons/modal-wrapper/ModalWrapper";
 // import SubmitForm from "../../pages/create_your_store/SubmitForm";
-import FormItem from "../commons/Input";
+import FormItem from "../commons/form-item";
 
 const OutletTimingsForm = () => {
   const [outletDetails, setOutletDetails] = useState({
@@ -159,18 +159,7 @@ const OutletTimingsForm = () => {
         </div>
       </div>
 
-      {/* <Button
-        animated
-        size="huge"
-        className="my-5"
-        color="blue"
-        onClick={submitFormHandler}
-      >
-        <Button.Content visible>Create Store</Button.Content>
-        <Button.Content hidden>
-          <Icon name="arrow right" />
-        </Button.Content>
-      </Button> */}
+     
     </form>
   );
 };

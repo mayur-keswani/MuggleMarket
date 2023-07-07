@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../context/user-context";
 import { useNavigate } from "react-router-dom";
-import FormItem from "../commons/Input";
+import FormItem from "../commons/form-item";
 
 const OutletInformationForm = () => {
   const [outletDetails, setOutletDetails] = useState({

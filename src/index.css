@@ -7,7 +7,25 @@
     @apply text-red-700 hover:text-red-800 before:content-['⚠'] pl-1;
   }
   .btn-primary {
-    @apply py-2 px-4 bg-primary text-white font-semibold  rounded-lg shadow-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-blue focus:ring-opacity-75;
+    @apply flex items-center justify-center bg-primary text-white font-semibold  rounded-lg shadow-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-blue focus:ring-opacity-75;
+  }
+  .btn-secondary {
+    @apply  flex items-center justify-center bg-gray-dark text-white font-semibold  rounded-lg shadow-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-blue focus:ring-opacity-75;
+  }
+  .btn-info {
+    @apply  flex items-center justify-center bg-green text-white font-semibold  rounded-lg shadow-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-blue focus:ring-opacity-75;
+  }
+  .btn-outline {
+    @apply  flex items-center justify-center rounded-md border border-primary text-sm font-semibold text-primary shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600
+  }
+  .btn-outline-secondary {
+    @apply  flex items-center justify-center rounded-md border border-gray-dark text-sm font-semibold text-gray-dark shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-dark
+  }
+  .btn-outline-info {
+    @apply  flex items-center justify-center rounded-md border border-blue text-sm font-semibold text-blue shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue
+  }
+  .btn-outline-warning {
+    @apply  flex items-center justify-center rounded-md border border-yellow text-sm font-semibold text-yellow shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow
   }
 
   .text-muted {
