@@ -29,48 +29,29 @@ const Stores = () => {
 
   return (
     <main className="m-2 min-h-[400px]">
-      {isLoading ? (
-        <Skeleton items={4} />
-      ) : stores.length ? (
-        <>
-          <h2 className="mx-4 text-muted">Top brands in spotlight</h2>
-          <div className="row mt-3 ">
-            {stores.map((store) => (
-              <div
-                className="col-lg-2 col-md-4 col-6 d-flex justify-content-center"
-                key={store._id}
-              >
-                <Store store={store} />
-              </div>
-            ))}
-          </div>
-          <div
-            className="m-4 p-4 bg-light"
-            style={{ border: "2px dotted black" }}
-          >
-            <div className="m-2 h2">Partner with Muggle-Market</div>
-            <p className="h5 mx-3 text-lead">
-              for free and get more customers!
-            </p>
-            <div>
-              <Button
-                as={Link}
-                to="/partner_with_us"
-                positive
-                size="large"
-                className="mx-3 px-5"
-              >
-                Register Your Store
-              </Button>
-            </div>
-          </div>
-        </>
-      ) : (
+      {stores?.length === 0 ? (
         <div className="flex align-middle items-center justify-center flex-col">
           <img src={StoreImage} alt={"No Store"} />
           <span className="text-xl font-extralight text-gray-600">
             Oops!, No Stores Found!{" "}
           </span>
+        </div>
+      ) : (
+        <div>
+          <div className="text-2xl mx-4 text-muted">
+            Top brands in spotlight
+          </div>
+          {isLoading  ? (
+            <Skeleton items={5} />
+          ) : (
+            <div className="flex overflow-x-auto space-x-8  my-3 mx-5 box-border">
+              {stores.map((store) => (
+                <div className="flex-shrink-0 flex min-w-[300px]" key={store._id}>
+                  <Store store={store} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </main>

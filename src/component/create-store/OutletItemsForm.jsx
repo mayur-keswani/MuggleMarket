@@ -22,8 +22,7 @@ const OutletItemsForm = () => {
       />
 
       <div
-        className="menu-items-entry p-4 text-center"
-        style={{ overflowX: "scroll" }}
+        className="menu-items-entry p-4 text-center overflow-x-scroll"
       >
         <div className="text">Add Items</div>
         <MenuItems submitForm={submitFormHandler} />
