@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import Store from "../../component/store/Store";
 // import { Header, Image, Button } from "semantic-ui-react";
-import { Link } from "react-router-dom";
 import { Skeleton } from "../../component/commons/skeleton/card";
 import { fetchStoresAPI } from "../../lib/market.api";
 import StoreImage from "./store.png";
@@ -23,7 +22,7 @@ const Stores = () => {
   useEffect(() => {
     fetchStores();
     return () => {
-      setStores([]); // This worked for me
+      setStores([]); 
     };
   }, []);
 

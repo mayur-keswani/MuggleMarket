@@ -10,10 +10,10 @@ const PartnerWithUs = () => {
     <>
       <div
         className="zumbotron h-[420px] flex items-center justify-start flex-col relative text-white"
-        // style={{
-        //   background:
+       //   background:
         //     "linear-gradient(rgba(0, 0, 0, 0) 57.17%, rgba(0, 0, 0, 0.46) 100%), rgba(0, 0, 0, 0.3)",
-        // }}
+        // }}  // style={{
+       
       >
         <div className="w-full h-full absolute top-0 left-0 after:absolute after:top-0 after:w-full after:h-full  after:shadow-inner after:block  after:content-['']">
           <img
@@ -31,7 +31,7 @@ const PartnerWithUs = () => {
               className="btn btn-primary rounded w-48  lg:w-1/5 h-full "
               disabled={!globalState?.auth?.isLoggedIn}
               onClick={() => {
-                navigate("/partner-with-us/create-your-store/1");
+                navigate("/partner-with-us/create-your-store");
               }}
             >
               Register your Store

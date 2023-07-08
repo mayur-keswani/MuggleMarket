@@ -55,7 +55,7 @@ const App = () => {
           }
         />
         <Route
-          path="/partner-with-us/create-your-store/:page"
+          path="/partner-with-us/create-your-store"
           element={
             <BaseLayout forBusiness={true}>
               <CreateStore />

@@ -48,42 +48,42 @@ const MenuItems = (props) => {
     <Skeleton />
   ) : (
     <div className=" border border-gray-200 md:rounded-lg">
-      <table class="min-w-full divide-y divide-gray-200">
-        <thead class="text-xs text-gray-700 uppercase  dark:bg-gray-dark dark:text-gray-400">
-          <tr scope="col" class="bg-gray-50">
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="text-xs text-gray-700 uppercase  dark:bg-gray-dark dark:text-gray-400">
+          <tr scope="col" className="bg-gray-50">
             <th
               scope="col"
-              class="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+              className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
             >
               Items No.
             </th>
             <th
               scope="col"
-              class="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+              className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
             >
               Name
             </th>
             <th
               scope="col"
-              class="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+              className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
             >
               Description
             </th>
             <th
               scope="col"
-              class="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+              className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
             >
               Product Image
             </th>
             <th
               scope="col"
-              class="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+              className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
             >
               Price
             </th>
             <th
               scope="col"
-              class="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
+              className="px-4 py-3.5 text-left text-sm font-normal text-gray-700"
             ></th>
           </tr>
         </thead>
@@ -93,13 +93,13 @@ const MenuItems = (props) => {
             return (
               <tr
                 key={item._id}
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
               >
-                <td class="">{item._id}</td>
+                <td className="">{item._id}</td>
                 <td className="">{item.name}</td>
-                <td class="">{item.description}</td>
-                <td class="">{item.product_pic}</td>
-                <td class="">{item.price}</td>
+                <td className="">{item.description}</td>
+                <td className="">{item.product_pic}</td>
+                <td className="">{item.price}</td>
               </tr>
             );
           })} */}

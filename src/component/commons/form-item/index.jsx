@@ -1,13 +1,13 @@
 import React from "react";
 
-const FormItem = (props) => {
+const FormItem = (props,ref) => {
   switch (props?.type) {
     case "text":
       return (
         <>
           {props?.label && (
             <label
-              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               for={props?.name}
             >
               {props?.label}
@@ -16,7 +16,8 @@ const FormItem = (props) => {
           <input
             className={`flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-dark ${props?.className &&
               props?.className}`}
-            {...(({ className, ...o }) => o)(props)}
+            {...(props)}
+            ref={ref}
           />
         </>
       );
@@ -25,7 +26,7 @@ const FormItem = (props) => {
         <>
           {props?.label && (
             <label
-              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               for={props?.name}
             >
               {props?.label}
@@ -36,6 +37,7 @@ const FormItem = (props) => {
             className={`flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-dark ${props?.className &&
               props?.className}`}
             {...(({ className, ...o }) => o)(props)}
+            ref={ref}
           />
         </>
       );
@@ -44,7 +46,7 @@ const FormItem = (props) => {
         <>
           {props?.label && (
             <label
-              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               for={props?.name}
             >
               {props?.label}
@@ -54,6 +56,7 @@ const FormItem = (props) => {
             className={`flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-dark ${props?.className &&
               props?.className}`}
             {...(({ className, ...o }) => o)(props)}
+            ref={ref}
           ></textarea>
         </>
       );
@@ -63,10 +66,11 @@ const FormItem = (props) => {
         <>
           {props?.label && (
             <label
-              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               for={props?.name}
             >
               {props?.label}
+              ref={ref}
             </label>
           )}
           <input
@@ -74,6 +78,7 @@ const FormItem = (props) => {
             className={`flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-dark ${props?.className &&
               props?.className}`}
             {...(({ className, ...o }) => o)(props)}
+            ref={ref}
           />
         </>
       );
@@ -82,7 +87,7 @@ const FormItem = (props) => {
         <>
           {props?.label && (
             <label
-              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               for={props?.name}
             >
               {props?.label}
@@ -93,6 +98,7 @@ const FormItem = (props) => {
             className={`flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-dark ${props?.className &&
               props?.className}`}
             {...(({ className, ...o }) => o)(props)}
+            ref={ref}
           />
         </>
       );
@@ -102,7 +108,7 @@ const FormItem = (props) => {
         <>
           {props?.label && (
             <label
-              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               for={props?.name}
             >
               {props?.label}
@@ -113,6 +119,7 @@ const FormItem = (props) => {
             className={`flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-dark ${props?.className &&
               props?.className}`}
             {...(({ className, ...o }) => o)(props)}
+            ref={ref}
           />
         </>
       );
@@ -121,7 +128,7 @@ const FormItem = (props) => {
         <>
           {props?.label && (
             <label
-              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               for={props?.name}
             >
               {props?.label}
@@ -132,6 +139,7 @@ const FormItem = (props) => {
             className={`flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-dark ${props?.className &&
               props?.className}`}
             {...(({ className, ...o }) => o)(props)}
+            ref={ref}
           />
         </>
       );
@@ -141,7 +149,7 @@ const FormItem = (props) => {
         <>
           {props?.label && (
             <label
-              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               for={props?.name}
             >
               {props?.label}
@@ -151,10 +159,11 @@ const FormItem = (props) => {
             className={`flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-dark${props?.className &&
               props?.className}`}
             {...(({ className, ...o }) => o)(props)}
+            ref={ref}
           />
         </>
       );
   }
 };
 
-export default FormItem;
+export default React.forwardRef(FormItem);
