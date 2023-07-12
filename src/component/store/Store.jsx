@@ -3,7 +3,7 @@ import React from "react";
 const Store = ({ store }) => {
   return (
     <>
-      <div className="rounded-md bg-gray-light">
+      <div className="rounded-md bg-gray-light text-gray-dark">
         <img
           src={
             store.store_picture ||

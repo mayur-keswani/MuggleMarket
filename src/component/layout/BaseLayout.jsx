@@ -5,10 +5,7 @@ import Header from "./header/Header";
 const BaseLayout = (props) => {
   return (
     <>
-      <Header
-        forBusiness={!!props?.forBusiness}
-        overLap={!!props?.overLap }
-      />
+      <Header forBusiness={!!props?.forBusiness} overLap={!!props?.overLap} />
       {props.children} <Footer />
     </>
   );
