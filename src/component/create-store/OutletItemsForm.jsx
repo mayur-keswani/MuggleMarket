@@ -15,7 +15,9 @@ const OutletItemsForm = (props) => {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm();
+  } = useForm({
+    defaultValues: props?.storeDetails,
+  });
 
   return (
     <form onSubmit={handleSubmit(props?.onSubmit)}>
@@ -31,7 +33,7 @@ const OutletItemsForm = (props) => {
 
       <div className="menu-items-entry p-4 text-center overflow-x-scroll">
         <div className="text">Add Items</div>
-        <MenuItems submitForm={()=>{}} />
+        <MenuItems submitForm={() => {}} />
       </div>
 
       <div className="flex items-center justify-around flex-row w-full mt-2">

@@ -29,7 +29,9 @@ const OutletTimingsForm = (props) => {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm();
+  } = useForm({
+    defaultValues: props?.storeDetails,
+  });
 
   return (
     <form onSubmit={handleSubmit(props?.onSubmit)}>

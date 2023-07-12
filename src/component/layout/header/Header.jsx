@@ -34,9 +34,7 @@ const Header = (props) => {
 
   return (
     <>
-      <header
-        className={`dark:border-gray-dark dark:bg-gray-dark z-10  `}
-      >
+      <header className={`dark:border-gray-dark dark:bg-gray-dark z-10  `}>
         <LoginModal
           isOpen={showLoginDialog}
           closeModal={() => {
@@ -84,9 +82,7 @@ const Header = (props) => {
             )}
 
             <div className={`${styles.rightSide} ${isMenuOpen && styles.open}`}>
-              <ul
-                className={`text-xl`}
-              >
+              <ul className="text-xl flex">
                 {!isLoggedIn ? (
                   <>
                     <li
@@ -122,41 +118,37 @@ const Header = (props) => {
                 ) : (
                   <Menu
                     as="div"
-                    className="relative inline-block text-left mx-5"
+                    className="relative inline-block text-left mx-5 "
                   >
                     <div>
-                      <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-full px-2 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                        <i color="#FF7E8B" size="20">
+                      <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-full  shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                        <div class="relative w-8 h-8 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-dark">
                           <svg
+                            class="absolute w-10 h-10 text-gray-400 -left-1"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="#000000"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
                           >
-                            <path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3" />
-                            <circle cx="12" cy="10" r="3" />
-                            <circle cx="12" cy="12" r="10" />
+                            <path
+                              fill-rule="evenodd"
+                              d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                              clip-rule="evenodd"
+                            ></path>
                           </svg>
-                        </i>
+                        </div>
                       </Menu.Button>
                     </div>
 
                     <Transition
                       as={Fragment}
-                      // enter="transition ease-out duration-100"
-                      // enterFrom="transform opacity-0 scale-95"
-                      // enterTo="transform opacity-100 scale-100"
-                      // leave="transition ease-in duration-75"
-                      // leaveFrom="transform opacity-100 scale-100"
-                      // leaveTo="transform opacity-0 scale-95"
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-20 mt-2 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {/* <div className="px-1 py-1 "> */}
+                      <Menu.Items className="absolute right-0 z-20 mt-2 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-gray-light ring-opacity-5 focus:outline-none bg-white  dark:bg-gray-dark dark:divide-gray-600">
                         <Menu.Item>
                           {({ active }) => (
                             <span

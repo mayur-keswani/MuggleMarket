@@ -4,9 +4,12 @@ import Store from "../../component/store/Store";
 import { Skeleton } from "../../component/commons/skeleton/card";
 import { fetchStoresAPI } from "../../lib/market.api";
 import StoreImage from "./store.png";
+import { useNavigate } from "react-router-dom";
+
 const Stores = () => {
   const [stores, setStores] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate()
 
   const fetchStores = async () => {
     try {
@@ -40,12 +43,16 @@ const Stores = () => {
           <div className="text-2xl mx-4 text-muted">
             Top brands in spotlight
           </div>
-          {isLoading  ? (
+          {isLoading ? (
             <Skeleton items={5} />
           ) : (
             <div className="flex overflow-x-auto space-x-8  my-3 mx-5 box-border">
               {stores.map((store) => (
-                <div className="flex-shrink-0 flex min-w-[300px]" key={store._id}>
+                <div
+                  className="flex-shrink-0 flex min-w-[300px]"
+                  key={store._id}
+                  onClick={() => navigate(`/store/${store?._id}`)}
+                >
                   <Store store={store} />
                 </div>
               ))}

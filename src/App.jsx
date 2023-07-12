@@ -23,7 +23,6 @@ const ProtectedRoute = (props) => {
   return props.children ? props.children : <Outlet />;
 };
 
-
 const App = () => {
   const { globalState, dispatch } = useContext(UserContext);
 
@@ -64,7 +63,14 @@ const App = () => {
         />
       </Route>
 
-      <Route path="/store/:id" element={<StoreDetails />} />
+      <Route
+        path="/store/:id"
+        element={
+          <BaseLayout>
+            <StoreDetails />
+          </BaseLayout>
+        }
+      />
 
       <Route path="/my-stores" element={<MyStore />} />
 

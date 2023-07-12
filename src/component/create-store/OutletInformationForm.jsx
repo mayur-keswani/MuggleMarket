@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import FormItem from "../commons/form-item";
 import { useForm } from "react-hook-form";
 
-const OutletInformationForm = (props ) => {
+const OutletInformationForm = (props) => {
   const [outletDetails, setOutletDetails] = useState({
     storeName: "",
     description: "",
@@ -39,7 +39,9 @@ const OutletInformationForm = (props ) => {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm();
+  } = useForm({
+    defaultValues: props?.storeDetails,
+  });
 
   return (
     <form onSubmit={handleSubmit(props?.onSubmit)}>

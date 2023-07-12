@@ -149,7 +149,7 @@ const FormItem = (props,ref) => {
         <>
           {props?.label && (
             <label
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               for={props?.name}
             >
               {props?.label}
