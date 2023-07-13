@@ -10,10 +10,9 @@ const PartnerWithUs = () => {
     <>
       <div
         className="zumbotron h-[420px] flex items-center justify-start flex-col relative text-white"
-       //   background:
+        //   background:
         //     "linear-gradient(rgba(0, 0, 0, 0) 57.17%, rgba(0, 0, 0, 0.46) 100%), rgba(0, 0, 0, 0.3)",
         // }}  // style={{
-       
       >
         <div className="w-full h-full absolute top-0 left-0 after:absolute after:top-0 after:w-full after:h-full  after:shadow-inner after:block  after:content-['']">
           <img
@@ -26,7 +25,7 @@ const PartnerWithUs = () => {
         <div className="absolute top-1/3  left-0 w-full  py-4  px-6 font-bold">
           <span className="text-4xl">Partner with MugggleMarket</span>
           <p className="text-2xl ">for free and get more customers!</p>
-          <div className="flex justify-center items-center p-2 mt-3 h-16 ">
+          <div className="flex justify-center items-center p-2 mt-3 h-16 space-x-2">
             <button
               className="btn btn-primary rounded w-48  lg:w-1/5 h-full "
               disabled={!globalState?.auth?.isLoggedIn}
@@ -34,7 +33,16 @@ const PartnerWithUs = () => {
                 navigate("/partner-with-us/create-your-store");
               }}
             >
-              Register your Store
+              Register New Store
+            </button>
+            <button
+              className="btn btn-ouline-primary rounded w-48  lg:w-1/5 h-full "
+              disabled={!globalState?.auth?.isLoggedIn}
+              onClick={() => {
+                navigate("/partner-with-us/my-stores");
+              }}
+            >
+              Check Your Stores
             </button>
           </div>
         </div>

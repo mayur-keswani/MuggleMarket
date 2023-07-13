@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from './interceptors'
 
 const endpoint = "https://muggle-market.onrender.com";
 
@@ -53,6 +53,6 @@ export const fetchStoreDetailAPI = (storeId)=>{
     return axios.get(`${endpoint}/store/${storeId}`);
 }
 
-export const fetchMyStores = ()=>{
+export const fetchMyStoresAPI = ()=>{
     return axios.get(`${endpoint}/my-stores`);   
 }

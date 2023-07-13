@@ -3,13 +3,13 @@ import Store from "../../component/store/Store";
 // import { Header, Image, Button } from "semantic-ui-react";
 import { Skeleton } from "../../component/commons/skeleton/card";
 import { fetchStoresAPI } from "../../lib/market.api";
-import StoreImage from "./store.png";
+import StoreImage from "../../public/store.png";
 import { useNavigate } from "react-router-dom";
 
 const Stores = () => {
   const [stores, setStores] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const fetchStores = async () => {
     try {
@@ -25,12 +25,12 @@ const Stores = () => {
   useEffect(() => {
     fetchStores();
     return () => {
-      setStores([]); 
+      setStores([]);
     };
   }, []);
 
   return (
-    <main className="m-2 min-h-[400px]">
+    <div className="m-2">
       {stores?.length === 0 ? (
         <div className="flex align-middle items-center justify-center flex-col">
           <img src={StoreImage} alt={"No Store"} />
@@ -60,7 +60,7 @@ const Stores = () => {
           )}
         </div>
       )}
-    </main>
+    </div>
   );
 };
 

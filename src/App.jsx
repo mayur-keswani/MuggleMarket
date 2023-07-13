@@ -41,26 +41,19 @@ const App = () => {
         path="/partner-with-us"
         element={
           <ProtectedRoute auth={globalState?.auth}>
-            <Outlet />
+            <BaseLayout forBusiness={true}>
+              <Outlet />
+            </BaseLayout>
           </ProtectedRoute>
         }
       >
-        <Route
-          path="/partner-with-us"
-          element={
-            <BaseLayout forBusiness={true} overLap={true}>
-              <PartnerWithUs />
-            </BaseLayout>
-          }
-        />
+        <Route path="/partner-with-us" element={<PartnerWithUs />} />
         <Route
           path="/partner-with-us/create-your-store"
-          element={
-            <BaseLayout forBusiness={true}>
-              <CreateStore />
-            </BaseLayout>
-          }
+          element={<CreateStore />}
         />
+
+        <Route path="/partner-with-us/my-stores" element={<MyStore />} />
       </Route>
 
       <Route
@@ -71,8 +64,6 @@ const App = () => {
           </BaseLayout>
         }
       />
-
-      <Route path="/my-stores" element={<MyStore />} />
 
       <Route path="/my-store/:id" element={<EditStore />} />
 

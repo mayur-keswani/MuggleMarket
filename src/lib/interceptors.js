@@ -1,5 +1,5 @@
 import axios from "axios";
-import { clearLocalStorage } from "./localStorage";
+import { clearLocalStorage, getAuthDetails } from "./localStorage";
 import { onLogout } from "../context/action-creators";
 import { connect } from "react-redux";
 const instance = axios.create();
@@ -12,7 +12,7 @@ instance.interceptors.request.use(
         if (!config.headers) {
           config.headers = {};
         }
-        const token = JSON.parse(localStorage.getItem("token"));
+        const token = getAuthDetails()?.token;
         config.headers["Authorization"] = token;
       }
     }
@@ -37,17 +37,20 @@ instance.interceptors.response.use(
     // Do something with response error
     if (error && error?.response % error?.response?.status == "401") {
       clearLocalStorage();
-      await logoutUser()
+      await logoutUser();
     }
 
     return Promise.reject(error);
   }
 );
 
+const mapStateToProps = (state) => {
+  return {};
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     logoutUser: () => dispatch(onLogout),
   };
 };
 
-export default connect(_, mapDispatchToProps)(instance);
+export default connect(mapStateToProps, mapDispatchToProps)(instance);
