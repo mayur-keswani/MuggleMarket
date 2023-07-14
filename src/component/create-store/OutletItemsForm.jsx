@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import MenuItems from "../menu-items/MenuItems";
 import FormItem from "../commons/form-item";
 import { useForm } from "react-hook-form";
+import OutletMenuItemsForm from "./OutletMenuItems";
 
 const OutletItemsForm = (props) => {
   // const submitFormHandler = (items) => {
@@ -31,14 +31,14 @@ const OutletItemsForm = (props) => {
         <p className="error">Average expense is required!</p>
       )}
 
-      <div className="menu-items-entry p-4 text-center overflow-x-scroll">
-        <div className="text">Add Items</div>
-        <MenuItems submitForm={() => {}} />
+      <div className="menu-items-entry py-4 text-center ">
+        <div className="text-xl">Products</div>
+        <OutletMenuItemsForm />
       </div>
 
       <div className="flex items-center justify-around flex-row w-full mt-2">
         <button
-          className="btn btn-outline py-3 px-4"
+          className="btn btn-outline-primary py-3 px-4"
           onClick={() => {
             props?.renderPrevForm();
           }}
@@ -60,7 +60,7 @@ const OutletItemsForm = (props) => {
           </svg>
           Previous
         </button>
-        <button className="btn btn-outline py-3 px-4" type="submit">
+        <button className="btn btn-outline-primary py-3 px-4" type="submit">
           Next
           <svg
             xmlns="http://www.w3.org/2000/svg"

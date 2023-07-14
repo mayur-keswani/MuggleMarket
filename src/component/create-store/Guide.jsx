@@ -15,7 +15,7 @@ const Guide = (props) => {
 
       <div className="w-full">
         <ol className="grid grid-cols-1 divide-x divide-gray-100 overflow-hidden rounded-lg border border-gray-100 text-sm text-gray-500 sm:grid-cols-3">
-          <li className="flex items-center justify-center gap-2 p-4">
+          <li className="flex items-center md:justify-center gap-2 p-4">
             <svg
               className="h-7 w-7 shrink-0"
               xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +39,7 @@ const Guide = (props) => {
             </p>
           </li>
 
-          <li className="relative flex items-center justify-center gap-2 bg-gray-50 p-4">
+          <li className="relative flex items-center md:justify-center gap-2 bg-gray-50 p-4">
             <span className="absolute -left-2 top-1/2 hidden h-4 w-4 -translate-y-1/2 rotate-45 border border-gray-100 ltr:border-b-0 ltr:border-s-0 ltr:bg-white rtl:border-e-0 rtl:border-t-0 rtl:bg-gray-50 sm:block"></span>
 
             <span className="absolute -right-2 top-1/2 hidden h-4 w-4 -translate-y-1/2 rotate-45 border border-gray-100 ltr:border-b-0 ltr:border-s-0 ltr:bg-gray-50 rtl:border-e-0 rtl:border-t-0 rtl:bg-white sm:block"></span>
@@ -72,7 +72,7 @@ const Guide = (props) => {
             </p>
           </li>
 
-          <li className="flex items-center justify-center gap-2 p-4">
+          <li className="flex items-center md:justify-center gap-2 p-4">
             <svg
               className="h-7 w-7 shrink-0"
               xmlns="http://www.w3.org/2000/svg"

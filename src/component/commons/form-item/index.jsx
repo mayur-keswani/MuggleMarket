@@ -1,4 +1,6 @@
 import React from "react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const FormItem = (props, ref) => {
   switch (props?.type) {
@@ -39,6 +41,11 @@ const FormItem = (props, ref) => {
             {...(({ className, ...o }) => o)(props)}
             ref={ref}
           />
+          {/* <PhoneInput
+            country={"us"}
+            
+            inputProps={{...props}}
+          /> */}
         </>
       );
     case "textarea":

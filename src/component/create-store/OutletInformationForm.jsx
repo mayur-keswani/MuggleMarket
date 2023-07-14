@@ -179,7 +179,7 @@ const OutletInformationForm = (props) => {
           </button>
         )} */}
 
-        <button className="btn btn-outline py-3 px-4" type="submit">
+        <button className="btn btn-outline-primary py-3 px-4" type="submit">
           Next
           <svg
             xmlns="http://www.w3.org/2000/svg"

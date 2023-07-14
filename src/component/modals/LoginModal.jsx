@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../../context/user-context";
 import { loginAPI } from "../../lib/market.api";
 import { useForm } from "react-hook-form";
-import ModalLayout from "./ModalLayout";
+import ModalLayout from "../layout/ModalLayout";
 import { onLogin } from "../../context/action-creators";
 import Spinner from "../commons/spinner/Spinner";
 import { data } from "autoprefixer";

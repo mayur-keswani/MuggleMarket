@@ -134,7 +134,7 @@ const OutletTimingsForm = (props) => {
 
       <div className="flex items-center justify-around flex-row w-full mt-2">
         <button
-          className="btn btn-outline py-3 px-4"
+          className="btn btn-outline-primary py-3 px-4"
           onClick={() => {
             props?.renderPrevForm();
           }}
@@ -156,7 +156,7 @@ const OutletTimingsForm = (props) => {
           </svg>
           Previous
         </button>
-        <button className="btn btn-outline py-3 px-4" type="submit">
+        <button className="btn btn-outline-primary py-3 px-4" type="submit">
           Next
           <svg
             xmlns="http://www.w3.org/2000/svg"

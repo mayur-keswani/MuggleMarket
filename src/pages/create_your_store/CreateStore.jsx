@@ -15,7 +15,7 @@ const OutletItemsForm = lazy(() =>
 );
 
 const CreateStore = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(3);
   const [storeDetails, setStoreDetails] = useState({});
 
   const renderPrevForm = () => {
@@ -25,9 +25,8 @@ const CreateStore = () => {
     debugger;
     setStoreDetails((prevValues) => ({ ...prevValues, ...values }));
     if (currentStep < 3) {
-      setCurrentStep((prevStep) => prevStep + 1)
-    }
-    else {
+      setCurrentStep((prevStep) => prevStep + 1);
+    } else {
       //TODO:
     }
   };
@@ -76,7 +75,7 @@ const CreateStore = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center flex-col m-3">
+      <div className="grid grid-cols-1 m-3">
         <div className="create-store-guide">
           <Guide page={currentStep} />
         </div>

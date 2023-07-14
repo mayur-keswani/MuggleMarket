@@ -37,7 +37,7 @@ export const fetchStoresAPI=async()=>{
     return axios.get(`${endpoint}/stores`)
 }
 
-export const uploadItemToStore=(storeId,payload)=>{
+export const uploadItemToStoreAPI=(storeId,payload)=>{
     return axios.post(`${endpoint}/upload-items/${storeId}`, payload);
 }
 
