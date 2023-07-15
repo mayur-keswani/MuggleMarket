@@ -20,11 +20,12 @@ const EditStore = () => {
   };
   const fetchStore = async (id) => {
     try {
-      const { data } = dispatch({ type: SET_LOADING, payload: true });
-      await fetchStoreDetailAPI(id);
+      dispatch({ type: SET_LOADING, payload: true });
+      const { data } = await fetchStoreDetailAPI(id);
       setStore(data.store);
       dispatch({ type: SET_LOADING, payload: false });
     } catch (error) {
+      console.log(error)
       dispatch({ type: SET_LOADING, payload: false });
     }
   };
