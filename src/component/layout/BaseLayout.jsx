@@ -6,7 +6,7 @@ const BaseLayout = (props) => {
   return (
     <>
       <Header forBusiness={!!props?.forBusiness} overLap={!!props?.overLap} />
-      <main className="relative mt-28 min-h-[calc(100vh-6rem)]">
+      <main className="relative mt-24 min-h-[calc(100vh-6rem)]">
         {props.children}
       </main>
       <Footer />

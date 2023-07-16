@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import AboutStore from "./AboutStore";
-import StoreItems from "./StoreItems";
-import { Skeleton } from "../../component/commons/skeleton/card";
+import StoreItem from "./StoreItem";
 import { useNavigate, useParams } from "react-router-dom";
 import { SET_SHOP_ITEMS } from "../../context/action-types";
 import { UserContext } from "../../context/user-context";
 import { fetchStoreDetailAPI } from "../../lib/market.api";
+import Spinner from "../../component/commons/spinner/Spinner";
+import ItemFilters from "../../component/item-filters/ItemFilters";
+import Cart from "../../component/order-summary/Cart";
 
 const StoreDetails = () => {
   const [navItem, setnavItem] = useState({ activeItem: "about-store" });
@@ -13,8 +14,36 @@ const StoreDetails = () => {
   const { id } = useParams();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [StoreDetails, setStoreDetails] = useState();
-  const { dispatch } = useContext(UserContext);
+  const [StoreDetails, setStoreDetails] = useState({
+    social: {
+      personal_website: "",
+      instagram: "",
+      youtube: "",
+      facebook: "",
+    },
+    store_items: [],
+    _id: "64a7bc61ab5984003f276add",
+    ownerID: "649e295280701b003ed1cda1",
+    name: "The Toy Station",
+    description: " A place to buy toys, gifts for your loved ones",
+    address: "Ahmedabad",
+    city: "Ahmedabad",
+    store_type: "Gifts & Accessories",
+    contact_no: 7896452314,
+    landline_no: null,
+    opening_time: "08:00",
+    closing_time: "20:00",
+    year_of_establish: null,
+    owner: "Mayur",
+    personal_no: null,
+    store_picture:
+      "http://res.cloudinary.com/dra5wny0w/image/upload/v1688714337/covy23lajkhsfcadoxyc.jpg",
+    createdAt: "2023-07-07T07:18:57.459Z",
+    updatedAt: "2023-07-07T07:18:57.459Z",
+    __v: 0,
+  });
+  const { globalState, dispatch } = useContext(UserContext);
+  const { selectedItems, shopItems } = globalState;
 
   const handleItemClick = (e, { name }) => {
     setnavItem({ activeItem: name });
@@ -42,109 +71,53 @@ const StoreDetails = () => {
   }, [id]);
 
   const { activeItem } = navItem;
-  return isLoading || !setStoreDetails ? (
-    <Skeleton />
-  ) : (
-    <>
-      <div
-        className="store-thumbnail jumbotron text-center"
-        style={{ height: "15vh", zIndex: "200" }}
-      >
-        <div className="grid grid-cols-4">
-          <div>
-            <img
-              src={
-                setStoreDetails.store_picture ||
-                "https://img2.pngio.com/market-store-retail-shop-shop-shopping-store-store-icon-retail-shopping-icon-png-512_512.png"
-              }
-              alt="store-thumbnail"
-              className="relative w-[180px] h-[160px] rounded-full -bottom-[10%] left-[10] -translate-y-[10%] "
-              // style={{
-              //   width: "180px",
-              //   height: "160px",
-              //   borderRadius: "50%",
-              //   position: "relative",
-              //   bottom: "-10%",
-              //   left: "10%",
-              //   transform: "translateY(-10%)",
-              // }}
-            />
+  let cartTotalItems = 0;
+  for (let i in selectedItems) {
+    cartTotalItems += +selectedItems[i];
+  }
+  return (
+    <div className="m-2">
+      {isLoading || !StoreDetails ? (
+        <Spinner />
+      ) : (
+        <section className="">
+          <div className="relative h-24">
+            <div
+              className="absolute top-0 left-0 w-full h-full after:absolute after:top-0 after:w-full after:h-full  after:shadow-inner after:block  after:content-['']"
+              style={{ border: "1px solid" }}
+            >
+              <img
+                src={StoreDetails.store_picture}
+                alt="store-thumbnail"
+                className="w-full h-full object-contain"
+              />
+            </div>
           </div>
-        </div>
-      </div>
-    </>
-    // <>
-    //   <div
-    //     className="store-thumbnail jumbotron text-center"
-    //     style={{ height: "15vh", zIndex: "200" }}
-    //   >
-    //     {/* <img src=""  */}
-    // <Grid>
-    //   <Grid.Column mobile={8} tablet={6} computer={3}>
-    //     <img
-    //       src={
-    //         store.store_picture ||
-    //         "https://img2.pngio.com/market-store-retail-shop-shop-shopping-store-store-icon-retail-shopping-icon-png-512_512.png"
-    //       }
-    //       alt="store-thumbnail"
-    //       className="img-fluid img-thumbnail"
-    //       style={{
-    //         width: "180px",
-    //         height: "160px",
-    //         borderRadius: "50%",
-    //         position: "relative",
-    //         bottom: "-10%",
-    //         left: "10%",
-    //         transform: "translateY(-10%)",
-    //       }}
-    //     />
-    //   </Grid.Column>
-    // </Grid>
-    //   </div>
-
-    //   <div
-    //     className="bg-light jumbotron d-flex justify-items-start align-items-end"
-    //     style={{ height: "30vh", zIndex: "100" }}
-    //   >
-    //     <Header as="h2" className="p-2">
-    //       {store.name}
-    //       <Header.Subheader className="text-muted">
-    //         {store.store_type} <br />
-    //         <br />
-    //         <p className="text-lead">{store.city}</p>
-    //         {store.opening_time} - {store.closing_time}
-    //       </Header.Subheader>
-    //     </Header>
-    //   </div>
-
-    //   <div className="store-navbar bg-light">
-    //     <Menu attached="top" tabular>
-    //       <Menu.Item
-    //         name="about-store"
-    //         className="px-5 mr-2 text-lead h6"
-    //         active={activeItem === "about-store"}
-    //         onClick={handleItemClick}
-    //       />
-    //       <Menu.Item
-    //         name="items"
-    //         className="px-5 mr-2 text-lead h6"
-    //         active={activeItem === "items"}
-    //         onClick={handleItemClick}
-    //       />
-    //     </Menu>
-    //   </div>
-
-    //   <Route
-    //     path="/store/:id/about-store"
-    //     exact
-    //     element={<AboutStore store={store} />}
-    //   />
-    //   <Route
-    //     path="/store/:id/items"
-    //     exact
-    //     element={<StoreItems store={store} />}
-    //   />
-    // </>
+          <div>
+            {StoreDetails.store_items.length > 0 ? (
+              <div className="store-items grid md:grid-cols-4 space-x-1">
+                <ItemFilters store={StoreDetails} />
+                <div
+                  className="md:col-span-3 items-list"
+                  style={{ border: "1px dotted black" }}
+                >
+                  <div className="grid grid-cols-1">
+                    {shopItems.map((item) => (
+                      <StoreItem item={item} key={item?._id} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="text-2xl text-mutted text-center mt-6">
+                No Items Added Yet!
+              </div>
+            )}
+          </div>
+          {cartTotalItems > 0 && <Cart totalItems={cartTotalItems} />}
+        </section>
+      )}
+    </div>
   );
 };
 

@@ -23,6 +23,23 @@ const FormItem = (props, ref) => {
           />
         </>
       );
+    case "checkbox":
+      return (
+        <div class="flex items-center pl-3">
+          <input
+            type="checkbox"
+            className="w-6 h-6 rounded"
+            {...props}
+            ref={ref}
+          />
+          <label
+            for="vue-checkbox"
+            className="w-full py-3 ml-2 text-sm font-medium leading-none"
+          >
+            {props?.label}
+          </label>
+        </div>
+      );
     case "phone":
       return (
         <>

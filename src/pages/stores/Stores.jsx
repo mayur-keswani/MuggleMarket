@@ -30,8 +30,10 @@ const Stores = () => {
   }, []);
 
   return (
-    <div className="m-2">
-      {stores?.length === 0 ? (
+    <div className="pt-6 px-4">
+      {isLoading || true? (
+        <Skeleton items={5} />
+      ) : stores?.length === 0 ? (
         <div className="flex align-middle items-center justify-center flex-col">
           <img src={StoreImage} alt={"No Store"} />
           <span className="text-xl font-extralight text-gray-600">
@@ -43,21 +45,18 @@ const Stores = () => {
           <div className="text-2xl mx-4 text-muted">
             Top brands in spotlight
           </div>
-          {isLoading ? (
-            <Skeleton items={5} />
-          ) : (
-            <div className="flex overflow-x-auto space-x-8  my-3 mx-5 box-border">
-              {stores.map((store) => (
-                <div
-                  className="flex-shrink-0 flex min-w-[300px]"
-                  key={store._id}
-                  onClick={() => navigate(`/store/${store?._id}`)}
-                >
-                  <Store store={store} />
-                </div>
-              ))}
-            </div>
-          )}
+
+          <div className="flex overflow-x-auto space-x-8  my-3 mx-5 box-border">
+            {stores.map((store) => (
+              <div
+                className="flex-shrink-0 flex min-w-[300px]"
+                key={store._id}
+                onClick={() => navigate(`/store/${store?._id}`)}
+              >
+                <Store store={store} />
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
