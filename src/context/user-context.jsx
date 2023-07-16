@@ -9,6 +9,8 @@ let initialState = {
     expiryDate: null,
     username: null,
   },
+  cart:{items:[],total:0},  //[{id:_id,quantity:2}]
+
   editStore: null,
   editStoreKey: null,
   orderItems: [],

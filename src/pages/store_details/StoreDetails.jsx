@@ -42,8 +42,7 @@ const StoreDetails = () => {
     updatedAt: "2023-07-07T07:18:57.459Z",
     __v: 0,
   });
-  const { globalState, dispatch } = useContext(UserContext);
-  const { selectedItems, shopItems } = globalState;
+  const { globalState:{cart,shopItems}, dispatch } = useContext(UserContext);
 
   const handleItemClick = (e, { name }) => {
     setnavItem({ activeItem: name });
@@ -71,10 +70,8 @@ const StoreDetails = () => {
   }, [id]);
 
   const { activeItem } = navItem;
-  let cartTotalItems = 0;
-  for (let i in selectedItems) {
-    cartTotalItems += +selectedItems[i];
-  }
+
+  console.log(cart)
   return (
     <div className="m-2">
       {isLoading || !StoreDetails ? (
@@ -114,7 +111,7 @@ const StoreDetails = () => {
               </div>
             )}
           </div>
-          {cartTotalItems > 0 && <Cart totalItems={cartTotalItems} />}
+          {cart.items.length > 0 && <Cart totalItems={cart} />}
         </section>
       )}
     </div>

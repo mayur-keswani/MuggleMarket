@@ -8,10 +8,11 @@ import {
   BsFillArrowDownCircleFill,
 } from "react-icons/bs";
 
-const Cart = ({ totalItems }) => {
+const Cart = () => {
   const [showCartItems, setShowCartItems] = useState(false);
-  const { globalState } = useContext(UserContext);
-  const { token, orderItems, totalPrice } = globalState;
+  const {
+    globalState: { cart },
+  } = useContext(UserContext);
   const navigate = useNavigate();
 
   const proceedToCheckout = async () => {
@@ -20,6 +21,11 @@ const Cart = ({ totalItems }) => {
       navigate("/checkout");
     } catch (error) {}
   };
+
+  let totalPrice = 0;
+  cart?.items.forEach((cartItem) => {
+    totalPrice = cartItem?.quantity * cartItem?.item?.price;
+  });
   return showCartItems ? (
     <div className="fixed bottom-0 left-0 h-24 bg-primary w-full font-bold">
       <div className="flex items-center justify-between h-full mx-4">
@@ -45,7 +51,7 @@ const Cart = ({ totalItems }) => {
           <button onClick={() => setShowCartItems(true)}>
             <BsFillArrowUpCircleFill />
           </button>
-          <span className="mx-2"> Your Order ({totalItems})</span>
+          <span className="mx-2"> Your Order ({cart?.items.length})</span>
         </div>
 
         <div>

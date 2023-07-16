@@ -1,25 +1,36 @@
-import React, { useContext } from "react";
-import ItemFilters from "../../component/item-filters/ItemFilters";
-import Cart from "../../component/order-summary/Cart";
-import OrderButton from "../../component/orderButton/OrderButton";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/user-context";
-import { ADD_TO_CART } from "../../context/action-types";
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../../context/action-types";
+import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
 const StoreItem = ({ item }) => {
-  const { dispatch } = useContext(UserContext);
-  const addToCart = (id, name, price) => {
+  const [cartQauntity, setCartQuantity] = useState(0);
+  const {
+    globalState: { cart },
+    dispatch,
+  } = useContext(UserContext);
+
+  const addToCart = (id, data) => {
     console.log(id);
     dispatch({
       type: ADD_TO_CART,
-      payload: { id: id, name: name, price: price },
+      payload: { id, item: data },
     });
   };
-  const removeFromCart = (id, name, price) => {
+  const removeFromCart = (id, data) => {
     dispatch({
       type: REMOVE_FROM_CART,
-      payload: { id: id, name: name, price: price },
+      payload: { id, item: data },
     });
   };
+
+  useEffect(() => {
+    if (cart.items.length > 0 && item?._id) {
+      setCartQuantity(
+        cart.items.find((cartItem) => cartItem.id === item?._id)?.quantity ?? 0
+      );
+    }
+  }, [cart, item?._id]);
   //   {
   //     "_id": "64b28845067211003fbc3c4f",
   //     "storeID": "64a7bc61ab5984003f276add",
@@ -52,15 +63,43 @@ const StoreItem = ({ item }) => {
           </div>
 
           <div className="space-y-2.5 pt-1.5 md:space-y-3.5 lg:pt-3 xl:pt-4">
-            <button
-              type="button"
-              className="btn btn-primary w-full rounded-md  px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-              onClick={() => {
-                addToCart(item?._id, item?.name, item?.price);
-              }}
-            >
-              Add To Cart
-            </button>
+            {cartQauntity > 0 ? (
+              <div className="flex flex-row w-full">
+                <div className="w-1/3 flex justify-end">
+                  <button
+                    className="btn btn-secondary px-4 py-2"
+                    onClick={() => {
+                      addToCart(item?._id, item);
+                    }}
+                  >
+                    <AiOutlinePlus />
+                  </button>
+                </div>
+                <span className="text-center text-xl w-1/3">
+                  {cartQauntity}
+                </span>
+                <div className="w-1/3 flex justify-start">
+                  <button
+                    className="btn btn-secondary px-4 py-2"
+                    onClick={() => {
+                      removeFromCart(item?._id, item);
+                    }}
+                  >
+                    <AiOutlineMinus />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                type="button"
+                className="btn btn-primary w-full rounded-md  px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                onClick={() => {
+                  addToCart(item?._id, item);
+                }}
+              >
+                Add To Cart
+              </button>
+            )}
             <div className="grid grid-cols-2 gap-2.5">
               <button
                 type="button"

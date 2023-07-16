@@ -49,57 +49,44 @@ const reducer = (state, action) => {
     }
 
     case ADD_TO_CART: {
-      const existingItemIndex = state.orderItems.findIndex(
-        (item) => item.productID === action.payload.id
+      const existingItemIndex = state.cart.items?.findIndex(
+        (cartItem) => cartItem.id === action.payload.id
       );
-      let updatedSelectedItems = { ...state.selectedItems };
-      let updatedCart = [...state.orderItems];
-
+      let updatedCart;
+      let updatedCartItems = [...state.cart?.items];
+      let updatedPrice = state.cart?.total;
       if (existingItemIndex >= 0) {
-        updatedCart[existingItemIndex].quantity =
-          updatedCart[existingItemIndex].quantity + 1;
-        // console.log(updatedCart)
-        updatedSelectedItems[action.payload.id] =
-          updatedSelectedItems[action.payload.id] + 1;
+        updatedCartItems[existingItemIndex].quantity =
+          updatedCartItems[existingItemIndex].quantity + 1;
       } else {
-        updatedCart = updatedCart.concat({
-          productID: action.payload.id,
-          productName: action.payload.name,
-          productPrice: action.payload.price,
+        updatedCartItems = updatedCartItems.concat({
+          id: action.payload.id,
           quantity: 1,
+          item: action.payload.item,
         });
-        updatedSelectedItems[action.payload.id.toString()] = 1;
       }
-
-      let updatedPrice = state.totalPrice + action.payload.price;
-      // console.log(updatedSelectedItems)
-      // console.log(updatedCart)
-      // console.log(updatedPrice)
+      updatedPrice += action.payload.item?.price;
+      updatedCart = { items: updatedCartItems, total: updatedPrice }
       return {
         ...state,
-        orderItems: updatedCart,
-        selectedItems: updatedSelectedItems,
-        totalPrice: updatedPrice,
+        cart: updatedCart,
       };
     }
 
     case REMOVE_FROM_CART: {
-      const existingItemIndex = state.orderItems.findIndex(
-        (item) => item.productID === action.payload.id
+      const existingItemIndex = state.cart?.items.findIndex(
+        (item) => item.id === action.payload.id
       );
-      let updatedSelectedItems = { ...state.selectedItems };
-      let updatedCart = [...state.orderItems];
-      updatedCart[existingItemIndex].quantity =
-        updatedCart[existingItemIndex].quantity - 1;
-      updatedSelectedItems[action.payload.id] =
-        updatedSelectedItems[action.payload.id] - 1;
-      let updatedPrice = state.totalPrice - action.payload.price;
+      let updatedCartItems = [...state.cart?.items];
+      let updatedPrice = state.cart?.total;
+
+      updatedCartItems[existingItemIndex].quantity -= 1;
+
+      updatedPrice -= action.payload.item?.price;
 
       return {
         ...state,
-        orderItems: updatedCart,
-        selectedItems: updatedSelectedItems,
-        totalPrice: updatedPrice,
+        cart: { items: updatedCartItems, total: updatedPrice },
       };
     }
     default:

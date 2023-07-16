@@ -31,7 +31,7 @@ const Stores = () => {
 
   return (
     <div className="pt-6 px-4">
-      {isLoading || true? (
+      {isLoading? (
         <Skeleton items={5} />
       ) : stores?.length === 0 ? (
         <div className="flex align-middle items-center justify-center flex-col">
