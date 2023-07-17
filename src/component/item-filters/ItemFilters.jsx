@@ -1,32 +1,13 @@
-import React, { useContext, useState } from "react";
-import { SET_SHOP_ITEMS } from "../../context/action-types";
-import { UserContext } from "../../context/user-context";
+import React from "react";
 import { GrClose } from "react-icons/gr";
 import FormItem from "../commons/form-item";
 
-const ItemFilters = ({ store }) => {
-  const [state, setState] = useState({ activeItem: "Boys" });
-  const { dispatch } = useContext(UserContext);
+const ItemFilters = ({ storeItems, filters, updateFilters }) => {
 
-  const handleItemClick = (e, { name }) => {
-    let filteredItems;
-    if (name === "ALL") {
-      filteredItems = store.store_items;
-    } else {
-      filteredItems = store.store_items.filter(
-        (item) => item.filterType === name
-      );
-    }
-
-    dispatch({ type: SET_SHOP_ITEMS, payload: filteredItems });
-    setState({ activeItem: name });
-  };
-  const { activeItem } = state;
-
-  const filterList = store.store_items.map((item) => item.filterType);
-  const distinctFilter = filterList.filter(
-    (filter, index) => filterList.indexOf(filter) === index
-  );
+  const filterList = storeItems.map((item) => item.filterType);
+  const distinctFilter = filterList
+    .filter((filter, index) => filterList.indexOf(filter) === index)
+    .filter(Boolean);
 
   return (
     <div className="w-full">
@@ -36,12 +17,17 @@ const ItemFilters = ({ store }) => {
             <div className="mb-3">
               <span className="font-semibold">FILTER BY</span>
               <div className="flex flex-wrap m-2 space-x-2">
-                <span className="flex items-center justify-center rounded-md bg-gray-dark px-3 py-1 font-medium">
-                  Nike <GrClose className="ml-1 h-4 w-4 cursor-pointer" />
-                </span>
-                <span className="flex items-center justify-center rounded-md bg-gray-dark px-3 py-1 font-medium">
-                  Nike <GrClose className="ml-1 h-4 w-4 cursor-pointer" />
-                </span>
+                {filters.map((filter) => (
+                  <span className="flex items-center justify-center rounded-md bg-gray-dark px-3 py-1 font-medium">
+                    {filter}
+                    <GrClose
+                      className="ml-1 h-4 w-4 cursor-pointer"
+                      onClick={() => {
+                        updateFilters(filter, false);
+                      }}
+                    />
+                  </span>
+                ))}
               </div>
             </div>
             <hr />
@@ -49,26 +35,37 @@ const ItemFilters = ({ store }) => {
               <ul
                 className="w-full text-sm font-medium 
                   rounded-lg dark:border-gray-600"
+                onClick={(e) => {
+                  // console.log(e.target.checked)
+                }}
               >
-                <li
-                  name="ALL"
-                  active={activeItem === "ALL"}
-                  onClick={handleItemClick}
-                  className="w-full rounded-t-lg"
-                >
-                  <FormItem type="checkbox" label="All" />
+                <li name="ALL" className="w-full rounded-t-lg">
+                  <FormItem
+                    type="checkbox"
+                    label="All"
+                    checked={filters.includes('All')}
+                    onChange={(e) => {
+                      updateFilters(
+                        e.target.getAttribute("label"),
+                        e.target.checked
+                      );
+                    }}
+                  />
                 </li>
 
                 {distinctFilter.map((filterType) => {
                   return (
-                    <li
-                      key={filterType}
-                      name={filterType}
-                      active={activeItem === filterType}
-                      onClick={handleItemClick}
-                    >
-                      {filterType}
-                    </li>
+                    <FormItem
+                      type="checkbox"
+                      label={filterType}
+                      checked={filters.includes(filterType)}
+                      onChange={(e) => {
+                        updateFilters(
+                          e.target.getAttribute(filterType),
+                          e.target.checked
+                        );
+                      }}
+                    />
                   );
                 })}
               </ul>

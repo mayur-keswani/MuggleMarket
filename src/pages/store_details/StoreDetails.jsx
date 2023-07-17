@@ -7,14 +7,14 @@ import { fetchStoreDetailAPI } from "../../lib/market.api";
 import Spinner from "../../component/commons/spinner/Spinner";
 import ItemFilters from "../../component/item-filters/ItemFilters";
 import Cart from "../../component/order-summary/Cart";
+import { filter } from "lodash";
 
 const StoreDetails = () => {
-  const [navItem, setnavItem] = useState({ activeItem: "about-store" });
   const navigate = useNavigate();
   const { id } = useParams();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [StoreDetails, setStoreDetails] = useState({
+  const [storeDetails, setStoreDetails] = useState({
     social: {
       personal_website: "",
       instagram: "",
@@ -42,12 +42,12 @@ const StoreDetails = () => {
     updatedAt: "2023-07-07T07:18:57.459Z",
     __v: 0,
   });
-  const { globalState:{cart,shopItems}, dispatch } = useContext(UserContext);
-
-  const handleItemClick = (e, { name }) => {
-    setnavItem({ activeItem: name });
-    navigate("/store/" + id + "/" + name);
-  };
+  const [storeItems, setStoreItems] = useState([]);
+  const [filters, setFilters] = useState([]);
+  const {
+    globalState: { cart },
+    dispatch,
+  } = useContext(UserContext);
 
   const fetchStoreData = async (id) => {
     try {
@@ -56,10 +56,18 @@ const StoreDetails = () => {
       const { store } = result;
       dispatch({ type: SET_SHOP_ITEMS, payload: store.store_items });
       setIsLoading(false);
-
       setStoreDetails(store);
+      setStoreItems(store?.store_items);
     } catch (error) {
       setIsLoading(false);
+    }
+  };
+
+  const updateFilters = (name, isChecked) => {
+    if (isChecked) setFilters((prevState) => prevState.concat(name));
+    else {
+      // debugger;
+      setFilters((prevState) => prevState.filter((filt) => filt !== name));
     }
   };
 
@@ -69,47 +77,67 @@ const StoreDetails = () => {
     }
   }, [id]);
 
-  const { activeItem } = navItem;
+  useEffect(() => {
+    if (storeDetails && storeDetails.store_items) {
+      let filteredItems = [];
+      if (filters && filters.length > 0) {
+        filteredItems = storeDetails.store_items.filter(
+          (item) => !!filters.includes(item.filterType)
+        );
+      } else {
+        filteredItems = storeDetails.store_items;
+      }
+      setStoreItems(filteredItems);
+    }
 
-  console.log(cart)
+  }, [filters]);
+
+  console.log({ filters });
   return (
-    <div className="m-2">
-      {isLoading || !StoreDetails ? (
+    <div className="p-2 flex items-center justify-center">
+      {isLoading || !storeDetails ? (
         <Spinner />
       ) : (
-        <section className="">
-          <div className="relative h-24">
-            <div
-              className="absolute top-0 left-0 w-full h-full after:absolute after:top-0 after:w-full after:h-full  after:shadow-inner after:block  after:content-['']"
-              style={{ border: "1px solid" }}
-            >
+        <section className="w-full md:py-8 lg:py-10">
+          <div className="relative h-32 flex justify-center items-end dark:bg-gray-dark">
+            <div className="absolute -top-10 left-1/2 transform  -translate-x-1/2 h-[100px] after:absolute after:top-0 after:w-full after:h-full after:block  after:content-['']">
               <img
-                src={StoreDetails.store_picture}
+                src={storeDetails.store_picture}
                 alt="store-thumbnail"
-                className="w-full h-full object-contain"
+                className="h-full object-full rounded-full"
+                width={"100px"}
+                height={"100px"}
               />
             </div>
+            <div className="font-bold flex flex-col justify-center items-center">
+              <p className="text-2xl">{storeDetails?.name}</p>
+              <p className="text-muted">{storeDetails?.description}</p>
+            </div>
           </div>
-          <div>
-            {StoreDetails.store_items.length > 0 ? (
-              <div className="store-items grid md:grid-cols-4 space-x-1">
-                <ItemFilters store={StoreDetails} />
+          <div className="mt-3">
+            <div className="store-items grid md:grid-cols-4 space-x-1">
+              <ItemFilters
+                storeItems={storeItems}
+                filters={filters}
+                updateFilters={updateFilters}
+              />
+              {storeItems.length > 0 ? (
                 <div
                   className="md:col-span-3 items-list"
                   style={{ border: "1px dotted black" }}
                 >
                   <div className="grid grid-cols-1">
-                    {shopItems.map((item) => (
+                    {storeItems.map((item) => (
                       <StoreItem item={item} key={item?._id} />
                     ))}
                   </div>
                 </div>
-              </div>
-            ) : (
-              <div className="text-2xl text-mutted text-center mt-6">
-                No Items Added Yet!
-              </div>
-            )}
+              ) : (
+                <div className="md:col-span-3 text-2xl text-mutted text-center mt-6">
+                  No Items!
+                </div>
+              )}
+            </div>
           </div>
           {cart.items.length > 0 && <Cart totalItems={cart} />}
         </section>

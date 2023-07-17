@@ -27,7 +27,7 @@ const Header = (props) => {
   return (
     <>
       <header
-        className={`fixed top-0 w-full h-24 box-border dark:border-gray-dark dark:bg-gray-dark z-10  `}
+        className={`fixed top-0 w-full h-24 box-border bg-white dark:border-gray-dark dark:bg-gray-dark z-10  `}
       >
         <LoginModal
           isOpen={showLoginDialog}
@@ -58,17 +58,20 @@ const Header = (props) => {
                 />
               )}
             </span>
-
-            {props?.forBusiness ? (
-              <ForBusiness overLap={props?.overLap} />
-            ) : (
-              <Logo />
-            )}
+            <div className="cursor-pointer"  onClick={()=>{
+              navigate('/')
+            }}>
+              {props?.forBusiness ? (
+                <ForBusiness overLap={props?.overLap} />
+              ) : (
+                <Logo />
+              )}
+            </div>
           </div>
 
           <div className="flex flex-auto h-full items-center justify-between m-0">
             {/* LEFT SIDE */}
-            <div >
+            <div>
               {!props?.forBusiness && (
                 <div
                   className={`${
@@ -78,7 +81,14 @@ const Header = (props) => {
                   }`}
                 >
                   <ul className="text">
-                    <li onClick={()=>{navigate('/partner-with-us')}}> Partner With Us</li>
+                    <li
+                      onClick={() => {
+                        navigate("/partner-with-us");
+                      }}
+                    >
+                      {" "}
+                      Partner With Us
+                    </li>
                   </ul>
                 </div>
               )}
@@ -86,10 +96,12 @@ const Header = (props) => {
 
             {/* RIGHT SIDE */}
             <div className={`flex items-center justify-center`}>
-              {!props?.forBusiness && <div className="hidden md:flex items-center justify-center ">
-                <DetectLocation />
-                <SearchBar />
-              </div>}
+              {!props?.forBusiness && (
+                <div className="hidden md:flex items-center justify-center ">
+                  <DetectLocation />
+                  <SearchBar />
+                </div>
+              )}
               {!isLoggedIn ? (
                 <ul className="text-xl flex">
                   <li

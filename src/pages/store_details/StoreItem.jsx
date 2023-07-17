@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/user-context";
-import { ADD_TO_CART, REMOVE_FROM_CART } from "../../context/action-types";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
+import { addQuantity, removeQuantity } from "../../context/action-creators";
 
 const StoreItem = ({ item }) => {
   const [cartQauntity, setCartQuantity] = useState(0);
@@ -10,19 +10,6 @@ const StoreItem = ({ item }) => {
     dispatch,
   } = useContext(UserContext);
 
-  const addToCart = (id, data) => {
-    console.log(id);
-    dispatch({
-      type: ADD_TO_CART,
-      payload: { id, item: data },
-    });
-  };
-  const removeFromCart = (id, data) => {
-    dispatch({
-      type: REMOVE_FROM_CART,
-      payload: { id, item: data },
-    });
-  };
 
   useEffect(() => {
     if (cart.items.length > 0 && item?._id) {
@@ -69,7 +56,7 @@ const StoreItem = ({ item }) => {
                   <button
                     className="btn btn-secondary px-4 py-2"
                     onClick={() => {
-                      addToCart(item?._id, item);
+                      dispatch(addQuantity(item?._id, item))
                     }}
                   >
                     <AiOutlinePlus />
@@ -82,7 +69,7 @@ const StoreItem = ({ item }) => {
                   <button
                     className="btn btn-secondary px-4 py-2"
                     onClick={() => {
-                      removeFromCart(item?._id, item);
+                      dispatch(removeQuantity(item?._id, item));
                     }}
                   >
                     <AiOutlineMinus />
@@ -94,7 +81,7 @@ const StoreItem = ({ item }) => {
                 type="button"
                 className="btn btn-primary w-full rounded-md  px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                 onClick={() => {
-                  addToCart(item?._id, item);
+                  dispatch(addQuantity(item?._id, item));
                 }}
               >
                 Add To Cart

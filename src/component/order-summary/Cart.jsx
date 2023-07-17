@@ -15,27 +15,31 @@ const Cart = () => {
   } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const proceedToCheckout = async () => {
+  async function proceedToCheckout (){
     try {
       const { data } = await checkoutAPI(orderItems);
       navigate("/checkout");
     } catch (error) {}
   };
 
-  let totalPrice = 0;
-  cart?.items.forEach((cartItem) => {
-    totalPrice = cartItem?.quantity * cartItem?.item?.price;
-  });
+  function getTotalPrice(){
+    let totalPrice = 0;
+    cart?.items.forEach((cartItem) => {
+      totalPrice = cartItem?.quantity * cartItem?.item?.price;
+    });
+    return totalPrice
+  }
+  
   return showCartItems ? (
-    <div className="fixed bottom-0 left-0 h-24 bg-primary w-full font-bold">
-      <div className="flex items-center justify-between h-full mx-4">
+    <div className="fixed bottom-0 left-0 bg-primary w-full font-bold overflow-scroll max-h-[calc(100vh-6rem)]">
+      <div className="flex items-center justify-between flex-col h-full mx-4 py-2">
         <button
           className="btn btn-primary"
           onClick={() => setShowCartItems(false)}
         >
-          <BsFillArrowDownCircleFill />
+          <BsFillArrowDownCircleFill size={'2rem'}/>
         </button>
-        {/* <OrderSummary /> */}
+        <OrderSummary />
         <button
           className="btn btn-info px-5 py-2 mx-auto"
           onClick={proceedToCheckout}
@@ -55,7 +59,7 @@ const Cart = () => {
         </div>
 
         <div>
-          Subtotal :<span className="text-red"> {totalPrice}</span>
+          Subtotal :<span className="text-red"> {getTotalPrice()}</span>
         </div>
 
         <button className="btn btn-info px-5 py-2" onClick={proceedToCheckout}>

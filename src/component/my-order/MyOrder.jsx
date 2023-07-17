@@ -1,6 +1,6 @@
 import React,{useContext} from 'react'
 import {useNavigate} from 'react-router-dom' 
-import { ADD_TO_CART } from '../../context/action-types'
+// import { ADD_TO_CART } from '../../context/action-types'
 import {UserContext} from '../../context/user-context'
 
 const MyOrder = ({order}) =>{
@@ -8,7 +8,7 @@ const MyOrder = ({order}) =>{
 	const navigate = useNavigate()
 
 	const orderAgainHandler= (product) =>{
-		dispatch({type:ADD_TO_CART,payload:{id:product._id,name:product.name,price:product.price}})
+		// dispatch({type:ADD_TO_CART,payload:{id:product._id,name:product.name,price:product.price}})
 		navigate('/store/'+product.storeID)
 	}
 	return(

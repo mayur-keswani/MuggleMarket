@@ -1,16 +1,16 @@
 import {
   EDIT_STORE,
-  ADD_TO_CART,
   REMOVE_FROM_CART,
   SET_SHOP_ITEMS,
   LOGIN,
   LOGOUT,
+  ADD_QUANTITY,
+  REDUCE_QUANTITY,
 } from "./action-types";
 
 const reducer = (state, action) => {
   switch (action.type) {
     case LOGIN: {
-      console.log(state);
       return {
         ...state,
         auth: {
@@ -33,9 +33,7 @@ const reducer = (state, action) => {
         },
       };
     }
-    // case SET_LOADING: {
-    //   return { ...state, isLoading: action.payload };
-    // }
+
     case EDIT_STORE: {
       return {
         ...state,
@@ -48,13 +46,13 @@ const reducer = (state, action) => {
       return { ...state, shopItems: action.payload };
     }
 
-    case ADD_TO_CART: {
+    case ADD_QUANTITY: {
       const existingItemIndex = state.cart.items?.findIndex(
         (cartItem) => cartItem.id === action.payload.id
       );
       let updatedCart;
       let updatedCartItems = [...state.cart?.items];
-      let updatedPrice = state.cart?.total;
+      // let updatedPrice = state.cart?.total;
       if (existingItemIndex >= 0) {
         updatedCartItems[existingItemIndex].quantity =
           updatedCartItems[existingItemIndex].quantity + 1;
@@ -65,30 +63,40 @@ const reducer = (state, action) => {
           item: action.payload.item,
         });
       }
-      updatedPrice += action.payload.item?.price;
-      updatedCart = { items: updatedCartItems, total: updatedPrice }
+      // updatedPrice += action.payload.item?.price;
+      updatedCart = { items: updatedCartItems};
       return {
         ...state,
         cart: updatedCart,
       };
     }
 
-    case REMOVE_FROM_CART: {
+    case REDUCE_QUANTITY: {
       const existingItemIndex = state.cart?.items.findIndex(
         (item) => item.id === action.payload.id
       );
       let updatedCartItems = [...state.cart?.items];
-      let updatedPrice = state.cart?.total;
+      // let updatedPrice = state.cart?.total;
 
       updatedCartItems[existingItemIndex].quantity -= 1;
 
-      updatedPrice -= action.payload.item?.price;
+      // updatedPrice -= action.payload.item?.price;
 
       return {
         ...state,
-        cart: { items: updatedCartItems, total: updatedPrice },
+        cart: { items: updatedCartItems
+            // , total: updatedPrice 
+        },
       };
     }
+
+    case REMOVE_FROM_CART: {
+      let updatedCartItems = state.cart.items.filter(
+        (cartItem) => cartItem.id !== action.payload.id
+      );
+      return { ...state, cart: { ...state.cart, items: updatedCartItems } };
+    }
+
     default:
       break;
   }
