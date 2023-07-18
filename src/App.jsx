@@ -65,9 +65,18 @@ const App = () => {
         }
       />
 
-      <Route path="/my-store/:id" element={<EditStore />} />
+      <Route
+        path="/checkout"
+        element={
+          <ProtectedRoute auth={globalState?.auth}>
+            <BaseLayout>
+              <Checkout />
+            </BaseLayout>
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/my-store/:id" element={<EditStore />} />
 
       <Route
         path="/my-orders"

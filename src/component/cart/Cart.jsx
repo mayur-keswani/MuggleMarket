@@ -47,12 +47,16 @@ const Cart = () => {
           )}
         </button>
         {showCartItems ? (
-          <OrderSummary />
+          <div className="mx-auto flex w-full flex-col space-y-4 p-6 px-2 sm:p-10 sm:px-2">
+            <h2 className="text-3xl font-bold">Your cart</h2>
+            <OrderSummary />
+          </div>
         ) : (
           <div className="flex flex-row justify-between">
             <p className="mx-2">
               {" "}
-              Your Order <span className="text-muted">({cart?.items.length})</span>
+              Your Order{" "}
+              <span className="text-muted">({cart?.items.length})</span>
             </p>
             <div>
               Subtotal :<span className="text-red"> {getTotalPrice()}</span>

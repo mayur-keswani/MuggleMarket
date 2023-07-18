@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 import { UserContext } from "../../context/user-context";
 import { AiFillDelete } from "react-icons/ai";
-import { addQuantity, removeFromCart, removeQuantity } from "../../context/action-creators";
+import {
+  addQuantity,
+  removeFromCart,
+  removeQuantity,
+} from "../../context/action-creators";
 
 const products = [
   {
@@ -45,7 +49,7 @@ const products = [
 const OrderSummary = () => {
   const {
     globalState: { cart },
-    dispatch
+    dispatch,
   } = useContext(UserContext);
 
   function getTotalPrice() {
@@ -55,11 +59,10 @@ const OrderSummary = () => {
     });
     return totalPrice;
   }
+  console.log(cart);
   return (
     <>
-      <div className="mx-auto flex w-full flex-col space-y-4 p-6 px-2 sm:p-10 sm:px-2">
-        <h2 className="text-3xl font-bold">Your cart</h2>
-
+      {cart.items.length > 0 ? (
         <ul className="flex flex-col divide-y divide-gray-200">
           {cart.items.map((cartItem) => (
             <li
@@ -117,9 +120,7 @@ const OrderSummary = () => {
                       type="button"
                       className="flex items-center space-x-2  mx-5 px-2 py-1 pl-0"
                       onClick={() => {
-                        dispatch(
-                          removeFromCart(cartItem?.item?._id)
-                        );
+                        dispatch(removeFromCart(cartItem?.item?._id));
                       }}
                     >
                       <AiFillDelete />
@@ -131,13 +132,16 @@ const OrderSummary = () => {
             </li>
           ))}
         </ul>
-        <div className="space-y-1 text-right">
-          <p>
-            Total amount:
-            <span className="font-semibold"> ₹{getTotalPrice()}</span>
-          </p>
-        </div>
+      ) : (
+        <div className="flex items-center justify-center text-muted ">No Products Added </div>
+      )}
+      <div className="space-y-1 text-right px-3">
+        <p>
+          Total amount:
+          <span className="font-semibold"> ₹{getTotalPrice()}</span>
+        </p>
       </div>
+
       {/* <Table
         unstackable
         style={{

@@ -6,8 +6,7 @@ import { UserContext } from "../../context/user-context";
 import { fetchStoreDetailAPI } from "../../lib/market.api";
 import Spinner from "../../component/commons/spinner/Spinner";
 import ItemFilters from "../../component/item-filters/ItemFilters";
-import Cart from "../../component/order-summary/Cart";
-import { filter } from "lodash";
+import Cart from "../../component/cart/Cart";
 
 const StoreDetails = () => {
   const navigate = useNavigate();
