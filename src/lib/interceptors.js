@@ -2,6 +2,7 @@ import axios from "axios";
 import { clearLocalStorage, getAuthDetails } from "./localStorage";
 import { onLogout } from "../context/action-creators";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 const instance = axios.create();
 
 instance.interceptors.request.use(
@@ -35,9 +36,14 @@ instance.interceptors.response.use(
   async function(error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    if (error && error?.response % error?.response?.status == "401") {
+    console.log({ error: error.response });
+    if (error && error?.response && error?.response?.status == "401") {
       clearLocalStorage();
       await logoutUser();
+      toast.error("Session Expired!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      // window.location.href('/')
     }
 
     return Promise.reject(error);

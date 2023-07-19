@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { UserContext } from "../../../../context/user-context";
+import { setSearchedValue } from "../../../../context/action-creators";
 
 const SearchBar = () => {
-  const [searchedValue, setSearchedValue] = useState("");
+  const {dispatch}=useContext(UserContext)
+  
   return (
     <div className="rounded-sm border-l-2 w-full h-full flex items-center justify-center relative">
       <i className="px-3" color="#828282" size="18">
@@ -24,6 +27,9 @@ const SearchBar = () => {
         className="appearance-none rounded w-full py-2 px-3 bg-transparent disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-dark   leading-tight focus:outline-none focus:shadow-outline"
         type="text"
         placeholder="Search for restaurant, cuisine or a dish"
+        onChange={(e)=>{
+          dispatch(setSearchedValue(e.target.value))
+        }}
       ></input>
     </div>
   );

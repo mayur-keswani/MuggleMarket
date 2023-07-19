@@ -1,6 +1,8 @@
 import axios from './interceptors'
 
-const endpoint = "https://muggle-market.onrender.com";
+const endpoint = "http://localhost:5000";
+
+// const endpoint = "https://muggle-market.onrender.com";
 
 /******** Authentication ******************/
 
@@ -25,8 +27,8 @@ export const placeOrderAPI = (payload)=>{
     return axios.post(`${endpoint}/place-order`, payload);
 }
 
-export const processPaymentAPI = (payload) => {
-  return axios.post(`${endpoint}/make-online-payment`, payload);
+export const createStripeSessionAPI = (payload) => {
+  return axios.post(`${endpoint}/create-checkout-session`, payload);
 };
 
 export const fetchMyOrders = async()=>{

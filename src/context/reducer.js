@@ -6,6 +6,8 @@ import {
   LOGOUT,
   ADD_QUANTITY,
   REDUCE_QUANTITY,
+  SET_SEARCHED_VALUE,
+  SET_STORES,
 } from "./action-types";
 
 const reducer = (state, action) => {
@@ -34,6 +36,10 @@ const reducer = (state, action) => {
       };
     }
 
+   case SET_STORES:{
+    return {...state,stores:action.payload.stores}
+   }
+
     case EDIT_STORE: {
       return {
         ...state,
@@ -41,6 +47,7 @@ const reducer = (state, action) => {
         editStore: action.payload.store,
       };
     }
+
 
     case SET_SHOP_ITEMS: {
       return { ...state, shopItems: action.payload };
@@ -95,6 +102,10 @@ const reducer = (state, action) => {
         (cartItem) => cartItem.id !== action.payload.id
       );
       return { ...state, cart: { ...state.cart, items: updatedCartItems } };
+    }
+
+    case SET_SEARCHED_VALUE:{
+      return { ...state, searchedStore: action.payload.value };
     }
 
     default:

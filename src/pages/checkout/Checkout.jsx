@@ -6,11 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/user-context";
 // import {Button,Icon,Divider,Grid,Message} from 'semantic-ui-react'
 import StripeCheckout from "react-stripe-checkout";
-import {
-  FetchUserDetailsAPI,
-  placeOrderAPI,
-  processPaymentAPI,
-} from "../../lib/market.api";
+import { FetchUserDetailsAPI, placeOrderAPI } from "../../lib/market.api";
 import CheckoutSummary from "../../component/checkout/checkout-summary";
 import CheckoutForm from "../../component/checkout/checkout-form";
 import { values } from "lodash";
@@ -31,7 +27,9 @@ const Checkout = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
-  const { globalState } = useContext(UserContext);
+  const {
+    globalState: { cart },
+  } = useContext(UserContext);
   const navigate = useNavigate();
 
   const fetchUserDetails = async () => {
@@ -47,6 +45,15 @@ const Checkout = () => {
   };
 
   useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://js.stripe.com/v3/";
+    script.async = true;
+    document.body.appendChild(script);
+
+    script.addEventListener("load", () => {
+      // Initialize Stripe with your publishable API key
+      window.stripe = window.Stripe(import.meta.env.VITE_STRIPE_KEY);
+    });
     fetchUserDetails();
   }, []);
 
@@ -74,63 +81,61 @@ const Checkout = () => {
     });
   };
 
-  const onOrderSumbit = async (stripe_token,values) => {
-    try {
-      const items = cartItems.map((item) => {
-        return {
-          productID: item.productID._id,
-          name: item.productID.name,
-          quantity: item.quantity,
-          price: item.productID.price,
-          storeID: item.productID.storeID,
-        };
-      });
-      const payload = {
-        token: stripe_token,
-        address: values.address,
-        price: 100,
-        username: values.username,
-        items,
-      };
+  // const onOrderSumbit = async (stripe_token,values) => {
+  //   try {
+  //     const items = cartItems.map((item) => {
+  //       return {
+  //         productID: item.productID._id,
+  //         name: item.productID.name,
+  //         quantity: item.quantity,
+  //         price: item.productID.price,
+  //         storeID: item.productID.storeID,
+  //       };
+  //     });
+  //     const payload = {
+  //       token: stripe_token,
+  //       address: values.address,
+  //       price: 100,
+  //       username: values.username,
+  //       items,
+  //     };
 
-      setIsPlacingOrder(true);
-      const {
-        data: {
-          result: { receipt_url },
-        },
-      } = await processPaymentAPI(payload);
+  //     setIsPlacingOrder(true);
+  //     const {
+  //       data: {
+  //         result: { receipt_url },
+  //       },
+  //     } = await processPaymentAPI(payload);
 
-      const orderItems = cartItems.map((item) => {
-        return {
-          productID: item.productID._id,
-          name: item.productID.name,
-          description: item.productID.description,
-          product_pic: item.productID.product_pic,
-          quantity: item.quantity,
-          price: item.productID.price,
-          storeID: item.productID.storeID,
-        };
-      });
-      const data = {
-        address: selectedAddress,
-        charges: charges,
-        grandTotal: grandTotal,
-        username: user.username,
-        items: orderItems,
-      };
+  //     const orderItems = cartItems.map((item) => {
+  //       return {
+  //         productID: item.productID._id,
+  //         name: item.productID.name,
+  //         description: item.productID.description,
+  //         product_pic: item.productID.product_pic,
+  //         quantity: item.quantity,
+  //         price: item.productID.price,
+  //         storeID: item.productID.storeID,
+  //       };
+  //     });
+  //     const data = {
+  //       address: selectedAddress,
+  //       charges: charges,
+  //       grandTotal: grandTotal,
+  //       username: user.username,
+  //       items: orderItems,
+  //     };
 
-      const { data: {message} } = await placeOrderAPI(data);
-      setIsPlacingOrder(false);
-      onOrderPlaced({ flag: true, status: "success", message });
-      receipt_url ? setInvoice(receipt_url) : setInvoice("");
-    } catch (error) {
-      let message = error.message;
-      setIsPlacingOrder(false);
-      onOrderPlaced({ flag: true, status: "fail", message });
-    }
-  };
-
-
+  //     const { data: {message} } = await placeOrderAPI(data);
+  //     setIsPlacingOrder(false);
+  //     onOrderPlaced({ flag: true, status: "success", message });
+  //     receipt_url ? setInvoice(receipt_url) : setInvoice("");
+  //   } catch (error) {
+  //     let message = error.message;
+  //     setIsPlacingOrder(false);
+  //     onOrderPlaced({ flag: true, status: "fail", message });
+  //   }
+  // };
 
   return (
     <>
@@ -138,7 +143,21 @@ const Checkout = () => {
         <div className="overflow-hidden  rounded-xl shadow">
           <div className="grid grid-cols-1 md:grid-cols-2">
             <CheckoutSummary />
-            <CheckoutForm onOrderSumbit={onOrderSumbit} />
+            <CheckoutForm
+              orderItems={[
+                {
+                  price_data: {
+                    currency: "usd",
+                    product_data: {
+                      name: "Awesome Product",
+                      images: ["https://example.com/product-image.jpg"],
+                    },
+                    unit_amount: 2000, // Amount in cents
+                  },
+                  quantity: 1,
+                },
+              ]}
+            />
           </div>
         </div>
       </div>

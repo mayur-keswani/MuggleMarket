@@ -9,14 +9,11 @@ let initialState = {
     expiryDate: null,
     username: null,
   },
-  cart:{items:[]},  //[{id:_id,quantity:2}]
-
+  cart: { items: [] }, //[{id:_id,quantity:2}],
+  stores:[],
+  searchedStore:'',
   editStore: null,
   editStoreKey: null,
-  orderItems: [],
-  selectedItems: {},
-  totalPrice: 0,
-  shopItems: [],
 };
 
 export const UserContext = createContext(initialState);
@@ -24,7 +21,10 @@ export const UserContext = createContext(initialState);
 const UserContextProvider = (props) => {
   let localStoreAuth = getAuthDetails();
   if (localStoreAuth?.token) {
-    initialState = { ...initialState, auth: { ...localStoreAuth, isLoggedIn:true } };
+    initialState = {
+      ...initialState,
+      auth: { ...localStoreAuth, isLoggedIn: true },
+    };
   }
   const [globalState, dispatch] = useReducer(reducer, initialState);
   console.log({ globalState });
