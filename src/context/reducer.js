@@ -8,6 +8,7 @@ import {
   REDUCE_QUANTITY,
   SET_SEARCHED_VALUE,
   SET_STORES,
+  SET_LOCATION_FILTER,
 } from "./action-types";
 
 const reducer = (state, action) => {
@@ -36,9 +37,9 @@ const reducer = (state, action) => {
       };
     }
 
-   case SET_STORES:{
-    return {...state,stores:action.payload.stores}
-   }
+    case SET_STORES: {
+      return { ...state, stores: action.payload.stores };
+    }
 
     case EDIT_STORE: {
       return {
@@ -47,12 +48,9 @@ const reducer = (state, action) => {
         editStore: action.payload.store,
       };
     }
-
-
     case SET_SHOP_ITEMS: {
       return { ...state, shopItems: action.payload };
     }
-
     case ADD_QUANTITY: {
       const existingItemIndex = state.cart.items?.findIndex(
         (cartItem) => cartItem.id === action.payload.id
@@ -71,13 +69,12 @@ const reducer = (state, action) => {
         });
       }
       // updatedPrice += action.payload.item?.price;
-      updatedCart = { items: updatedCartItems};
+      updatedCart = { items: updatedCartItems };
       return {
         ...state,
         cart: updatedCart,
       };
     }
-
     case REDUCE_QUANTITY: {
       const existingItemIndex = state.cart?.items.findIndex(
         (item) => item.id === action.payload.id
@@ -91,21 +88,23 @@ const reducer = (state, action) => {
 
       return {
         ...state,
-        cart: { items: updatedCartItems
-            // , total: updatedPrice 
+        cart: {
+          items: updatedCartItems,
+          // , total: updatedPrice
         },
       };
     }
-
     case REMOVE_FROM_CART: {
       let updatedCartItems = state.cart.items.filter(
         (cartItem) => cartItem.id !== action.payload.id
       );
       return { ...state, cart: { ...state.cart, items: updatedCartItems } };
     }
-
-    case SET_SEARCHED_VALUE:{
+    case SET_SEARCHED_VALUE: {
       return { ...state, searchedStore: action.payload.value };
+    }
+    case SET_LOCATION_FILTER: {
+      return { ...state, location: { ...action.payload } };
     }
 
     default:

@@ -5,15 +5,15 @@ import { clearLocalStorage } from "../../../lib/localStorage";
 import { onLogout } from "../../../context/action-creators";
 
 const UserAccountMenu = () => {
-  const { globalState,dispatch } = useContext(UserContext);
+  const { globalState, dispatch } = useContext(UserContext);
 
   async function logoutHandler() {
     dispatch(onLogout());
     await clearLocalStorage();
   }
-    const {
-      auth: { isLoggedIn, username },
-    } = globalState;
+  const {
+    auth: { isLoggedIn, username },
+  } = globalState;
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");

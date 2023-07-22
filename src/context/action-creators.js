@@ -4,6 +4,7 @@ import {
   LOGOUT,
   REDUCE_QUANTITY,
   REMOVE_FROM_CART,
+  SET_LOCATION_FILTER,
   SET_SEARCHED_VALUE,
   SET_STORES,
 } from "./action-types";
@@ -43,10 +44,16 @@ export const setSearchedValue = (value) => {
     payload: { value },
   };
 };
-
+export const setUserLocationValue = (value) => {
+  return {
+    type: SET_LOCATION_FILTER,
+    payload: { ...value },
+  };
+};
 export const setStores = (stores) => {
   return {
     type: SET_STORES,
     payload: { stores },
   };
 };
+

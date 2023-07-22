@@ -12,6 +12,7 @@ let initialState = {
   cart: { items: [] }, //[{id:_id,quantity:2}],
   stores:[],
   searchedStore:'',
+  location:{lat:null,long:null,city:null},
   editStore: null,
   editStoreKey: null,
 };
@@ -27,7 +28,6 @@ const UserContextProvider = (props) => {
     };
   }
   const [globalState, dispatch] = useReducer(reducer, initialState);
-  console.log({ globalState });
   return (
     <UserContext.Provider
       value={{ globalState: globalState, dispatch: dispatch }}

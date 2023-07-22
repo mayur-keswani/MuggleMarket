@@ -1,37 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import styles from "./Location.module.css";
 import { Menu } from "@headlessui/react";
+import { getUserLocalLocation } from "../../../../lib/localStorage";
+import { setUserLocationValue } from "../../../../context/action-creators";
+import { UserContext } from "../../../../context/user-context";
 // import { Button } from 'bootstrap'
 
-const DetectLocation = ({ isMobileView }) => {
-  const [location, setLocation] = useState("");
-  useEffect(() => {
-    if (localStorage.getItem("location")) {
-      setLocation(JSON.parse(localStorage.getItem("location")));
+const DetectLocation = () => {
+  const {
+    globalState: { location },
+    dispatch,
+  } = useContext(UserContext);
+
+  const setIntialLocation = async () => {
+    let userLocation = await getUserLocalLocation();
+    if (userLocation && userLocation.city) {
+      dispatch(setUserLocationValue(userLocation));
     }
-  });
+  };
+  useEffect(() => {
+    setIntialLocation();
+  }, []);
+
   const fetchLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
-      let latitude = position.coords.latitude;
-      let longitude = position.coords.longitude;
-      console.log(latitude, longitude);
+      let lat = position.coords.latitude;
+      let long = position.coords.longitude;
       axios
         .get(
-          `https://us1.locationiq.com/v1/reverse.php?key=pk.726308e29885c04749be8ff916e042e1&lat=${latitude}&lon=${longitude}&format=json`
+          `https://us1.locationiq.com/v1/reverse.php?key=pk.726308e29885c04749be8ff916e042e1&lat=${lat}&lon=${long}&format=json`
         )
         .then((result) => {
           let city = result.data.address.state_district;
-          console.log(result.data.address);
-          localStorage.setItem("location", JSON.stringify(city));
-          console.log(city);
-          setLocation(city);
+          console.log(result);
+          let data = { lat, long, city };
+          localStorage.setItem("location", JSON.stringify(data));
+          dispatch(setUserLocationValue(data));
         })
         .catch((error) => {
           console.log(error);
         });
     });
   };
+
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
@@ -52,22 +63,61 @@ const DetectLocation = ({ isMobileView }) => {
         </svg>
       </i>
 
-      <Menu as="div" className={`hidden relative md:inline-block text-left mx-2 `}>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900 ">
-          Location
+      <Menu
+        as="div"
+        className={`hidden relative md:inline-block text-left mx-2 `}
+      >
+        <Menu.Button
+          className="flex items-center justify-center w-full whitespace-nowrap gap-x-1.5 px-3 py-2 text-sm font-semibold text-gray-900 "
+          type="button"
+        >
+          {location.city ? (
+            <>
+              <span>{location.city}</span>{" "}
+              <span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    dispatch(
+                      setUserLocationValue({
+                        lat: null,
+                        long: null,
+                        city: null,
+                      })
+                    );
+                  }}
+                  className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span className="sr-only">Remove</span>
+                </button>
+              </span>
+            </>
+          ) : (
+            <span>Location</span>
+          )}
         </Menu.Button>
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg  ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1">
-            <Menu.Item className="block px-4 py-2 text-sm text-primary">
-
-              <a
-                href="#"
-              >
-                Detect You Current Location
-              </a>
-            </Menu.Item>
-
-          </div>
+        <Menu.Items className="absolute  bg-gray-dark dark:bg-black right-0 z-10 mt-2 w-56 origin-top-right rounded-md shadow-lg  ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Item
+            className="block p-4 text-sm text-primary cursor-pointer"
+            onClick={() => {
+              fetchLocation();
+            }}
+          >
+            <span>Detect You Current Location</span>
+          </Menu.Item>
         </Menu.Items>
       </Menu>
     </div>

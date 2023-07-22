@@ -7,12 +7,13 @@ import StoreImage from "../../public/store.png";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/user-context";
 import { setStores } from "../../context/action-creators";
+import { isNearLocation } from "../../lib/helper";
 
 const Stores = () => {
   const [filteredStores, setFilteredStores] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const {
-    globalState: { searchedStore,stores },
+    globalState: { searchedStore, stores, location },
     dispatch,
   } = useContext(UserContext);
   const navigate = useNavigate();
@@ -37,14 +38,24 @@ const Stores = () => {
   }, []);
 
   useEffect(() => {
-    if (searchedStore) {
-      setFilteredStores((prevValue) => {
-        return prevValue.filter((store) => store.name.includes(searchedStore));
-      });
-    } else {
-      setFilteredStores(stores)
+    let updatedList = [...stores];
+    if (location.lat && location.long ) {
+      updatedList = updatedList.filter((store) =>
+        {
+          console.log(
+            isNearLocation(store.lat, store.lat, location.lat, location.long)
+          );
+          return isNearLocation(store.lat, store.lat, location.lat, location.long)}
+
+      );
     }
-  }, [searchedStore]);
+    if (searchedStore) {
+      updatedList = updatedList.filter((store) =>
+        store.name.includes(searchedStore)
+      );
+    }
+    setFilteredStores(updatedList);
+  }, [stores.length,searchedStore, location]);
 
   return (
     <div className="pt-6 px-4">

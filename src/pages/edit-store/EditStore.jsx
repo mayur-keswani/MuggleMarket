@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Skeleton } from "../../component/commons/skeleton/card";
-import {UserContext} from "../../context/user-context";
+import { UserContext } from "../../context/user-context";
 import { useNavigate, useParams } from "react-router-dom";
 // import { Divider, Grid, Header, Icon, Segment } from "semantic-ui-react";
-import { EDIT_STORE, SET_LOADING } from "../../context/action-types";
+import { EDIT_STORE } from "../../context/action-types";
 import { fetchStoreDetailAPI } from "../../lib/market.api";
 
 const EditStore = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { globalState, dispatch } = useContext(UserContext);
-  const { token, isLoading } = globalState;
   const [store, setStore] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const optionPreferred = (option) => {
     dispatch({ type: EDIT_STORE, payload: { id: id, store: store } });
@@ -20,12 +20,12 @@ const EditStore = () => {
   };
   const fetchStore = async (id) => {
     try {
-      const { data } = dispatch({ type: SET_LOADING, payload: true });
+      setIsLoading(true);
       await fetchStoreDetailAPI(id);
       setStore(data.store);
-      dispatch({ type: SET_LOADING, payload: false });
+      setIsLoading(false);
     } catch (error) {
-      dispatch({ type: SET_LOADING, payload: false });
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -60,17 +60,17 @@ const EditStore = () => {
                   Edit Store-Details
                 </Header>
                 {/* <Search placeholder='Search countries...' /> */}
-              {/* </Grid.Column> */}
+        {/* </Grid.Column> */}
 
-              {/* <Grid.Column onClick={() => optionPreferred("add-items")}>
+        {/* <Grid.Column onClick={() => optionPreferred("add-items")}>
                 <Header icon>
                   <Icon name="add circle" />
                   Add Store-Items
                 </Header>
                 {/* <Button primary onClick={()=>navigate('/create-your-store/1')}>Create</Button> */}
-              {/* </Grid.Column> */} 
-            {/* </Grid.Row> */}
-          {/* </Grid> */}
+        {/* </Grid.Column> */}
+        {/* </Grid.Row> */}
+        {/* </Grid> */}
         {/* </Segment>  */}
       </div>
     </>
