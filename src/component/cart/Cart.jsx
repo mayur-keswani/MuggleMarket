@@ -17,18 +17,21 @@ const Cart = () => {
 
   async function proceedToCheckout(cartItems) {
     try {
-      const { data } = await checkoutAPI(cartItems);
+      let payload = cartItems.map(item=> ({id:product._id,quantity:item.quantity}))
+      const { data } = await checkoutAPI(payload);
       navigate("/checkout");
     } catch (error) {}
   }
 
   function getTotalPrice() {
     let totalPrice = 0;
-    cart?.items.forEach((cartItem) => {
-      totalPrice = cartItem?.quantity * cartItem?.item?.price;
+    cart?.forEach((cartItem) => {
+      totalPrice = totalPrice + (cartItem?.quantity * cartItem?.product?.price);
     });
+    console.log({totalPrice})
     return totalPrice;
   }
+
 
   return (
     <div className="fixed bottom-0 left-0 bg-primary w-full font-bold overflow-scroll max-h-[calc(100vh-6rem)]">
@@ -56,7 +59,7 @@ const Cart = () => {
             <p className="mx-2">
               {" "}
               Your Order{" "}
-              <span className="text-muted">({cart?.items.length})</span>
+              <span className="text-muted">({cart?.length})</span>
             </p>
             <div>
               Subtotal :<span className="text-red"> {getTotalPrice()}</span>
@@ -66,7 +69,7 @@ const Cart = () => {
         <div className="text-right">
           <button
             className="btn btn-info px-5 py-2 mx-auto"
-            onClick={() => proceedToCheckout(cart.items)}
+            onClick={() => proceedToCheckout(cart)}
           >
             Continue
           </button>

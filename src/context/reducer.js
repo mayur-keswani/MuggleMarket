@@ -4,6 +4,8 @@ import {
   SET_SHOP_ITEMS,
   LOGIN,
   LOGOUT,
+  ADD_CART_ITEMS,
+  ADD_TO_CART,
   ADD_QUANTITY,
   REDUCE_QUANTITY,
   SET_SEARCHED_VALUE,
@@ -51,54 +53,45 @@ const reducer = (state, action) => {
     case SET_SHOP_ITEMS: {
       return { ...state, shopItems: action.payload };
     }
+
+    case ADD_CART_ITEMS: {
+      console.log({ payload: action.payload });
+      return { ...state, cart: action.payload };
+    }
+    case ADD_TO_CART: {
+      debugger;
+      return { ...state, cart: state.cart.concat(action.payload)  };
+    }
     case ADD_QUANTITY: {
-      const existingItemIndex = state.cart.items?.findIndex(
-        (cartItem) => cartItem.id === action.payload.id
-      );
-      let updatedCart;
-      let updatedCartItems = [...state.cart?.items];
-      // let updatedPrice = state.cart?.total;
-      if (existingItemIndex >= 0) {
-        updatedCartItems[existingItemIndex].quantity =
-          updatedCartItems[existingItemIndex].quantity + 1;
-      } else {
-        updatedCartItems = updatedCartItems.concat({
-          id: action.payload.id,
-          quantity: 1,
-          item: action.payload.item,
-        });
-      }
-      // updatedPrice += action.payload.item?.price;
-      updatedCart = { items: updatedCartItems };
+      const updatedCart = state.cart?.map((cartItem) => {
+        if (cartItem.product._id === action.payload)
+          return { ...cartItem, quantity: cartItem.quantity + 1 };
+        else return cartItem;
+      });
+
       return {
         ...state,
         cart: updatedCart,
       };
     }
     case REDUCE_QUANTITY: {
-      const existingItemIndex = state.cart?.items.findIndex(
-        (item) => item.id === action.payload.id
-      );
-      let updatedCartItems = [...state.cart?.items];
-      // let updatedPrice = state.cart?.total;
-
-      updatedCartItems[existingItemIndex].quantity -= 1;
-
+      const updatedCart = state.cart?.map((cartItem) => {
+        if (cartItem.product._id === action.payload)
+          return { ...cartItem, quantity: cartItem.quantity - 1 };
+        else return cartItem;
+      });
       // updatedPrice -= action.payload.item?.price;
 
       return {
         ...state,
-        cart: {
-          items: updatedCartItems,
-          // , total: updatedPrice
-        },
+        cart: updatedCart,
       };
     }
     case REMOVE_FROM_CART: {
-      let updatedCartItems = state.cart.items.filter(
-        (cartItem) => cartItem.id !== action.payload.id
+      let updatedCartItems = state.cart.filter(
+        (cartItem) => cartItem.product?._id !== action.payload
       );
-      return { ...state, cart: { ...state.cart, items: updatedCartItems } };
+      return { ...state, cart: updatedCartItems };
     }
     case SET_SEARCHED_VALUE: {
       return { ...state, searchedStore: action.payload.value };

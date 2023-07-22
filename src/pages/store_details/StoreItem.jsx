@@ -1,23 +1,30 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/user-context";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
-import { addQuantity, removeQuantity } from "../../context/action-creators";
+import useItemController from "../../hooks/useItemController";
 
 const StoreItem = ({ item }) => {
   const [cartQauntity, setCartQuantity] = useState(0);
   const {
     globalState: { cart },
-    dispatch,
   } = useContext(UserContext);
-
+  const {
+    addQuantityHandler,
+    reduceQuantityHandler,
+    addToCartHandler,
+  } = useItemController();
 
   useEffect(() => {
-    if (cart.items.length > 0 && item?._id) {
+    if (cart.length > 0 && item?._id) {
       setCartQuantity(
-        cart.items.find((cartItem) => cartItem.id === item?._id)?.quantity ?? 0
+        cart.find((cartItem) => cartItem.product._id === item?._id)?.quantity ??
+          0
       );
     }
   }, [cart, item?._id]);
+  
+
+
   //   {
   //     "_id": "64b28845067211003fbc3c4f",
   //     "storeID": "64a7bc61ab5984003f276add",
@@ -56,7 +63,7 @@ const StoreItem = ({ item }) => {
                   <button
                     className="btn btn-secondary px-4 py-2"
                     onClick={() => {
-                      dispatch(addQuantity(item?._id, item))
+                      addQuantityHandler(item?._id, cartQauntity);
                     }}
                   >
                     <AiOutlinePlus />
@@ -69,7 +76,7 @@ const StoreItem = ({ item }) => {
                   <button
                     className="btn btn-secondary px-4 py-2"
                     onClick={() => {
-                      dispatch(removeQuantity(item?._id, item));
+                      reduceQuantityHandler(item?._id, cartQauntity);
                     }}
                   >
                     <AiOutlineMinus />
@@ -81,7 +88,7 @@ const StoreItem = ({ item }) => {
                 type="button"
                 className="btn btn-primary w-full rounded-md  px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                 onClick={() => {
-                  dispatch(addQuantity(item?._id, item));
+                  addToCartHandler(item);
                 }}
               >
                 Add To Cart

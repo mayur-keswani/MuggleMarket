@@ -14,6 +14,8 @@ import BaseLayout from "./component/layout/BaseLayout";
 import "react-toastify/dist/ReactToastify.css";
 import { UserContext } from "./context/user-context";
 import CreateStore from "./pages/create_your_store/CreateStore";
+import { getCartAPI } from "./lib/market.api";
+import { addInitialCartItems } from "./context/action-creators";
 
 const ProtectedRoute = (props) => {
   if (!props?.auth?.isLoggedIn) {
@@ -23,8 +25,24 @@ const ProtectedRoute = (props) => {
   return props.children ? props.children : <Outlet />;
 };
 
+
+
 const App = () => {
-  const { globalState, dispatch } = useContext(UserContext);
+  const { globalState:{auth}, dispatch } = useContext(UserContext);
+  const getCartItems = async () => {
+    try {
+      const { data } = await getCartAPI();
+      console.log(data);
+      dispatch(addInitialCartItems(data.cart))
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if(auth.isLoggedIn)
+      getCartItems();
+  }, [auth]);
 
   return (
     <Routes>
@@ -40,7 +58,7 @@ const App = () => {
       <Route
         path="/partner-with-us"
         element={
-          <ProtectedRoute auth={globalState?.auth}>
+          <ProtectedRoute auth={auth}>
             <BaseLayout forBusiness={true}>
               <Outlet />
             </BaseLayout>
@@ -68,7 +86,7 @@ const App = () => {
       <Route
         path="/checkout"
         element={
-          <ProtectedRoute auth={globalState?.auth}>
+          <ProtectedRoute auth={auth}>
             <BaseLayout>
               <Checkout />
             </BaseLayout>

@@ -91,7 +91,7 @@ const StoreDetails = () => {
 
   }, [filters]);
 
-  console.log({ filters });
+  console.log({ storeItems });
   return (
     <div className="p-2 flex items-center justify-center">
       {isLoading || !storeDetails ? (
@@ -138,7 +138,7 @@ const StoreDetails = () => {
               )}
             </div>
           </div>
-          {cart.items.length > 0 && <Cart totalItems={cart} />}
+          
         </section>
       )}
     </div>

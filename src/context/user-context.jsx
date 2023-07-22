@@ -9,7 +9,7 @@ let initialState = {
     expiryDate: null,
     username: null,
   },
-  cart: { items: [] }, //[{id:_id,quantity:2}],
+  cart: [], //[{id:,product:{id:''},quantity:2}],
   stores:[],
   searchedStore:'',
   location:{lat:null,long:null,city:null},

@@ -14,7 +14,7 @@ instance.interceptors.request.use(
           config.headers = {};
         }
         const token = getAuthDetails()?.token;
-        config.headers["Authorization"] = token;
+        config.headers["Authorization"] = `Bearer ${token}`;
       }
     }
 
@@ -39,7 +39,7 @@ instance.interceptors.response.use(
     console.log({ error: error.response });
     if (error && error?.response && error?.response?.status == "401") {
       clearLocalStorage();
-      await logoutUser();
+      logoutUser();
       toast.error("Session Expired!", {
         position: toast.POSITION.TOP_RIGHT,
       });
