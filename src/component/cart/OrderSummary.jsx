@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { UserContext } from "../../context/user-context";
 import { AiFillDelete } from "react-icons/ai";
-import useItemController from "../../hooks/useItemController";
+import useCart from "../../hooks/useCart";
 
 const OrderSummary = () => {
   
@@ -13,7 +13,7 @@ const OrderSummary = () => {
     addQuantityHandler,
     reduceQuantityHandler,
     removeFromCartHandler,
-  } = useItemController();
+  } = useCart();
 
   function getTotalPrice() {
     let totalPrice = 0;

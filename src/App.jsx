@@ -25,23 +25,23 @@ const ProtectedRoute = (props) => {
   return props.children ? props.children : <Outlet />;
 };
 
-
-
 const App = () => {
-  const { globalState:{auth}, dispatch } = useContext(UserContext);
+  const {
+    globalState: { auth },
+    dispatch,
+  } = useContext(UserContext);
   const getCartItems = async () => {
     try {
       const { data } = await getCartAPI();
       console.log(data);
-      dispatch(addInitialCartItems(data.cart))
+      dispatch(addInitialCartItems(data.cart));
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    if(auth.isLoggedIn)
-      getCartItems();
+    if (auth.isLoggedIn) getCartItems();
   }, [auth]);
 
   return (
@@ -49,7 +49,7 @@ const App = () => {
       <Route
         path="/"
         element={
-          <BaseLayout>
+          <BaseLayout showCart={true}>
             <Stores />
           </BaseLayout>
         }
@@ -59,7 +59,7 @@ const App = () => {
         path="/partner-with-us"
         element={
           <ProtectedRoute auth={auth}>
-            <BaseLayout forBusiness={true}>
+            <BaseLayout forBusiness={true} showCart={false}>
               <Outlet />
             </BaseLayout>
           </ProtectedRoute>
@@ -77,7 +77,7 @@ const App = () => {
       <Route
         path="/store/:id"
         element={
-          <BaseLayout>
+          <BaseLayout showCart={true}>
             <StoreDetails />
           </BaseLayout>
         }
@@ -87,7 +87,7 @@ const App = () => {
         path="/checkout"
         element={
           <ProtectedRoute auth={auth}>
-            <BaseLayout>
+            <BaseLayout showCart={false}>
               <Checkout />
             </BaseLayout>
           </ProtectedRoute>
@@ -99,7 +99,7 @@ const App = () => {
       <Route
         path="/my-orders"
         render={() => (
-          <BaseLayout>
+          <BaseLayout showCart={false}>
             <MyOrders />
           </BaseLayout>
         )}

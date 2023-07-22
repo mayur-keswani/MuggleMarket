@@ -1,22 +1,22 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Skeleton } from "../../component/commons/skeleton/card";
-import ModalWrapper from "../../component/commons/modal-wrapper/ModalWrapper";
 import OrderPlaceResult from "../../component/order-place-result/OrderPlaceResult";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/user-context";
 // import {Button,Icon,Divider,Grid,Message} from 'semantic-ui-react'
-import StripeCheckout from "react-stripe-checkout";
-import { FetchUserDetailsAPI, placeOrderAPI } from "../../lib/market.api";
+import {
+  FetchUserDetailsAPI,
+  getCartAPI,
+  placeOrderAPI,
+} from "../../lib/market.api";
 import CheckoutSummary from "../../component/checkout/checkout-summary";
 import CheckoutForm from "../../component/checkout/checkout-form";
 import { values } from "lodash";
+import useCart from "../../hooks/useCart";
 
 const Checkout = () => {
-  const [user, setUser] = useState();
-  const [cartItems, setCartItem] = useState([]);
   const [grandTotal, setGrandTotal] = useState(0);
   const [charges, setCharges] = useState(0);
-  const [selectedAddress, onSelectAddress] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [ordered, onOrderPlaced] = useState({
     flag: false,
@@ -24,25 +24,24 @@ const Checkout = () => {
     message: null,
   });
   const [invoice, setInvoice] = useState("");
-
   const [isLoading, setIsLoading] = useState(false);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const {
     globalState: { cart },
   } = useContext(UserContext);
+  const { getTotalPrice, removeFromCartHandler } = useCart();
   const navigate = useNavigate();
 
-  const fetchUserDetails = async () => {
-    try {
-      setIsLoading(true);
-      const { data: response } = await FetchUserDetailsAPI();
-      setUser(response.user);
-      setCartItem(response.user.cart);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-    }
-  };
+  // const fetchUserCartDetails = async () => {
+  //   try {
+  //     setIsLoading(true);
+  //     const { data: response } = await getCartAPI();
+  //     setCartItem(response.cart);
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -54,31 +53,13 @@ const Checkout = () => {
       // Initialize Stripe with your publishable API key
       window.stripe = window.Stripe(import.meta.env.VITE_STRIPE_KEY);
     });
-    fetchUserDetails();
+    // fetchUserCartDetails();
   }, []);
 
   const taxCalculator = (subtotal) => {
     const temp = (10 * subtotal) / 100;
     setCharges(temp);
     return temp;
-  };
-  const grandTotalCalculator = (subtotal) => {
-    setGrandTotal(subtotal + charges);
-    return grandTotal;
-  };
-
-  const updateItemsHandler = (itemID, type) => {
-    setCartItem((prevState) => {
-      const updatedItems = prevState.map((item) => {
-        if (item._id.toString() === itemID.toString()) {
-          type === "ADD" ? (item.quantity += 1) : (item.quantity -= 1);
-          return item;
-        } else {
-          return item;
-        }
-      });
-      return updatedItems;
-    });
   };
 
   // const onOrderSumbit = async (stripe_token,values) => {
@@ -142,7 +123,11 @@ const Checkout = () => {
       <div className="mx-auto my-4 max-w-4xl md:my-6">
         <div className="overflow-hidden  rounded-xl shadow">
           <div className="grid grid-cols-1 md:grid-cols-2">
-            <CheckoutSummary />
+            <CheckoutSummary
+              items={cart}
+              total={getTotalPrice(cart)}
+              removeFromCartHandler={removeFromCartHandler}
+            />
             <CheckoutForm
               orderItems={[
                 {

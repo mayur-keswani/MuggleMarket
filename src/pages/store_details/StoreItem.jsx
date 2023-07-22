@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/user-context";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
-import useItemController from "../../hooks/useItemController";
+import useCart from "../../hooks/useCart";
 
 const StoreItem = ({ item }) => {
   const [cartQauntity, setCartQuantity] = useState(0);
@@ -12,7 +12,7 @@ const StoreItem = ({ item }) => {
     addQuantityHandler,
     reduceQuantityHandler,
     addToCartHandler,
-  } = useItemController();
+  } = useCart();
 
   useEffect(() => {
     if (cart.length > 0 && item?._id) {

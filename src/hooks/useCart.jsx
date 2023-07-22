@@ -12,8 +12,17 @@ import {
   updateToCartAPI,
 } from "../lib/market.api";
 
-const useItemController = () => {
+const useCart = () => {
   const { dispatch } = useContext(UserContext);
+
+  function getTotalPrice(cartItems) {
+    let totalPrice = 0;
+    cartItems?.forEach((cartItem) => {
+      totalPrice = totalPrice + cartItem?.quantity * cartItem?.product?.price;
+    });
+    console.log({ totalPrice });
+    return totalPrice;
+  }
   async function addQuantityHandler(id, existingQuantity) {
     dispatch(addQuantity(id));
     try {
@@ -57,6 +66,7 @@ const useItemController = () => {
     }
   }
   return {
+    getTotalPrice,
     addQuantityHandler,
     reduceQuantityHandler,
     addToCartHandler,
@@ -64,4 +74,4 @@ const useItemController = () => {
   };
 };
 
-export default useItemController;
+export default useCart;

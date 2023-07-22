@@ -14,7 +14,7 @@ const BaseLayout = (props) => {
       <Header forBusiness={!!props?.forBusiness} overLap={!!props?.overLap} />
       <main className="relative mt-24 min-h-[calc(100vh-6rem)]">
         {props.children}
-        {cart.length > 0 && <Cart totalItems={cart} />}
+        {cart.length > 0 && !!props.showCart && <Cart totalItems={cart} />}
       </main>
       <Footer />
     </>

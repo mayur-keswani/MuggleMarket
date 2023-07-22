@@ -33,8 +33,8 @@ export const getCartAPI = () => {
   return axios.get(`${endpoint}/cart`);
 };
 
-export const checkoutAPI = (payload) => {
-  return axios.post(`${endpoint}/checkout`, payload);
+export const checkoutAPI = () => {
+  return axios.post(`${endpoint}/checkout`);
 };
 
 export const placeOrderAPI = (payload) => {

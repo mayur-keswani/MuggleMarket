@@ -7,31 +7,20 @@ import {
   BsFillArrowUpCircleFill,
   BsFillArrowDownCircleFill,
 } from "react-icons/bs";
+import useCart from "../../hooks/useCart";
 
 const Cart = () => {
   const [showCartItems, setShowCartItems] = useState(false);
   const {
     globalState: { cart },
   } = useContext(UserContext);
+  const { getTotalPrice } = useCart();
   const navigate = useNavigate();
 
-  async function proceedToCheckout(cartItems) {
-    try {
-      let payload = cartItems.map(item=> ({id:product._id,quantity:item.quantity}))
-      const { data } = await checkoutAPI(payload);
-      navigate("/checkout");
-    } catch (error) {}
+  async function proceedToCheckout() {
+    // const { data } = await checkoutAPI();
+    navigate("/checkout");
   }
-
-  function getTotalPrice() {
-    let totalPrice = 0;
-    cart?.forEach((cartItem) => {
-      totalPrice = totalPrice + (cartItem?.quantity * cartItem?.product?.price);
-    });
-    console.log({totalPrice})
-    return totalPrice;
-  }
-
 
   return (
     <div className="fixed bottom-0 left-0 bg-primary w-full font-bold overflow-scroll max-h-[calc(100vh-6rem)]">
@@ -58,18 +47,17 @@ const Cart = () => {
           <div className="flex flex-row justify-between">
             <p className="mx-2">
               {" "}
-              Your Order{" "}
-              <span className="text-muted">({cart?.length})</span>
+              Your Order <span className="text-muted">({cart?.length})</span>
             </p>
             <div>
-              Subtotal :<span className="text-red"> {getTotalPrice()}</span>
+              Subtotal :<span className="text-red"> {getTotalPrice(cart)}</span>
             </div>
           </div>
         )}
         <div className="text-right">
           <button
             className="btn btn-info px-5 py-2 mx-auto"
-            onClick={() => proceedToCheckout(cart)}
+            onClick={() => proceedToCheckout()}
           >
             Continue
           </button>
