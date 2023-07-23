@@ -1,27 +1,25 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Skeleton } from "../../component/commons/skeleton/card";
-import OrderPlaceResult from "../../component/order-place-result/OrderPlaceResult";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/user-context";
 // import {Button,Icon,Divider,Grid,Message} from 'semantic-ui-react'
 import {
   FetchUserDetailsAPI,
+  checkoutAPI,
+  createStripeSessionAPI,
   getCartAPI,
   placeOrderAPI,
 } from "../../lib/market.api";
 import CheckoutSummary from "../../component/checkout/checkout-summary";
 import CheckoutForm from "../../component/checkout/checkout-form";
-import { values } from "lodash";
 import useCart from "../../hooks/useCart";
+import AfterPaymentStatusModal from "../../component/modals/AfterPaymentStatusModal";
 
 const Checkout = () => {
-  const [grandTotal, setGrandTotal] = useState(0);
-  const [charges, setCharges] = useState(0);
-  const [paymentMethod, setPaymentMethod] = useState("cash");
-  const [ordered, onOrderPlaced] = useState({
-    flag: false,
-    status: null,
-    message: null,
+  const [showPaymentStatus, setShowPaymentStatus] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState({
+    isComplete: false,
+    isFailed: false,
   });
   const [invoice, setInvoice] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -43,6 +41,28 @@ const Checkout = () => {
   //   }
   // };
 
+  const checkoutHandler = async (payload) => {
+    try {
+      setIsLoading(true);
+      const { data: checkoutResult } = await checkoutAPI(payload);
+      console.log({ checkoutResult });
+      const { data: session } = await createStripeSessionAPI({
+        items: cart,
+      });
+      const { error } = await window.stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+      setIsLoading(false);
+
+      if (error) {
+        console.error(error);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://js.stripe.com/v3/";
@@ -55,12 +75,6 @@ const Checkout = () => {
     });
     // fetchUserCartDetails();
   }, []);
-
-  const taxCalculator = (subtotal) => {
-    const temp = (10 * subtotal) / 100;
-    setCharges(temp);
-    return temp;
-  };
 
   // const onOrderSumbit = async (stripe_token,values) => {
   //   try {
@@ -121,6 +135,13 @@ const Checkout = () => {
   return (
     <>
       <div className="mx-auto my-4 max-w-4xl md:my-6">
+        <AfterPaymentStatusModal
+          status={paymentStatus}
+          isOpen={showPaymentStatus}
+          closeModal={() => {
+            setShowPaymentStatus(false);
+          }}
+        />
         <div className="overflow-hidden  rounded-xl shadow">
           <div className="grid grid-cols-1 md:grid-cols-2">
             <CheckoutSummary
@@ -129,19 +150,9 @@ const Checkout = () => {
               removeFromCartHandler={removeFromCartHandler}
             />
             <CheckoutForm
-              orderItems={[
-                {
-                  price_data: {
-                    currency: "usd",
-                    product_data: {
-                      name: "Awesome Product",
-                      images: ["https://example.com/product-image.jpg"],
-                    },
-                    unit_amount: 2000, // Amount in cents
-                  },
-                  quantity: 1,
-                },
-              ]}
+              checkoutHandler={checkoutHandler}
+              total={getTotalPrice(cart)}
+              isLoading={isLoading}
             />
           </div>
         </div>

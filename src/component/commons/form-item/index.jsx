@@ -10,7 +10,7 @@ const FormItem = (props, ref) => {
           {props?.label && (
             <label
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for={props?.name}
+              htmlFor={props?.name}
             >
               {props?.label}
             </label>
@@ -18,9 +18,40 @@ const FormItem = (props, ref) => {
           <input
             className={`flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-dark ${props?.className &&
               props?.className}`}
-            {...props}
+            {...(({ className, ...o }) => o)(props)}
             ref={ref}
           />
+        </>
+      );
+    case "select":
+      return (
+        <>
+          {props?.label && (
+            <label
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              htmlFor={props?.name}
+            >
+              {props?.label}
+            </label>
+          )}
+          <input
+            className={`flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-dark ${props?.className &&
+              props?.className}`}
+            {...(({ className, ...o }) => o)(props)}
+            ref={ref}
+          />
+          <select
+            id="countries"
+            className={`flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-dark ${props?.className &&
+              props?.className}`}
+            {...(({ className, options, ...o }) => o)(props)}
+          >
+            {options.map((option, index) => (
+              <option value={option.value} key={option.value + index}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </>
       );
     case "checkbox":
@@ -29,11 +60,11 @@ const FormItem = (props, ref) => {
           <input
             type="checkbox"
             className="w-6 h-6 rounded"
-            {...props}
+            {...(({ className, ...o }) => o)(props)}
             ref={ref}
           />
           <label
-            for="vue-checkbox"
+            htmlFor="vue-checkbox"
             className="w-full py-3 ml-2 text-sm font-medium leading-none"
           >
             {props?.label}
@@ -46,7 +77,7 @@ const FormItem = (props, ref) => {
           {props?.label && (
             <label
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for={props?.name}
+              htmlFor={props?.name}
             >
               {props?.label}
             </label>
@@ -71,7 +102,7 @@ const FormItem = (props, ref) => {
           {props?.label && (
             <label
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for={props?.name}
+              htmlFor={props?.name}
             >
               {props?.label}
             </label>
@@ -91,7 +122,7 @@ const FormItem = (props, ref) => {
           {props?.label && (
             <label
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for={props?.name}
+              htmlFor={props?.name}
             >
               {props?.label}
               ref={ref}
@@ -113,7 +144,7 @@ const FormItem = (props, ref) => {
           {props?.label && (
             <label
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for={props?.name}
+              htmlFor={props?.name}
             >
               {props?.label}
             </label>
@@ -133,7 +164,7 @@ const FormItem = (props, ref) => {
           {props?.label && (
             <label
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for={props?.name}
+              htmlFor={props?.name}
             >
               {props?.label}
             </label>
@@ -154,7 +185,7 @@ const FormItem = (props, ref) => {
           {props?.label && (
             <label
               className="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for={props?.name}
+              htmlFor={props?.name}
             >
               {props?.label}
             </label>

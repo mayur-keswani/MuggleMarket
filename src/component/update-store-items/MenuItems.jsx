@@ -3,7 +3,7 @@ import { UserContext } from "../../context/user-context";
 import { Skeleton } from "../commons/skeleton/card";
 import AddItemToStoreModal from "../modals/AddItemToStoreModal";
 
-const OutletMenuItems = (props) => {
+const MenuItems = (props) => {
   const [showAddItemModal, setShowAddItemModal] = useState(false);
   const { globalState, dispatch } = useContext(UserContext);
   const { token, editStoreKey } = globalState;
@@ -26,6 +26,7 @@ const OutletMenuItems = (props) => {
           setShowAddItemModal(false);
         }}
       />
+
       <table className="w-full box-border divide-y divide-gray-200">
         <thead className="text-xs text-gray-700 uppercase  dark:bg-gray-dark dark:text-gray-400">
           <tr scope="col" className="bg-gray-50">
@@ -107,4 +108,4 @@ const OutletMenuItems = (props) => {
   );
 };
 
-export default OutletMenuItems;
+export default MenuItems;

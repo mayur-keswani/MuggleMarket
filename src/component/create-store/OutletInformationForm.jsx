@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../context/user-context";
-import { useNavigate } from "react-router-dom";
 import FormItem from "../commons/form-item";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
+import noImageAvailable from '../../public/noImageAvailable.png'
 
 const OutletInformationForm = (props) => {
   const [outletDetails, setOutletDetails] = useState({
@@ -39,10 +39,15 @@ const OutletInformationForm = (props) => {
     register,
     formState: { errors },
     handleSubmit,
+    watch,
   } = useForm({
     defaultValues: props?.storeDetails,
   });
 
+  const storeImage = watch("storeImage");
+  const imgSrc = storeImage && storeImage.length>0 && URL.createObjectURL(storeImage[0]);
+
+  console.log({ storeImage });
   return (
     <form onSubmit={handleSubmit(props?.onSubmit)}>
       <div className="py-3">
@@ -60,9 +65,38 @@ const OutletInformationForm = (props) => {
             <p className="error">Store'name is required!</p>
           )}
         </div>
+        <div>
+          <FormItem
+            type="file"
+            name="storeImage"
+            label=" Store Image"
+            {...register("storeImage", { required: true })}
+          />
+          {errors?.storeImage?.type === "required" && (
+            <p className="error">Store'Image is required!</p>
+          )}
+          <div className="border border-dotted p-3">
+            {imgSrc ? (
+              <img
+                className="rounded-xl"
+                width={"250px"}
+                height={"300px"}
+                src={imgSrc}
+              />
+            ) : (
+              <img
+                className="rounded-xl"
+                width={"250px"}
+                height={"300px"}
+                src={noImageAvailable}
+              />
+            )}
+          </div>
+        </div>
         <div className="mb-4">
           <FormItem
             type="textarea"
+            label="Description"
             {...register("description", { required: true })}
             placeholder="Brief Description"
           />
@@ -73,6 +107,7 @@ const OutletInformationForm = (props) => {
         <div className="mb-4">
           <FormItem
             type="text"
+            label="City"
             {...register("city", { required: true })}
             placeholder="City"
           />
@@ -83,6 +118,7 @@ const OutletInformationForm = (props) => {
         <div className="mb-4">
           <FormItem
             type="textarea"
+            label="Address"
             {...register("address", { required: true })}
             placeholder="Store complete address"
           />
@@ -179,7 +215,7 @@ const OutletInformationForm = (props) => {
           </button>
         )} */}
 
-        <button className="btn btn-outline-primary py-3 px-4" type="submit">
+        <button className="btn btn-outline-primary py-3 px-4" type="submit" >
           Next
           <svg
             xmlns="http://www.w3.org/2000/svg"

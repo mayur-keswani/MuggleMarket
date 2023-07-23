@@ -1,10 +1,9 @@
 import React from "react";
 import FormItem from "../commons/form-item";
-import StripeCheckout from "react-stripe-checkout";
 import { useForm } from "react-hook-form";
 import { Disclosure } from "@headlessui/react";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
-import { createStripeSessionAPI } from "../../lib/market.api";
+import Spinner from "../commons/spinner/Spinner";
 
 const CheckoutForm = (props) => {
   const {
@@ -13,21 +12,19 @@ const CheckoutForm = (props) => {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = async () => {
-    try {
-      const { data: session } = await createStripeSessionAPI({
-        items: props.orderItems,
-      });
-      const { error } = await window.stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
-
-      if (error) {
-        console.error(error);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const onSubmit = async (values) => {
+    let payload = {
+      username: values.username,
+      email: values.email,
+      address: values.address,
+      city: values.city,
+      state: values.state,
+      postalCode: values.postalCode,
+      paymentMethod: "Debit Card",
+      paymentStatus: "Pending",
+      totalAmount : props?.total
+    };
+    await props.checkoutHandler(payload);
   };
 
   return (
@@ -104,10 +101,10 @@ const CheckoutForm = (props) => {
                         <FormItem
                           type="text"
                           label="State / Province"
-                          {...register("region", { required: true })}
+                          {...register("state", { required: true })}
                         />
                         {errors?.region?.type === "required" && (
-                          <p className="error">Region is required</p>
+                          <p className="state">State is required</p>
                         )}
                       </div>
 
@@ -155,12 +152,12 @@ const CheckoutForm = (props) => {
             </Disclosure>
 
             <div>
-              {" "}
               <button
                 type="submit"
-                className="btn btn-primary w-full rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                disabled={props?.isLoading}
+                className="btn btn-primary w-full rounded-md p-4 space-x-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
               >
-                Proceed
+                {(props.isLoading ) && <Spinner />} Proceed
               </button>
             </div>
           </form>

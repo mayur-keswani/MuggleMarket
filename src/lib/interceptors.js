@@ -3,8 +3,14 @@ import { clearLocalStorage, getAuthDetails } from "./localStorage";
 import { onLogout } from "../context/action-creators";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { UserContext } from "../context/user-context";
 const instance = axios.create();
 
+const logoutUserHander = () => {
+  const { dispatch } = useContext(UserContext);
+  dispatch(logoutUser());
+};
 instance.interceptors.request.use(
   function(config) {
     // Do something before request is sento
@@ -39,7 +45,7 @@ instance.interceptors.response.use(
     console.log({ error: error.response });
     if (error && error?.response && error?.response?.status == "401") {
       clearLocalStorage();
-      logoutUser();
+      logoutUserHander();
       toast.error("Session Expired!", {
         position: toast.POSITION.TOP_RIGHT,
       });

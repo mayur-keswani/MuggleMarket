@@ -1,33 +1,78 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import Guide from "../../component/create-store/Guide";
-import { useNavigate, useParams } from "react-router-dom";
 import "./CreateStore.css";
-import { useForm } from "react-hook-form";
-import FormItem from "../../component/commons/form-item";
+import { createStoreAPI } from "../../lib/market.api";
 const OutletInformationForm = lazy(() =>
   import("../../component/create-store/OutletInformationForm")
 );
 const OutletTimingsForm = lazy(() =>
   import("../../component/create-store/OutletTimingsForm")
 );
-const OutletItemsForm = lazy(() =>
-  import("../../component/create-store/OutletItemsForm")
-);
 
 const CreateStore = () => {
-  const [currentStep, setCurrentStep] = useState(3);
+  const [currentStep, setCurrentStep] = useState(1);
   const [storeDetails, setStoreDetails] = useState({});
+  const [isLoading,setIsLoading] = useState(false)
 
   const renderPrevForm = () => {
     setCurrentStep((prevState) => prevState - 1);
   };
-  const onSubmitHandler = (values) => {
-    debugger;
-    setStoreDetails((prevValues) => ({ ...prevValues, ...values }));
-    if (currentStep < 3) {
-      setCurrentStep((prevStep) => prevStep + 1);
+  const onSubmitHandler = async(values) => {
+    console.log(storeDetails)
+    if (
+      "storeImage" in values &&
+      values["storeImage"].length &&
+      values["storeImage"].length>0
+    ) {
+      values["storeImage"] = values.storeImage[0];
+    }
+    let updatedOutletDetails = {...storeDetails,...values}
+    setStoreDetails(updatedOutletDetails);
+    if (currentStep === 2) {
+      const formData = new FormData();
+
+      
+      formData.append("name", updatedOutletDetails.storeName);
+      formData.append("description", updatedOutletDetails.description);
+
+      formData.append("location", {
+        city: updatedOutletDetails.city,
+        address: updatedOutletDetails.address,
+      });
+
+      formData.append("openingTime", updatedOutletDetails.openingTime);
+      formData.append("closingTime", updatedOutletDetails.closingTime);
+      formData.append("contactNo", updatedOutletDetails.contactNo);
+      formData.append("landlineNo", updatedOutletDetails.landlineNo);
+      formData.append("ownerName", updatedOutletDetails.ownerName);
+      formData.append("personalNo", updatedOutletDetails.personalNo);
+      formData.append("storeType", updatedOutletDetails.storeType);
+      formData.append("yearOfEstablishment", updatedOutletDetails.yearOfEstablishment);
+
+      formData.append("social", {
+        site: updatedOutletDetails.personalWebsite,
+        facebook: updatedOutletDetails.facebook,
+        instagram: updatedOutletDetails.instagram,
+        youtube: updatedOutletDetails.youtube,
+      });
+      formData.append("storeImage", updatedOutletDetails.storeImage);
+      console.log(formData.get("storeImage"));
+        try {
+          let response;
+          setIsLoading(true)
+          if (false) {
+            // response = await editStoreAPI(editStoreKey, formData);
+            // dispatch({ type: EDIT_STORE, payload: { id: null, store: null } });
+          } else {
+            response = await createStoreAPI(formData);
+          }
+          setIsLoading(false)
+          // navigate("/");
+        } catch (error) {
+          setIsLoading(false);
+        }
     } else {
-      //TODO:
+      setCurrentStep((prevStep) => prevStep + 1);
     }
   };
 
@@ -56,21 +101,23 @@ const CreateStore = () => {
               storeDetails={storeDetails}
               onSubmit={onSubmitHandler}
               renderPrevForm={renderPrevForm}
+              isLoading={isLoading}
             />
           </div>
         </Suspense>
       );
-    } else if (currentStep === 3) {
-      return (
-        <Suspense fallback={<div>Loading...</div>}>
-          <OutletItemsForm
-            storeDetails={storeDetails}
-            onSubmit={onSubmitHandler}
-            renderPrevForm={renderPrevForm}
-          />
-        </Suspense>
-      );
     }
+    // else if (currentStep === 3) {
+    //   return (
+    //     <Suspense fallback={<div>Loading...</div>}>
+    //       <OutletItemsForm
+    //         storeDetails={storeDetails}
+    //         onSubmit={onSubmitHandler}
+    //         renderPrevForm={renderPrevForm}
+    //       />
+    //     </Suspense>
+    //   );
+    // }
   };
 
   return (

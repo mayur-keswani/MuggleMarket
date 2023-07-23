@@ -15,6 +15,9 @@ const AddItemToStoreModal = (props) => {
     formState: { errors },
   } = useForm();
 
+
+
+
   const onSubmitHandler = async (values) => {
     const formData = new FormData();
     formData.append("name", values.name);

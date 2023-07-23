@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import OrderSummary from "./OrderSummary";
 import { UserContext } from "../../context/user-context";
 import { useNavigate } from "react-router-dom";
-import { checkoutAPI } from "../../lib/market.api";
 import {
   BsFillArrowUpCircleFill,
   BsFillArrowDownCircleFill,

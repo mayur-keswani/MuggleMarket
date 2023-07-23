@@ -2,25 +2,32 @@ import React, { useState, useEffect, useContext } from "react";
 import MyOrder from "../../component/my-order/MyOrder";
 import { useNavigate } from "react-router-dom";
 // import { Header, Icon, Button, Divider, Item } from "semantic-ui-react";
-import userContext from "../../context/user-context";
 import { Skeleton } from "../../component/commons/skeleton/card";
+import { fetchMyOrdersAPI } from "../../lib/market.api";
+import { set } from "lodash";
 
 const MyOrders = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [orders, setOrders] = useState(null);
   const navigate = useNavigate();
 
   const fetchMyOrders = async () => {
     try {
-      const { data } = await fetchMyOrders();
+      setIsLoading(true);
+      const { data } = await fetchMyOrdersAPI();
+      setIsLoading(false);
       setOrders(data.orders);
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
-  
+
   useEffect(() => {
     fetchMyOrders();
   }, []);
   return (
     <>
+      My orders
       {/* <div className="checkout-header px-5 py-2 my-0 d-flex align-items-center">
         <Button animated basic size="small" onClick={() => navigate(-1)}>
           <Button.Content visible>Back to Home</Button.Content>

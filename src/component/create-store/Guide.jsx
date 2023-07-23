@@ -14,7 +14,7 @@ const Guide = (props) => {
       <div className="sr-only text-xl dark">Steps</div>
 
       <div className="w-full">
-        <ol className="grid grid-cols-1 divide-x divide-gray-100 overflow-hidden rounded-lg border border-gray-100 text-sm text-gray-500 sm:grid-cols-3">
+        <ol className="grid grid-cols-1 sm:grid-cols-2 divide-x divide-gray-100 overflow-hidden rounded-lg border border-gray-100 text-sm text-gray-500 ">
           <li className="flex items-center md:justify-center gap-2 p-4">
             <svg
               className="h-7 w-7 shrink-0"
@@ -72,7 +72,7 @@ const Guide = (props) => {
             </p>
           </li>
 
-          <li className="flex items-center md:justify-center gap-2 p-4">
+          {/* <li className="flex items-center md:justify-center gap-2 p-4">
             <svg
               className="h-7 w-7 shrink-0"
               xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@ const Guide = (props) => {
               <strong className="block font-medium"> Upload Items </strong>
               <small className="mt-1">Store'items,product images. </small>
             </p>
-          </li>
+          </li> */}
         </ol>
       </div>
     </div>

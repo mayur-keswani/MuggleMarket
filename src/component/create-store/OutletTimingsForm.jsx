@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import ModalWrapper from "../commons/modal-wrapper/ModalWrapper";
-// import SubmitForm from "../../pages/create_your_store/SubmitForm";
 import FormItem from "../commons/form-item";
 import { useForm } from "react-hook-form";
+import Spinner from "../commons/spinner/Spinner";
 
 const OutletTimingsForm = (props) => {
   const [outletDetails, setOutletDetails] = useState({
@@ -35,15 +34,6 @@ const OutletTimingsForm = (props) => {
 
   return (
     <form onSubmit={handleSubmit(props?.onSubmit)}>
-      {showConfirmBox && (
-        <ModalWrapper
-          isOpen={showConfirmBox}
-          closeModal={() => toggleConfirmBox((prevState) => !prevState)}
-          title=""
-        >
-          {/* <SubmitForm /> */}
-        </ModalWrapper>
-      )}
       <div className="mt-3">
         <p>Outlet Type & Timings</p>
         <span className="text-muted">Name, address, Location</span>
@@ -156,23 +146,10 @@ const OutletTimingsForm = (props) => {
           </svg>
           Previous
         </button>
-        <button className="btn btn-outline-primary py-3 px-4" type="submit">
-          Next
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="ml-2 h-4 w-4"
-          >
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
+        disabled={props?.isLoading}
+        <button className="btn btn-primary py-3 px-4" type="submit" disabled={props?.isLoading}>
+          {props?.isLoading && <Spinner/>} Create Store
+          
         </button>
       </div>
     </form>
