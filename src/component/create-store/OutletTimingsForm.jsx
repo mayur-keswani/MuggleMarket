@@ -125,6 +125,7 @@ const OutletTimingsForm = (props) => {
       <div className="flex items-center justify-around flex-row w-full mt-2">
         <button
           className="btn btn-outline-primary py-3 px-4"
+          disabled={props?.isLoading}
           onClick={() => {
             props?.renderPrevForm();
           }}
@@ -146,10 +147,13 @@ const OutletTimingsForm = (props) => {
           </svg>
           Previous
         </button>
-        disabled={props?.isLoading}
-        <button className="btn btn-primary py-3 px-4" type="submit" disabled={props?.isLoading}>
-          {props?.isLoading && <Spinner/>} Create Store
-          
+
+        <button
+          className="btn btn-primary py-3 px-4"
+          type="submit"
+          disabled={props?.isLoading}
+        >
+          {props?.isLoading && <Spinner />} Create Store
         </button>
       </div>
     </form>

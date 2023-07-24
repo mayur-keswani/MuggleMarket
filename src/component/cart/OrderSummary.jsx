@@ -35,7 +35,7 @@ const OrderSummary = () => {
               <div className="flex w-full space-x-2 sm:space-x-4">
                 <img
                   className="h-20 w-20 flex-shrink-0 rounded object-cover outline-none dark:border-transparent sm:h-32 sm:w-32"
-                  src={cartItem.product.product_pic}
+                  src={cartItem.product.picture}
                   alt={cartItem.product.name}
                 />
                 <div className="flex w-full flex-col justify-between pb-4">

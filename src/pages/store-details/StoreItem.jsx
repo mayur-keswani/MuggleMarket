@@ -30,7 +30,7 @@ const StoreItem = ({ item }) => {
   //     "storeID": "64a7bc61ab5984003f276add",
   //     "name": "Item 1",
   //     "description": "test",
-  //     "product_pic": "http://res.cloudinary.com/dra5wny0w/image/upload/v1689421893/dog1reuwrygj70mkrvbe.jpg",
+  //     "picture": "http://res.cloudinary.com/dra5wny0w/image/upload/v1689421893/dog1reuwrygj70mkrvbe.jpg",
   //     "price": 200,
   //     "createdAt": "2023-07-15T11:51:33.642Z",
   //     "updatedAt": "2023-07-15T11:51:33.642Z",
@@ -42,7 +42,7 @@ const StoreItem = ({ item }) => {
         <div className="relative flex items-center justify-center">
           <img
             alt="Product gallery 1"
-            src={item?.product_pic}
+            src={item?.picture}
             width={"100px"}
             height={"200px"}
             className="rounded-lg object-cover w-full"

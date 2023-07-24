@@ -27,15 +27,15 @@ const StoreDetails = () => {
     description: " A place to buy toys, gifts for your loved ones",
     address: "Ahmedabad",
     city: "Ahmedabad",
-    store_type: "Gifts & Accessories",
-    contact_no: 7896452314,
+    storeType: "Gifts & Accessories",
+    contactNo: 7896452314,
     landline_no: null,
-    opening_time: "08:00",
-    closing_time: "20:00",
-    year_of_establish: null,
+    openingTime: "08:00",
+    closingTime: "20:00",
+    yearOfEstablish: null,
     owner: "Mayur",
     personal_no: null,
-    store_picture:
+    picture:
       "http://res.cloudinary.com/dra5wny0w/image/upload/v1688714337/covy23lajkhsfcadoxyc.jpg",
     createdAt: "2023-07-07T07:18:57.459Z",
     updatedAt: "2023-07-07T07:18:57.459Z",
@@ -101,7 +101,7 @@ const StoreDetails = () => {
           <div className="relative h-32 flex justify-center items-end dark:bg-gray-dark">
             <div className="absolute -top-10 left-1/2 transform  -translate-x-1/2 h-[100px] after:absolute after:top-0 after:w-full after:h-full after:block  after:content-['']">
               <img
-                src={storeDetails.store_picture}
+                src={storeDetails.picture}
                 alt="store-thumbnail"
                 className="h-full object-full rounded-full"
                 width={"100px"}

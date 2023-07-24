@@ -22,8 +22,8 @@ const AddItemToStoreModal = (props) => {
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("description", values.description);
-    formData.append("storeImage", values.picture);
-    console.log(formData.get("storeImage"));
+    formData.append("picture", values.picture);
+    console.log(formData.get("picture"));
     formData.append("price", values.price);
     try {
       setIsLoading(true);

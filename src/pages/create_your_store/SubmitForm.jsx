@@ -7,14 +7,14 @@ import { useNavigate } from "react-router";
 
 const SubmitForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  const [storeImage, setStoreImage] = useState("");
+  const [picture, setStoreImage] = useState("");
   const navigate = useNavigate();
   const { globalState, dispatch } = useContext(UserContext);
   const { token, editStoreKey, editStore } = globalState;
 
   useEffect(() => {
     if (editStoreKey) {
-      setStoreImage(editStore.store_picture);
+      setStoreImage(editStore.picture);
     }
   }, []);
   const submitFormHandler = async () => {
@@ -36,8 +36,8 @@ const SubmitForm = () => {
     formData.append("facebook", outletDetails.facebook);
     formData.append("instagram", outletDetails.instagram);
     formData.append("youtube", outletDetails.youtube);
-    formData.append("storeImage", storeImage);
-    console.log(formData.get("storeImage"));
+    formData.append("picture", picture);
+    console.log(formData.get("picture"));
 
     try {
       let response;
@@ -53,8 +53,8 @@ const SubmitForm = () => {
   };
 
   let imageURL;
-  if (typeof storeImage !== "string" && storeImage) {
-    imageURL = URL.createObjectURL(storeImage);
+  if (typeof picture !== "string" && picture) {
+    imageURL = URL.createObjectURL(picture);
   }
 
   return (
@@ -71,13 +71,13 @@ const SubmitForm = () => {
         <Image
           centered
           className="store_image rounded-circle"
-          src={imageURL || storeImage}
+          src={imageURL || picture}
         />
         <br />
         &nbsp;
         <input
           type="file"
-          name="storeImage"
+          name="picture"
           onChange={(e) => setStoreImage(e.target.files[0])}
         />
         <p className="text-muted" style={{ fontSize: "1.5rem" }}>

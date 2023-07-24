@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import DetectLocation from "./location/DetectLocation";
 import SearchBar from "./search-bar/SearchBar";
 import Logo from "../../commons/logo/Logo";
@@ -10,13 +10,12 @@ import LoginModal from "../../modals/LoginModal";
 import SignupModal from "../../modals/SignupModal";
 import UserAccountMenu from "./UserAccountMenu";
 import { useNavigate } from "react-router-dom";
-
-
+import { MdLightMode, MdDarkMode } from "react-icons/md";
 
 const Header = (props) => {
   const [showLoginDialog, setShowLoginModal] = useState(false);
   const [showSignupDialog, setShowSignupModal] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { globalState } = useContext(UserContext);
   const {
@@ -24,6 +23,9 @@ const Header = (props) => {
   } = globalState;
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
+  useEffect(() => {
+    console.log(document.documentElement.classList);
+  }, [document.documentElement.classList]);
   return (
     <>
       <header
@@ -58,9 +60,12 @@ const Header = (props) => {
                 />
               )}
             </span>
-            <div className="cursor-pointer"  onClick={()=>{
-              navigate('/')
-            }}>
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
               {props?.forBusiness ? (
                 <ForBusiness overLap={props?.overLap} />
               ) : (
@@ -96,6 +101,24 @@ const Header = (props) => {
 
             {/* RIGHT SIDE */}
             <div className={`flex items-center justify-center`}>
+              <div className="mr-3">
+                <button
+                  className="btn dark:hidden"
+                  onClick={() => {
+                    document.documentElement.classList.add("dark");
+                  }}
+                >
+                  <MdDarkMode size={"1.5rem"} />
+                </button>
+                <button
+                  className="btn hidden dark:block "
+                  onClick={() => {
+                    document.documentElement.classList.remove("dark");
+                  }}
+                >
+                  <MdLightMode size={"1.5rem"} />
+                </button>
+              </div>
               {!props?.forBusiness && (
                 <div className="hidden md:flex items-center justify-center ">
                   <DetectLocation />
@@ -103,9 +126,9 @@ const Header = (props) => {
                 </div>
               )}
               {!isLoggedIn ? (
-                <ul className="text-xl flex">
+                <ul className="text-xl flex mx-2 space-x-3">
                   <li
-                    className="btn-login px-2 mx-2"
+                    className="btn-login "
                     onClick={() => {
                       setShowLoginModal(true);
                     }}
@@ -113,7 +136,7 @@ const Header = (props) => {
                     Log in
                   </li>
                   <li
-                    className="btn-signup px-2"
+                    className="btn-signup "
                     onClick={() => {
                       setShowSignupModal(true);
                     }}
@@ -127,16 +150,15 @@ const Header = (props) => {
             </div>
           </div>
         </nav>
-      </header>
-
-      {!props?.forBusiness && (
-        <div className={`h-12 grid grid-cols-4 gap-4 md:hidden`}>
-          <div className="col-span-3">
-            <SearchBar />
+        {!props?.forBusiness && (
+          <div className={`h-12 grid grid-cols-4 gap-4 md:hidden`}>
+            <div className="col-span-3">
+              <SearchBar />
+            </div>
+            <DetectLocation />
           </div>
-          <DetectLocation />
-        </div>
-      )}
+        )}
+      </header>
     </>
   );
 };

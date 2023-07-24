@@ -22,9 +22,7 @@ const MyStore = () => {
     }
   };
 
-  const showStoreHandler = (id) => {
-    navigate("/my-store/" + id);
-  };
+ 
   useEffect(() => {
     fetchMyStores();
   }, []);
@@ -51,7 +49,7 @@ const MyStore = () => {
             >
               <div className="h-full w-full md:h-[200px] md:w-[300px]">
                 <img
-                  src={store.store_picture}
+                  src={store.picture}
                   alt="Laptop"
                   className="h-full w-full rounded-md object-cover"
                   height="250px"
@@ -59,16 +57,50 @@ const MyStore = () => {
               </div>
               <div>
                 <div className="p-4">
-                  <h1 className="inline-flex items-center text-lg font-semibold">
+                  <h1 className="inline-flex items-center text-2xl font-semibold">
                     {store.name}
                   </h1>
-                  <p className="mt-2 text-sm text-gray-600">
-                    {store?.description}
-                  </p>
+                  <p className="">{store?.description}</p>
                   <div className="mt-4">
-                    <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 text-[10px] font-semibold text-gray-900">
-                      {store?.store_type}
-                    </span>
+                    <div>
+                      <span className="font-semibold"> Store Type : </span>
+                      <span className="mb-1 mr-2 inline-block">
+                        {store?.storeType}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="font-semibold"> City : </span>
+                      <span className="mb-1 mr-2 inline-block">
+                        {store?.location?.city}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="mb-1 mr-2 inline-block rounded-full font-semibold ">
+                        {store?.openingTime} - {store?.closingTime}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex flex-row space-x-2 mt-1">
+                    <button
+                      className="btn btn-outline-primary p-2"
+                      onClick={() =>
+                        navigate(
+                          `/partner-with-us/create-your-store/${store?._id}`
+                        )
+                      }
+                    >
+                      Edit Store
+                    </button>
+                    <button
+                      className="btn btn-primary p-2"
+                      onClick={() =>
+                        navigate(
+                          `/partner-with-us/create-your-store/${store?._id}`
+                        )
+                      }
+                    >
+                      Add Products
+                    </button>
                   </div>
                 </div>
               </div>
@@ -100,7 +132,7 @@ const MyStore = () => {
     //         >
     //           <Item.Image
     //             src={
-    //               store.store_picture ||
+    //               store.picture ||
     //               "https://react.semantic-ui.com/images/wireframe/image.png"
     //             }
     //             size="small"

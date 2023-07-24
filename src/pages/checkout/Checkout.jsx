@@ -107,7 +107,7 @@ const Checkout = () => {
   //         productID: item.productID._id,
   //         name: item.productID.name,
   //         description: item.productID.description,
-  //         product_pic: item.productID.product_pic,
+  //         picture: item.productID.picture,
   //         quantity: item.quantity,
   //         price: item.productID.price,
   //         storeID: item.productID.storeID,

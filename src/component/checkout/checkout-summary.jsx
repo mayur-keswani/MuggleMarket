@@ -18,7 +18,7 @@ const CheckoutSummary = ({ items, removeFromCartHandler, total }) => {
                   <div className="flex-shrink-0">
                     <img
                       className="h-20 w-20 rounded-lg border border-gray-200 bg-white object-contain"
-                      src={item?.product.product_pic}
+                      src={item?.product.picture}
                       alt={item?.product.name}
                     />
                   </div>

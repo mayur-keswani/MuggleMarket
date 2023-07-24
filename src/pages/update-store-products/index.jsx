@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import FormItem from "../commons/form-item";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import AddCategoryModal from "../modals/AddCategoryModal";
+import AddCategoryModal from "../../component/modals/AddCategoryModal";
 import { GrClose } from "react-icons/gr";
 import { toast } from "react-toastify";
-import MenuItems from "./menuItems";
+import MenuItems from "../../component/menu-items";
+import FormItem from "../../component/commons/form-item";
 
-const UpdateItemsForm = (props) => {
+const UpdateStoreProducts = () => {
   const [categories, setCategories] = useState([]);
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
 
@@ -17,7 +17,6 @@ const UpdateItemsForm = (props) => {
   } = useForm({
     defaultValues: props?.storeDetails,
   });
-
   return (
     <form onSubmit={handleSubmit(props?.onSubmit)}>
       <AddCategoryModal
@@ -71,7 +70,7 @@ const UpdateItemsForm = (props) => {
           </div>
           <div className="text-center">
             <button
-              className="btn btn-primary text-center p-3 py-2"
+              className="btn btn-primary text-center p-3 py-2 mx-3"
               onClick={() => {
                 setShowAddCategoryModal(true);
               }}
@@ -94,5 +93,4 @@ const UpdateItemsForm = (props) => {
     </form>
   );
 };
-
-export default UpdateItemsForm;
+export default UpdateStoreProducts;

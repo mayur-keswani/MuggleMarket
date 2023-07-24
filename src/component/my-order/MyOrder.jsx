@@ -23,7 +23,7 @@ const MyOrder = ({order}) =>{
 		{
 			order.items.map(item=>
 			<Item className="mx-3" key={item._id}>
-			<Item.Image size="small" src={item.product_pic}/>
+			<Item.Image size="small" src={item.picture}/>
       		<Item.Content verticalAlign='middle'>
         		<Item.Header>{item.name}</Item.Header>
         		<Item.Description>{item.description}</Item.Description>

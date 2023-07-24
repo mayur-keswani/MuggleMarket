@@ -5,16 +5,7 @@ import { useForm, useWatch } from "react-hook-form";
 import noImageAvailable from '../../public/noImageAvailable.png'
 
 const OutletInformationForm = (props) => {
-  const [outletDetails, setOutletDetails] = useState({
-    storeName: "",
-    description: "",
-    city: "",
-    address: "",
-    contactNo: "",
-    landlineNo: "",
-    ownerName: "",
-    personalNo: "",
-  });
+  const [outletDetails, setOutletDetails] = useState(null);
 
   const { globalState } = useContext(UserContext);
   const { editStoreKey, editStore } = globalState;
@@ -44,10 +35,10 @@ const OutletInformationForm = (props) => {
     defaultValues: props?.storeDetails,
   });
 
-  const storeImage = watch("storeImage");
-  const imgSrc = storeImage && storeImage.length>0 && URL.createObjectURL(storeImage[0]);
+  const picture = watch("picture");
+  const imgSrc = picture && picture.length>0 && URL.createObjectURL(picture[0]);
 
-  console.log({ storeImage });
+  console.log({ picture: props.storeDetails });
   return (
     <form onSubmit={handleSubmit(props?.onSubmit)}>
       <div className="py-3">
@@ -58,7 +49,7 @@ const OutletInformationForm = (props) => {
             type="text"
             id="storeName"
             name="storeName"
-            {...register("storeName", { required: true })}
+            {...register("name", { required: true })}
             placeholder="Store Name"
           />
           {errors?.storeName?.type === "required" && (
@@ -68,11 +59,11 @@ const OutletInformationForm = (props) => {
         <div>
           <FormItem
             type="file"
-            name="storeImage"
+            name="picture"
             label=" Store Image"
-            {...register("storeImage", { required: true })}
+            {...register("picture", { required: true })}
           />
-          {errors?.storeImage?.type === "required" && (
+          {errors?.picture?.type === "required" && (
             <p className="error">Store'Image is required!</p>
           )}
           <div className="border border-dotted p-3">
@@ -148,7 +139,7 @@ const OutletInformationForm = (props) => {
           <div>
             <FormItem
               type="text"
-              {...register("landlineNo++", { required: true })}
+              {...register("landlineNo", { required: true })}
               placeholder="landline number with std code"
             />
             {errors?.landlineNo?.type === "required" && (
@@ -215,7 +206,7 @@ const OutletInformationForm = (props) => {
           </button>
         )} */}
 
-        <button className="btn btn-outline-primary py-3 px-4" type="submit" >
+        <button className="btn btn-outline-primary py-3 px-4" type="submit">
           Next
           <svg
             xmlns="http://www.w3.org/2000/svg"

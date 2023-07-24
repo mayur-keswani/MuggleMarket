@@ -79,7 +79,7 @@ const MenuItems = (props) => {
                   <td className="">{item._id}</td>
                   <td className="">{item.name}</td>
                   <td className="">{item.description}</td>
-                  <td className="">{item.product_pic}</td>
+                  <td className="">{item.picture}</td>
                   <td className="">{item.price}</td>
                 </tr>
               );
