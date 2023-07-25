@@ -153,7 +153,8 @@ const OutletTimingsForm = (props) => {
           type="submit"
           disabled={props?.isLoading}
         >
-          {props?.isLoading && <Spinner />} Create Store
+          {props?.isLoading && <Spinner />}{" "}
+          {props.isUpdateMode ? "Update STore" : "Create Store"}
         </button>
       </div>
     </form>

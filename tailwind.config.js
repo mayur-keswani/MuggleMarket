@@ -21,6 +21,7 @@ module.exports = {
   darkMode: "class",
   variants: {
     extend: {
+      visibility: ["group-hover"],
       backgroundColor: ["dark"],
       textColor: ["dark"],
     },

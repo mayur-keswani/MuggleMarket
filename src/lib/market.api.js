@@ -58,10 +58,10 @@ export const uploadItemToStoreAPI = (storeId, payload) => {
 };
 
 export const createStoreAPI = (payload) => {
-  return axios.post(`${endpoint}/store/`, payload);
+  return axios.post(`${endpoint}/store/create`, payload);
 };
-export const editStoreAPI = (storeId, payload) => {
-  return axios.post(`${endpoint}/edit-your-store/${storeId}`, payload);
+export const editStoreAPI = (payload) => {
+  return axios.post(`${endpoint}/store/update`, payload);
 };
 
 export const fetchStoreDetailAPI = (storeId) => {

@@ -2,41 +2,29 @@ import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../context/user-context";
 import FormItem from "../commons/form-item";
 import { useForm, useWatch } from "react-hook-form";
-import noImageAvailable from '../../public/noImageAvailable.png'
+import noImageAvailable from "../../public/noImageAvailable.png";
+import { useRef } from "react";
+import {AiFillDelete} from 'react-icons/ai'
 
 const OutletInformationForm = (props) => {
-  const [outletDetails, setOutletDetails] = useState(null);
-
   const { globalState } = useContext(UserContext);
-  const { editStoreKey, editStore } = globalState;
-
-  useEffect(() => {
-    if (editStoreKey) {
-      console.log(editStoreKey);
-      setOutletDetails({
-        storeName: editStore.name || "",
-        description: editStore.description || "",
-        city: editStore.city || "",
-        address: editStore.address || "",
-        contactNo: editStore.contact_no || "",
-        landlineNo: editStore.landline_no || "",
-        ownerName: editStore.owner || "",
-        personalNo: editStore.personal_no || "",
-      });
-    }
-  }, []);
+  const dropArea = useRef(null);
 
   const {
     register,
     formState: { errors },
     handleSubmit,
     watch,
+    setValue,
   } = useForm({
     defaultValues: props?.storeDetails,
   });
 
   const picture = watch("picture");
-  const imgSrc = picture && picture.length>0 && URL.createObjectURL(picture[0]);
+  const imgSrc =
+    picture &&
+    picture.length > 0 &&
+    (typeof picture === "string" ? picture : URL.createObjectURL(picture[0]));
 
   console.log({ picture: props.storeDetails });
   return (
@@ -56,17 +44,53 @@ const OutletInformationForm = (props) => {
             <p className="error">Store'name is required!</p>
           )}
         </div>
-        <div>
-          <FormItem
-            type="file"
-            name="picture"
-            label=" Store Image"
-            {...register("picture", { required: true })}
-          />
+        <div class="drag-image relative flex flex-col items-center justify-center text-center w-[250px] h-[300px] active:border-primary border border-dotted p-3">
+          {imgSrc ? (
+            <>
+              <img
+                className="rounded-xl object-cover"
+                width={"100%"}
+                height={"100%"}
+                src={imgSrc}
+              />
+              <span className="opacity-0 hover:opacity-100 hover:flex hover:bg-gray-light hover:bg-opacity-30 absolute z-50 w-full h-full items-center justify-center ">
+                <span
+                  className="bg-primary rounded-full p-2"
+                  onClick={() => {
+                    setValue("picture", null);
+                  }}
+                >
+                  <AiFillDelete/>
+                </span>
+              </span>
+            </>
+          ) : (
+            <div
+              ref={dropArea}
+              onDragOver={(e) => {
+                e.preventDefault();
+              }}
+              onDrop={(e) => {
+                e.preventDefault();
+                console.log(e.target.files);
+                setValue("picture", e.dataTransfer.files);
+              }}
+              className="flex items-center justify-center flex-col h-full w-full"
+            >
+              <h6>Drag & Drop File Here</h6>
+              <span className="text-muted">OR</span>
+              <FormItem
+                type="file"
+                name="picture"
+                {...register("picture", { required: true })}
+              />
+            </div>
+          )}
+
           {errors?.picture?.type === "required" && (
             <p className="error">Store'Image is required!</p>
           )}
-          <div className="border border-dotted p-3">
+          {/* <div className="">
             {imgSrc ? (
               <img
                 className="rounded-xl"
@@ -82,7 +106,7 @@ const OutletInformationForm = (props) => {
                 src={noImageAvailable}
               />
             )}
-          </div>
+          </div> */}
         </div>
         <div className="mb-4">
           <FormItem

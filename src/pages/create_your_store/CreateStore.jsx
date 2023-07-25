@@ -160,9 +160,8 @@ const CreateStore = () => {
       try {
         let response;
         setIsLoading(true);
-        if (false) {
-          // response = await editStoreAPI(editStoreKey, formData);
-          // dispatch({ type: EDIT_STORE, payload: { id: null, store: null } });
+        if (id) {
+          response = await editStoreAPI(formData);
           toast.success("Store Updated Successfully!", {
             position: toast.POSITION.TOP_RIGHT,
           });
@@ -173,7 +172,7 @@ const CreateStore = () => {
           });
         }
         setIsLoading(false);
-        navigate("/");
+        navigate("/partner-with-us/my-stores");
       } catch (error) {
         setIsLoading(false);
       }
@@ -221,13 +220,17 @@ const CreateStore = () => {
       const {
         data: { store },
       } = await fetchStoreDetailAPI(id);
-      const { location: {address, city }} = store; 
-      store['picture'] =store?.picture || store?.storeImage;
-       
-      const {social: { site, facebook, youtube, instagram }} = store;
-      
-      delete store['social']
-      delete store['location']
+      const {
+        location: { address, city },
+      } = store;
+      store["picture"] = store?.picture ?? store?.storePicture;
+
+      const {
+        social: { site, facebook, youtube, instagram },
+      } = store;
+
+      delete store["social"];
+      delete store["location"];
       setStoreDetails({
         ...store,
         address,
@@ -253,7 +256,6 @@ const CreateStore = () => {
       fetchStoreDetails(id);
     }
   }, [id]);
-
 
   return (
     <div className="grid grid-cols-1 m-3">
@@ -286,6 +288,7 @@ const CreateStore = () => {
                   storeDetails={storeDetails}
                   onSubmit={onSubmitHandler}
                   renderPrevForm={renderPrevForm}
+                  isUpdateMode={!!id}
                   isLoading={isLoading}
                 />
               </div>
