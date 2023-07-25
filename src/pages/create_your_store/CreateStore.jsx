@@ -1,9 +1,9 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 // import Guide from "../../component/create-store/Guide";
 import "./CreateStore.css";
-import { createStoreAPI, fetchStoreDetailAPI } from "../../lib/market.api";
+import { createStoreAPI, editStoreAPI, fetchStoreDetailAPI } from "../../lib/market.api";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../../component/commons/spinner/Spinner";
 const OutletInformationForm = lazy(() =>
   import("../../component/create-store/OutletInformationForm")
@@ -116,6 +116,7 @@ const CreateStore = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingDetails, setIsFetchingDetails] = useState(false);
   const { id } = useParams();
+  const navigate = useNavigate()
 
   const renderPrevForm = () => {
     setCurrentStep((prevState) => prevState - 1);
@@ -124,6 +125,7 @@ const CreateStore = () => {
     console.log(storeDetails);
     if (
       "picture" in values &&
+      typeof values['picture'] !== 'string' &&
       values["picture"].length &&
       values["picture"].length > 0
     ) {
@@ -148,8 +150,8 @@ const CreateStore = () => {
       formData.append("personalNo", updatedOutletDetails.personalNo);
       formData.append("storeType", updatedOutletDetails.storeType);
       formData.append(
-        "yearOfEstablishment",
-        updatedOutletDetails.yearOfEstablishment
+        "yearOfEstablish",
+        updatedOutletDetails.yearOfEstablish
       );
 
       formData.append("site", updatedOutletDetails.personalWebsite ?? "");
@@ -161,7 +163,7 @@ const CreateStore = () => {
         let response;
         setIsLoading(true);
         if (id) {
-          response = await editStoreAPI(formData);
+          response = await editStoreAPI(id,formData);
           toast.success("Store Updated Successfully!", {
             position: toast.POSITION.TOP_RIGHT,
           });
@@ -263,12 +265,12 @@ const CreateStore = () => {
         <Guide page={currentStep} />
       </div>
 
-      <div className="create-store-form flex justify-center items-center">
+      <div className="create-store-form w-full flex justify-center items-center">
         {isFetchingDetails ? (
           <Spinner size="large" />
         ) : currentStep === 1 ? (
           <Suspense fallback={<div>Loading...</div>}>
-            <div>
+            <div className="w-full">
               <div className="text-xl">Outlet Details</div>
               <hr />
               <OutletInformationForm
@@ -280,7 +282,7 @@ const CreateStore = () => {
         ) : (
           currentStep === 2 && (
             <Suspense fallback={<div>Loading...</div>}>
-              <div>
+              <div className="w-full">
                 <div className="text-2xl">Outlet Details</div>
                 <hr />
 

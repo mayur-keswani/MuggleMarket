@@ -4,16 +4,6 @@ import { useForm } from "react-hook-form";
 import Spinner from "../commons/spinner/Spinner";
 
 const OutletTimingsForm = (props) => {
-  const [outletDetails, setOutletDetails] = useState({
-    storeType: "",
-    yearOfEstablishment: "",
-    openingTime: "",
-    closingTime: "",
-    personalWebsite: "",
-    instagram: "",
-    facebook: "",
-    youtube: "",
-  });
   const [showConfirmBox, toggleConfirmBox] = useState(false);
 
   // const submitFormHandler = () => {
@@ -52,7 +42,7 @@ const OutletTimingsForm = (props) => {
           <div className="mb-4">
             <FormItem
               type="text"
-              {...register("yearOfEstablishment", { required: false })}
+              {...register("yearOfEstablish", { required: false })}
               label="Establishment Date"
               placeholder="Your year of Establishment? (optional)"
             />
@@ -65,7 +55,7 @@ const OutletTimingsForm = (props) => {
               label="Opening Time"
               placeholder="Opening time"
             />
-            {errors?.yearOfEstablishment?.type === "required" && (
+            {errors?.yearOfEstablish?.type === "required" && (
               <p className="error">Store'Opening time is required!</p>
             )}
           </div>
@@ -96,13 +86,6 @@ const OutletTimingsForm = (props) => {
               type="url"
               label="Instagram"
               placeholder="eg: https://www.instagram.com/yourName/"
-              value={outletDetails.instagram}
-              onChange={(event) =>
-                setOutletDetails({
-                  ...outletDetails,
-                  instagram: event.target.value,
-                })
-              }
             />
           </div>
           <div>
@@ -154,7 +137,7 @@ const OutletTimingsForm = (props) => {
           disabled={props?.isLoading}
         >
           {props?.isLoading && <Spinner />}{" "}
-          {props.isUpdateMode ? "Update STore" : "Create Store"}
+          {props.isUpdateMode ? "Update Store" : "Create Store"}
         </button>
       </div>
     </form>
