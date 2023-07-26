@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
-import StoreItem from "./StoreItem";
+import StoreItem from "../../component/store-details/StoreItem";
 import { useNavigate, useParams } from "react-router-dom";
 import { SET_SHOP_ITEMS } from "../../context/action-types";
 import { UserContext } from "../../context/user-context";
 import { fetchStoreDetailAPI } from "../../lib/market.api";
 import Spinner from "../../component/commons/spinner/Spinner";
-import ItemFilters from "../../component/item-filters/ItemFilters";
+import ItemFilters from "../../component/store-details/ProductsFilters";
 import Cart from "../../component/cart/Cart";
 
 const StoreDetails = () => {
@@ -88,10 +88,8 @@ const StoreDetails = () => {
       }
       setStoreItems(filteredItems);
     }
-
   }, [filters]);
 
-  console.log({ storeItems });
   return (
     <div className="p-2 flex items-center justify-center">
       {isLoading || !storeDetails ? (
@@ -138,7 +136,6 @@ const StoreDetails = () => {
               )}
             </div>
           </div>
-          
         </section>
       )}
     </div>

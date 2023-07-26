@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import AddCategoryModal from "../../component/modals/AddCategoryModal";
 import { GrClose } from "react-icons/gr";
 import { toast } from "react-toastify";
-import MenuItems from "../../component/menu-items";
+import MenuItems from "../../component/store-details/AddStoreProducts";
 import FormItem from "../../component/commons/form-item";
 
 const UpdateStoreProducts = () => {

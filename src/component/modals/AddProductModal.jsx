@@ -7,7 +7,7 @@ import Spinner from "../commons/spinner/Spinner";
 import { toast } from "react-toastify";
 import FormItem from "../commons/form-item";
 
-const AddItemToStoreModal = (props) => {
+const AddProductModal = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -109,4 +109,4 @@ const AddItemToStoreModal = (props) => {
   );
 };
 
-export default AddItemToStoreModal;
+export default AddProductModal;

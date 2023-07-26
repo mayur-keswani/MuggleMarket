@@ -22,7 +22,6 @@ const MyStore = () => {
     }
   };
 
- 
   useEffect(() => {
     fetchMyStores();
   }, []);
@@ -95,7 +94,7 @@ const MyStore = () => {
                       className="btn btn-primary p-2"
                       onClick={() =>
                         navigate(
-                          `/partner-with-us/create-your-store/${store?._id}`
+                          `/partner-with-us/my-stores/${store?._id}/products`
                         )
                       }
                     >

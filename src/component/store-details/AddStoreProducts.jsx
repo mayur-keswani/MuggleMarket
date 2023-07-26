@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "../../context/user-context";
 import { Skeleton } from "../commons/skeleton/card";
-import AddItemToStoreModal from "../modals/AddItemToStoreModal";
+import AddProductModal from "../modals/AddProductModal";
 
-const MenuItems = (props) => {
+const AddStoreProducts = (props) => {
   const [showAddItemModal, setShowAddItemModal] = useState(false);
   const { globalState, dispatch } = useContext(UserContext);
   const { token, editStoreKey } = globalState;
@@ -20,7 +20,7 @@ const MenuItems = (props) => {
     <Skeleton />
   ) : (
     <div className="border border-gray-200 md:rounded-lg overflow-x-scroll">
-      <AddItemToStoreModal
+      <AddProductModal
         isOpen={showAddItemModal}
         closeModal={() => {
           setShowAddItemModal(false);
@@ -108,4 +108,4 @@ const MenuItems = (props) => {
   );
 };
 
-export default MenuItems;
+export default AddStoreProducts;

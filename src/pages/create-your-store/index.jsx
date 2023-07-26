@@ -1,6 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 // import Guide from "../../component/create-store/Guide";
-import "./CreateStore.css";
 import { createStoreAPI, editStoreAPI, fetchStoreDetailAPI } from "../../lib/market.api";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
@@ -110,6 +109,7 @@ const Guide = (props) => {
     </div>
   );
 };
+
 const CreateStore = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [storeDetails, setStoreDetails] = useState({});
