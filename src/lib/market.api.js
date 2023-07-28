@@ -71,3 +71,19 @@ export const fetchStoreDetailAPI = (storeId) => {
 export const fetchMyStoresAPI = () => {
   return axios.get(`${endpoint}/my-stores`);
 };
+
+export const fetchMyStoresCategoriesAPI = (id) => {
+  return axios.get(`${endpoint}/my-stores/${id}/categories`);
+};
+export const fetchMyStoresProductsAPI = (id) => {
+  return axios.get(`${endpoint}/my-stores/${id}/products`);
+};
+export const addStoreCategoryAPI = (id,payload) => {
+  return axios.post(`${endpoint}/my-stores/${id}/categories`,payload);
+};
+export const deleteCategoryAPI = (storeId,categoryId) => {
+  return axios.delete(`${endpoint}/my-stores/${storeId}/categories/${categoryId}`);
+};
+export const addStoresProductsAPI = (id) => {
+  return axios.post(`${endpoint}/my-stores/${id}/products`);
+};

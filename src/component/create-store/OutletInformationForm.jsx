@@ -4,7 +4,8 @@ import FormItem from "../commons/form-item";
 import { useForm, useWatch } from "react-hook-form";
 import noImageAvailable from "../../public/noImageAvailable.png";
 import { useRef } from "react";
-import {AiFillDelete} from 'react-icons/ai'
+import { AiFillDelete } from "react-icons/ai";
+import ImageUploader from "../image-uploader/ImageUploader";
 
 const OutletInformationForm = (props) => {
   const { globalState } = useContext(UserContext);
@@ -60,31 +61,17 @@ const OutletInformationForm = (props) => {
                     setValue("picture", null);
                   }}
                 >
-                  <AiFillDelete/>
+                  <AiFillDelete />
                 </span>
               </span>
             </>
           ) : (
-            <div
-              ref={dropArea}
-              onDragOver={(e) => {
-                e.preventDefault();
+            <ImageUploader
+              onChange={(files) => {
+                setValue("picture", files);
               }}
-              onDrop={(e) => {
-                e.preventDefault();
-                console.log(e.target.files);
-                setValue("picture", e.dataTransfer.files);
-              }}
-              className="flex items-center justify-center flex-col h-full w-full"
-            >
-              <h6>Drag & Drop File Here</h6>
-              <span className="text-muted">OR</span>
-              <FormItem
-                type="file"
-                name="picture"
-                {...register("picture", { required: true })}
-              />
-            </div>
+              {...register("picture", { required: true })}
+            />
           )}
 
           {errors?.picture?.type === "required" && (

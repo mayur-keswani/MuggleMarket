@@ -6,7 +6,7 @@ const ModalLayout = (props) => {
     <Dialog
       open={props?.isOpen}
       onClose={() => props.closeModal()}
-      className="relative z-50"
+      className="relative z-50 "
     >
       {/* The backdrop, rendered as a fixed sibling to the panel container */}
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
@@ -14,7 +14,7 @@ const ModalLayout = (props) => {
       {/* Full-screen container to center the panel */}
       <div className="fixed inset-0 flex items-center justify-center p-4">
         {/* The actual dialog panel  */}
-        <Dialog.Panel className="relative transform overflow-hidden rounded-lg  text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg bg-white dark:bg-gray-dark">
+        <Dialog.Panel className="relative transform overflow-y-scroll border h-[500px] rounded-lg  text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg bg-white dark:bg-gray-dark">
           <Dialog.Title className="flex items-start justify-between p-4 rounded-t ">
             <span className="text-2xl font-bold leading-tight sm:text-3xl">
               {props?.title}

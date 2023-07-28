@@ -20,7 +20,7 @@ const StoreDetails = () => {
       youtube: "",
       facebook: "",
     },
-    store_items: [],
+    products: [],
     _id: "64a7bc61ab5984003f276add",
     ownerID: "649e295280701b003ed1cda1",
     name: "The Toy Station",
@@ -53,10 +53,10 @@ const StoreDetails = () => {
       setIsLoading(true);
       const { data: result } = await fetchStoreDetailAPI(id);
       const { store } = result;
-      dispatch({ type: SET_SHOP_ITEMS, payload: store.store_items });
+      dispatch({ type: SET_SHOP_ITEMS, payload: store.products });
       setIsLoading(false);
       setStoreDetails(store);
-      setStoreItems(store?.store_items);
+      setStoreItems(store?.products);
     } catch (error) {
       setIsLoading(false);
     }
@@ -77,14 +77,14 @@ const StoreDetails = () => {
   }, [id]);
 
   useEffect(() => {
-    if (storeDetails && storeDetails.store_items) {
+    if (storeDetails && storeDetails.products) {
       let filteredItems = [];
       if (filters && filters.length > 0) {
-        filteredItems = storeDetails.store_items.filter(
+        filteredItems = storeDetails.products.filter(
           (item) => !!filters.includes(item.filterType)
         );
       } else {
-        filteredItems = storeDetails.store_items;
+        filteredItems = storeDetails.products;
       }
       setStoreItems(filteredItems);
     }

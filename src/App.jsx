@@ -15,8 +15,7 @@ import { UserContext } from "./context/user-context";
 import CreateStore from "./pages/create-your-store";
 import { getCartAPI } from "./lib/market.api";
 import { addInitialCartItems } from "./context/action-creators";
-import UpdateStoreProducts from "./pages/update-store-products";
-import MyStoreProducts from "./pages/my-stores/MyStoreProducts";
+import StoreProducts from "./pages/my-stores/products";
 
 const ProtectedRoute = (props) => {
   if (!props?.auth?.isLoggedIn) {
@@ -68,10 +67,18 @@ const App = () => {
       >
         <Route path="/partner-with-us" element={<PartnerWithUs />} />
         <Route path="/partner-with-us/my-stores" element={<MyStore />} />
-        <Route path="/partner-with-us/my-stores/:id/products" element={<MyStoreProducts />} />
-        <Route path="/partner-with-us/create-your-store" element={<CreateStore />} />
-        <Route path="/partner-with-us/create-your-store/:id" element={<CreateStore />} />
-
+        <Route
+          path="/partner-with-us/my-stores/:id/products"
+          element={<StoreProducts />}
+        />
+        <Route
+          path="/partner-with-us/create-your-store"
+          element={<CreateStore />}
+        />
+        <Route
+          path="/partner-with-us/create-your-store/:id"
+          element={<CreateStore />}
+        />
       </Route>
 
       <Route
@@ -89,17 +96,6 @@ const App = () => {
           <ProtectedRoute auth={auth}>
             <BaseLayout showCart={false}>
               <Checkout />
-            </BaseLayout>
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/store/:id/products/update"
-        element={
-          <ProtectedRoute auth={auth}>
-            <BaseLayout showCart={false}>
-              <UpdateStoreProducts />
             </BaseLayout>
           </ProtectedRoute>
         }

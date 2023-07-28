@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import ModalLayout from "../layout/ModalLayout";
 import Spinner from "../commons/spinner/Spinner";
 import FormItem from "../commons/form-item";
+import { addStoreCategoryAPI } from "../../lib/market.api";
 
 const AddCategoryModal = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,9 +16,14 @@ const AddCategoryModal = (props) => {
   const onSubmitHandler = async (values) => {
     try {
       setIsLoading(true);
+      const resp = await addStoreCategoryAPI(props.storeId, {
+        name: values.name,
+        description: values.description,
+      });
+      console.log({ resp });
       await props.onSubmit(values);
       setIsLoading(false);
-      
+
       props?.closeModal();
     } catch (error) {
       setIsLoading(false);

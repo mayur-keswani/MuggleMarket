@@ -6,6 +6,8 @@ import ModalLayout from "../layout/ModalLayout";
 import Spinner from "../commons/spinner/Spinner";
 import { toast } from "react-toastify";
 import FormItem from "../commons/form-item";
+import ImageUploader from "../image-uploader/ImageUploader";
+import { AiFillDelete } from "react-icons/ai";
 
 const AddProductModal = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,10 +15,9 @@ const AddProductModal = (props) => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
+    setValue
   } = useForm();
-
-
-
 
   const onSubmitHandler = async (values) => {
     const formData = new FormData();
@@ -39,6 +40,11 @@ const AddProductModal = (props) => {
       setIsLoading(false);
     }
   };
+
+  const picture = watch("picture");
+  console.log(picture);
+  const imgSrc =
+    picture && picture.length > 0 && URL.createObjectURL(picture[0]);
 
   return (
     <ModalLayout
@@ -75,6 +81,18 @@ const AddProductModal = (props) => {
 
         <div className="mb-6">
           <FormItem
+            label="Select Category"
+            type="select"
+            options={props.categories.map(category=>({label:category.name,values:category._id}))}
+            {...register("category", { required: true })}
+          />
+          {errors?.price?.type === "required" && (
+            <p className="category">Item'Price is required</p>
+          )}
+        </div>
+
+        <div className="mb-6">
+          <FormItem
             label="Price"
             type="number"
             {...register("price", { required: true })}
@@ -85,13 +103,37 @@ const AddProductModal = (props) => {
         </div>
 
         <div className="mb-6">
-          <FormItem
-            label="Picture"
-            type="file"
-            {...register("picture", { required: true })}
-          />
-          {errors?.picture?.type === "required" && (
-            <p className="error">Picture is required</p>
+          {imgSrc ? (
+            <div className="flex items-center justify-center relative">
+              <img
+                className="rounded-xl object-cover"
+                width={"200px"}
+                height={"200px"}
+                src={imgSrc}
+              />
+              <span className="opacity-0 hover:opacity-100 hover:flex hover:bg-gray-light hover:bg-opacity-30 absolute top-0 left-0 z-50 w-full h-full items-center justify-center ">
+                <span
+                  className="bg-primary rounded-full p-2"
+                  onClick={() => {
+                    setValue("picture", null);
+                  }}
+                >
+                  <AiFillDelete />
+                </span>
+              </span>
+            </div>
+          ) : (
+            <>
+              <ImageUploader
+                onChange={(files) => {
+                  setValue("picture", files);
+                }}
+                {...register("picture", { required: true })}
+              />
+              {errors?.picture?.type === "required" && (
+                <p className="error">Picture is required</p>
+              )}
+            </>
           )}
         </div>
 

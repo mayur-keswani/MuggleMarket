@@ -34,19 +34,15 @@ const FormItem = (props, ref) => {
               {props?.label}
             </label>
           )}
-          <input
-            className={`flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-dark ${props?.className &&
-              props?.className}`}
-            {...(({ className, ...o }) => o)(props)}
-            ref={ref}
-          />
+
           <select
             id="countries"
             className={`flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-dark ${props?.className &&
               props?.className}`}
             {...(({ className, options, ...o }) => o)(props)}
+            ref={ref}
           >
-            {options.map((option, index) => (
+            {props.options.map((option, index) => (
               <option value={option.value} key={option.value + index}>
                 {option.label}
               </option>
