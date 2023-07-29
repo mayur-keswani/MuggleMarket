@@ -2,11 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/user-context";
 import { useNavigate } from "react-router-dom";
 import NotFound from "../../public/notFound.png";
-import { fetchMyStoresAPI } from "../../lib/market.api";
+import { deleteStoreAPI, fetchMyStoresAPI } from "../../lib/market.api";
 import Spinner from "../../component/commons/spinner/Spinner";
+import { toast } from "react-toastify";
 
 const MyStore = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const { dispatch } = useContext(UserContext);
   const [stores, setStores] = useState([]);
   const navigate = useNavigate();
@@ -22,9 +25,24 @@ const MyStore = () => {
     }
   };
 
+  const deleteStoreHandler = async(id)=>{
+    try {
+      setIsDeleting(true);
+      setStores((prevState)=> prevState.filter(store=> store._id !== id));
+      setIsDeleting(false);
+      toast.success("Store Deleted Successfully",{position:toast.POSITION.TOP_RIGHT})
+    } catch (error) {
+      toast.error("Something went wrong!,Please contact Administrator", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setIsDeleting(false);
+    }
+  }
+
   useEffect(() => {
     fetchMyStores();
   }, []);
+
 
   return (
     <>
@@ -91,7 +109,7 @@ const MyStore = () => {
                       Edit Store
                     </button>
                     <button
-                      className="btn btn-primary p-2"
+                      className="btn btn-outline-primary p-2"
                       onClick={() =>
                         navigate(
                           `/partner-with-us/my-stores/${store?._id}/products`
@@ -99,6 +117,14 @@ const MyStore = () => {
                       }
                     >
                       Add Products
+                    </button>
+                    <button
+                      className="btn btn-primary p-2"
+                      onClick={() =>{
+                       deleteStoreHandler(store?._id);
+                      }}
+                    >
+                     {isDeleting?<Spinner/>:"Delete Store"}
                     </button>
                   </div>
                 </div>

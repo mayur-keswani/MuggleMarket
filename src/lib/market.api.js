@@ -53,16 +53,9 @@ export const fetchStoresAPI = async () => {
   return axios.get(`${endpoint}/stores`);
 };
 
-export const uploadItemToStoreAPI = (storeId, payload) => {
-  return axios.post(`${endpoint}/upload-items/${storeId}`, payload);
-};
 
-export const createStoreAPI = (payload) => {
-  return axios.post(`${endpoint}/store/create`, payload);
-};
-export const editStoreAPI = (id, payload) => {
-  return axios.post(`${endpoint}/store/update/${id}`, payload);
-};
+
+
 
 export const fetchStoreDetailAPI = (storeId) => {
   return axios.get(`${endpoint}/store/${storeId}`);
@@ -72,14 +65,19 @@ export const fetchMyStoresAPI = () => {
   return axios.get(`${endpoint}/my-stores`);
 };
 
-export const fetchMyStoresCategoriesAPI = (id) => {
+/** Store Categories API */
+export const fetchCategoriesAPI = (id) => {
   return axios.get(`${endpoint}/my-stores/${id}/categories`);
 };
-export const fetchMyStoresProductsAPI = (id) => {
-  return axios.get(`${endpoint}/my-stores/${id}/products`);
-};
-export const addStoreCategoryAPI = (id, payload) => {
+
+export const addCategoryAPI = (id, payload) => {
   return axios.post(`${endpoint}/my-stores/${id}/categories`, payload);
+};
+export const updateCategoryAPI = (storeId, categoryId, payload) => {
+  return axios.put(
+    `${endpoint}/my-stores/${storeId}/categories/${categoryId}`,
+    payload
+  );
 };
 export const deleteCategoryAPI = (storeId, categoryId) => {
   return axios.delete(
@@ -87,10 +85,14 @@ export const deleteCategoryAPI = (storeId, categoryId) => {
   );
 };
 
-export const addStoresProductAPI = (id, payload) => {
+/** Store Products CRUD */
+export const fetchStoreProductsAPI = (id) => {
+  return axios.get(`${endpoint}/my-stores/${id}/products`);
+};
+export const addProductAPI = (id, payload) => {
   return axios.post(`${endpoint}/my-stores/${id}/products`, payload);
 };
-export const updateStoreProductAPI = (storeId, productId, payload) => {
+export const updateProductAPI = (storeId, productId, payload) => {
   return axios.put(
     `${endpoint}/my-stores/${storeId}/products/${productId}`,
     payload
@@ -98,4 +100,15 @@ export const updateStoreProductAPI = (storeId, productId, payload) => {
 };
 export const deleteProductAPI = (storeId, productId) => {
   return axios.delete(`${endpoint}/my-stores/${storeId}/products/${productId}`);
+};
+
+/** Admin  */
+export const createStoreAPI = (payload) => {
+  return axios.post(`${endpoint}/store`, payload);
+};
+export const editStoreAPI = (id, payload) => {
+  return axios.put(`${endpoint}/store/${id}`, payload);
+};
+export const deleteStoreAPI = (id) => {
+  return axios.delete(`${endpoint}/store/${id}`);
 };

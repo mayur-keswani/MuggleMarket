@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/user-context";
 import {
-  addStoresProductAPI,
-  updateStoreProductAPI,
+  addProductAPI,
+  updateProductAPI,
 } from "../../lib/market.api";
 import { Controller, useForm } from "react-hook-form";
 import ModalLayout from "../layout/ModalLayout";
@@ -51,13 +51,13 @@ const AddProductModal = (props) => {
     try {
       setIsLoading(true);
       if (props.data) {
-        const { data: result } = await updateStoreProductAPI(
+        const { data: result } = await updateProductAPI(
           props.data.storeID,
           props.data._id,
           formData
         );
       } else {
-        const { data: result } = await addStoresProductAPI(
+        const { data: result } = await addProductAPI(
           props.storeId,
           formData
         );

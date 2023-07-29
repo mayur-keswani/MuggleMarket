@@ -7,13 +7,14 @@ import FormItem from "../../component/commons/form-item";
 import {
   deleteCategoryAPI,
   deleteProductAPI,
-  fetchMyStoresCategoriesAPI,
+  fetchCategoriesAPI,
   fetchStoreDetailAPI,
 } from "../../lib/market.api";
 import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../../component/commons/spinner/Spinner";
 import MyStoreProducts from "../../component/my-store-products/MyStoreProducts";
 import AddProductModal from "../../component/modals/AddProductModal";
+import { AiFillEdit } from "react-icons/ai";
 
 const StoreProducts = () => {
   const [categories, setCategories] = useState([]);
@@ -22,7 +23,8 @@ const StoreProducts = () => {
   const [isLoadingProducts, setIsLoadingProducts] = useState([]);
   const [isDeletingProduct, setIsDeletingProduct] = useState(false);
   const [disableProductId, setDisableProductId] = useState(null);
-  const [updatingProductData, setUpdatingData] = useState(null);
+  const [updatingProductData, setUpdatingProductData] = useState(null);
+  const [updatingCategoryData, setUpdatingCategoryData] = useState(null);
 
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
   const [showAddItemModal, setShowAddItemModal] = useState(false);
@@ -50,7 +52,7 @@ const StoreProducts = () => {
   async function fetchCategories() {
     try {
       setIsLoadingCategories(true);
-      const { data: result } = await fetchMyStoresCategoriesAPI(id);
+      const { data: result } = await fetchCategoriesAPI(id);
       setIsLoadingCategories(false);
       setCategories(result.categories);
     } catch (error) {
@@ -60,11 +62,25 @@ const StoreProducts = () => {
 
   async function deleteCategory(storeId, categoryId) {
     try {
+      let isAlreadyMapped = storeProducts.some((product) =>
+        product.categories.includes(categoryId)
+      );
+      if (isAlreadyMapped) {
+        toast.warn("Category already mapped with Products", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        return;
+      }
       setIsLoadingCategories(true);
-      const { data: result } = await deleteCategoryAPI(storeId, categoryId);
+      await deleteCategoryAPI(storeId, categoryId);
       setIsLoadingCategories(false);
-      setCategories((prevState) => prevState.filter((c) => c.name !== name));
-      setCategories(result.categories);
+
+      setCategories((prevState) =>
+        prevState.filter((c) => c._id !== categoryId)
+      );
+      toast.success("Category deleted successfully!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     } catch (error) {
       setIsLoadingCategories(false);
     }
@@ -76,11 +92,17 @@ const StoreProducts = () => {
       setIsDeletingProduct(true);
       const { data: result } = await deleteProductAPI(storeId, productId);
       setDisableProductId(null);
+      toast.success("Product deleted successfully!", {
+        position: toast.position.TOP_RIGHT,
+      });
       setIsDeletingProduct(false);
       setStoreProducts((prevState) =>
         prevState.filter((c) => c._id !== productId)
       );
     } catch (error) {
+      toast.success("Failed to delete product", {
+        position: toast.position.TOP_RIGHT,
+      });
       setDisableProductId(null);
       setIsDeletingProduct(false);
     }
@@ -94,25 +116,28 @@ const StoreProducts = () => {
   return (
     <div className="flex items-center justify-center w-full">
       <form onSubmit={handleSubmit()} className="mx-3 my-2 w-full">
-        <AddCategoryModal
-          storeId={id}
-          isOpen={showAddCategoryModal}
-          closeModal={() => {
-            setShowAddCategoryModal(false);
-          }}
-          onSubmit={async (value) => {
-            if (categories.find((category) => category.name == value.name)) {
-              toast.error(`Category with this name already existed`, {
-                position: toast.POSITION.TOP_RIGHT,
-              });
-            } else {
-              toast.success("New Category Added!", {
-                position: toast.POSITION.TOP_RIGHT,
-              });
-              await fetchCategories();
-            }
-          }}
-        />
+        {showAddCategoryModal && (
+          <AddCategoryModal
+            storeId={id}
+            isOpen={showAddCategoryModal}
+            closeModal={() => {
+              setShowAddCategoryModal(false);
+            }}
+            data={updatingCategoryData}
+            onSubmit={async (value) => {
+              if (categories.find((category) => category.name == value.name)) {
+                toast.error(`Category with this name already existed`, {
+                  position: toast.POSITION.TOP_RIGHT,
+                });
+              } else {
+                toast.success("New Category Added!", {
+                  position: toast.POSITION.TOP_RIGHT,
+                });
+                await fetchCategories();
+              }
+            }}
+          />
+        )}
         {showAddItemModal && (
           <AddProductModal
             storeId={id}
@@ -145,19 +170,31 @@ const StoreProducts = () => {
                 <Spinner />
               ) : (
                 categories.map((category) => (
-                  <span
+                  <div
                     key={category._id}
-                    className="flex items-center justify-center rounded-md bg-gray-dark px-3 py-1 font-medium"
+                    className="flex items-center justify-between flex-row rounded-md bg-gray-dark px-3 py-1 font-medium"
                   >
-                    {category.name}
-
-                    <GrClose
-                      className="mx-3 h-4 w-4 cursor-pointer"
-                      onClick={() => {
-                        deleteCategory(id, category._id);
-                      }}
-                    />
-                  </span>
+                    <span className="mr-3">{category.name}</span>
+                    <span className="flex items-center">
+                      <span>
+                        <AiFillEdit
+                          className="mx-1 h-4 w-4 cursor-pointer"
+                          onClick={() => {
+                            setUpdatingCategoryData(category);
+                            setShowAddCategoryModal(true);
+                          }}
+                        />
+                      </span>
+                      <span>
+                        <GrClose
+                          className="mx-1 h-4 w-4 cursor-pointer"
+                          onClick={() => {
+                            deleteCategory(id, category._id);
+                          }}
+                        />
+                      </span>
+                    </span>
+                  </div>
                 ))
               )}
             </div>
@@ -193,7 +230,7 @@ const StoreProducts = () => {
               products={storeProducts}
               categories={categories}
               updateProduct={(product) => {
-                setUpdatingData(product);
+                setUpdatingProductData(product);
                 setShowAddItemModal(true);
               }}
               deletingProductKey={disableProductId}

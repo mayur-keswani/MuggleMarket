@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { SET_SHOP_ITEMS } from "../../context/action-types";
 import { UserContext } from "../../context/user-context";
 import {
-  fetchMyStoresCategoriesAPI,
+  fetchCategoriesAPI,
   fetchStoreDetailAPI,
 } from "../../lib/market.api";
 import Spinner from "../../component/commons/spinner/Spinner";
@@ -45,7 +45,7 @@ const StoreDetails = () => {
   //   try {
   //     const {
   //       data: { categrories },
-  //     } = await fetchMyStoresCategoriesAPI(id);
+  //     } = await fetchCategoriesAPI(id);
   //     setCategories(categrories);
   //   } catch (error) {
   //     toast.error("Something went wrong!", {

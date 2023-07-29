@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ModalLayout from "../layout/ModalLayout";
 import Spinner from "../commons/spinner/Spinner";
 import FormItem from "../commons/form-item";
-import { addStoreCategoryAPI } from "../../lib/market.api";
+import { addCategoryAPI, updateCategoryAPI } from "../../lib/market.api";
 
 const AddCategoryModal = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,16 +11,30 @@ const AddCategoryModal = (props) => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
+
+  useEffect(() => {
+    if (props.data) {
+      setValue("name", props.data.name);
+      setValue("description", props.data.description);
+    }
+  }, [props.data]);
 
   const onSubmitHandler = async (values) => {
     try {
       setIsLoading(true);
-      const resp = await addStoreCategoryAPI(props.storeId, {
-        name: values.name,
-        description: values.description,
-      });
-      console.log({ resp });
+      if (props.data) {
+        await updateCategoryAPI(props.storeId, props.data._id, {
+          name: values.name,
+          description: values.description,
+        });
+      } else {
+        await addCategoryAPI(props.storeId, {
+          name: values.name,
+          description: values.description,
+        });
+      }
       await props.onSubmit(values);
       setIsLoading(false);
 
