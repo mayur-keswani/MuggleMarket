@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import FormItem from "../../component/commons/form-item";
 import {
   deleteCategoryAPI,
+  deleteProductAPI,
   fetchMyStoresCategoriesAPI,
   fetchStoreDetailAPI,
 } from "../../lib/market.api";
@@ -19,13 +20,15 @@ const StoreProducts = () => {
   const [storeProducts, setStoreProducts] = useState([]);
   const [isLoadingCategories, setIsLoadingCategories] = useState(false);
   const [isLoadingProducts, setIsLoadingProducts] = useState([]);
-  const [isDeletingCategory, setIsDeletingCategory] = useState(false);
   const [isDeletingProduct, setIsDeletingProduct] = useState(false);
+  const [disableProductId, setDisableProductId] = useState(null);
+  const [updatingProductData, setUpdatingData] = useState(null);
 
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
   const [showAddItemModal, setShowAddItemModal] = useState(false);
 
   const { id } = useParams();
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -57,13 +60,29 @@ const StoreProducts = () => {
 
   async function deleteCategory(storeId, categoryId) {
     try {
-      setIsDeletingCategory(true);
+      setIsLoadingCategories(true);
       const { data: result } = await deleteCategoryAPI(storeId, categoryId);
-      setIsDeletingCategory(false);
+      setIsLoadingCategories(false);
       setCategories((prevState) => prevState.filter((c) => c.name !== name));
       setCategories(result.categories);
     } catch (error) {
-      setIsDeletingCategory(false);
+      setIsLoadingCategories(false);
+    }
+  }
+
+  async function deleteProduct(storeId, productId) {
+    try {
+      setDisableProductId(productId);
+      setIsDeletingProduct(true);
+      const { data: result } = await deleteProductAPI(storeId, productId);
+      setDisableProductId(null);
+      setIsDeletingProduct(false);
+      setStoreProducts((prevState) =>
+        prevState.filter((c) => c._id !== productId)
+      );
+    } catch (error) {
+      setDisableProductId(null);
+      setIsDeletingProduct(false);
     }
   }
 
@@ -94,13 +113,20 @@ const StoreProducts = () => {
             }
           }}
         />
-        <AddProductModal
-          isOpen={showAddItemModal}
-          closeModal={() => {
-            setShowAddItemModal(false);
-          }}
-          categories={categories}
-        />
+        {showAddItemModal && (
+          <AddProductModal
+            storeId={id}
+            data={updatingProductData}
+            isOpen={showAddItemModal}
+            closeModal={() => {
+              setShowAddItemModal(false);
+            }}
+            categories={categories}
+            onSuccess={() => {
+              fetchProducts();
+            }}
+          />
+        )}
         {/* <FormItem
             type="text"
             {...register("avgExpense", { required: true })}
@@ -115,7 +141,7 @@ const StoreProducts = () => {
           <div className="flex flex-col space-x-3 mb-3">
             <span className="font-semibold">Categories</span>
             <div className="flex flex-wrap m-2 space-x-2">
-              {isLoadingCategories || isDeletingCategory ? (
+              {isLoadingCategories ? (
                 <Spinner />
               ) : (
                 categories.map((category) => (
@@ -163,14 +189,29 @@ const StoreProducts = () => {
 
             <MyStoreProducts
               isLoading={isLoadingProducts}
+              isDeleting={isDeletingProduct}
               products={storeProducts}
               categories={categories}
+              updateProduct={(product) => {
+                setUpdatingData(product);
+                setShowAddItemModal(true);
+              }}
+              deletingProductKey={disableProductId}
+              deleteProduct={(productId) => {
+                deleteProduct(id, productId);
+              }}
             />
           </div>
         </div>
 
         <div className="flex items-center justify-center flex-row w-full mt-2">
-          <button className="btn btn-primary py-3 px-5" type="submit">
+          <button
+            className="btn btn-primary py-3 px-5"
+            type="button"
+            onClick={() => {
+              navigate("/partner-with-us/my-stores/");
+            }}
+          >
             Done
           </button>
         </div>

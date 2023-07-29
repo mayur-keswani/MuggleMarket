@@ -3,46 +3,25 @@ import StoreItem from "../../component/store-details/StoreItem";
 import { useNavigate, useParams } from "react-router-dom";
 import { SET_SHOP_ITEMS } from "../../context/action-types";
 import { UserContext } from "../../context/user-context";
-import { fetchStoreDetailAPI } from "../../lib/market.api";
+import {
+  fetchMyStoresCategoriesAPI,
+  fetchStoreDetailAPI,
+} from "../../lib/market.api";
 import Spinner from "../../component/commons/spinner/Spinner";
-import ItemFilters from "../../component/store-details/ProductsFilters";
+import ProductCategories from "../../component/store-details/ProductsFilters";
 import Cart from "../../component/cart/Cart";
+import { toast } from "react-toastify";
 
 const StoreDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [storeDetails, setStoreDetails] = useState({
-    social: {
-      personal_website: "",
-      instagram: "",
-      youtube: "",
-      facebook: "",
-    },
-    products: [],
-    _id: "64a7bc61ab5984003f276add",
-    ownerID: "649e295280701b003ed1cda1",
-    name: "The Toy Station",
-    description: " A place to buy toys, gifts for your loved ones",
-    address: "Ahmedabad",
-    city: "Ahmedabad",
-    storeType: "Gifts & Accessories",
-    contactNo: 7896452314,
-    landline_no: null,
-    openingTime: "08:00",
-    closingTime: "20:00",
-    yearOfEstablish: null,
-    owner: "Mayur",
-    personal_no: null,
-    picture:
-      "http://res.cloudinary.com/dra5wny0w/image/upload/v1688714337/covy23lajkhsfcadoxyc.jpg",
-    createdAt: "2023-07-07T07:18:57.459Z",
-    updatedAt: "2023-07-07T07:18:57.459Z",
-    __v: 0,
-  });
+  const [storeDetails, setStoreDetails] = useState({});
   const [storeItems, setStoreItems] = useState([]);
-  const [filters, setFilters] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
   const {
     globalState: { cart },
     dispatch,
@@ -53,42 +32,69 @@ const StoreDetails = () => {
       setIsLoading(true);
       const { data: result } = await fetchStoreDetailAPI(id);
       const { store } = result;
-      dispatch({ type: SET_SHOP_ITEMS, payload: store.products });
       setIsLoading(false);
       setStoreDetails(store);
       setStoreItems(store?.products);
+      setCategories(store?.categories);
     } catch (error) {
       setIsLoading(false);
     }
   };
 
-  const updateFilters = (name, isChecked) => {
-    if (isChecked) setFilters((prevState) => prevState.concat(name));
+  // const fetchCategories = async (id) => {
+  //   try {
+  //     const {
+  //       data: { categrories },
+  //     } = await fetchMyStoresCategoriesAPI(id);
+  //     setCategories(categrories);
+  //   } catch (error) {
+  //     toast.error("Something went wrong!", {
+  //       position: toast.POSITION.TOP_RIGHT,
+  //     });
+  //   }
+  // };
+
+  const updateSelectedCategories = (category, isChecked) => {
+    if (isChecked)
+      setSelectedCategories((prevState) => prevState.concat(category));
     else {
       // debugger;
-      setFilters((prevState) => prevState.filter((filt) => filt !== name));
+      setSelectedCategories((prevState) =>
+        prevState.filter((filt) => filt._id !== category._id)
+      );
     }
   };
 
   useEffect(() => {
     if (id) {
       fetchStoreData(id);
+      // fetchCategories(id);
     }
   }, [id]);
 
   useEffect(() => {
-    if (storeDetails && storeDetails.products) {
+    if (storeDetails && selectedCategories.length > 0) {
       let filteredItems = [];
-      if (filters && filters.length > 0) {
-        filteredItems = storeDetails.products.filter(
-          (item) => !!filters.includes(item.filterType)
+      if (selectedCategories && selectedCategories.length > 0) {
+        let selectedCategoriesIds = selectedCategories.map(
+          (category) => category._id
+        );
+        console.log({ selectedCategoriesIds });
+        filteredItems = storeDetails.products.filter((item) =>
+          item.categories.some((category) =>
+            selectedCategoriesIds.includes(category)
+          )
         );
       } else {
         filteredItems = storeDetails.products;
       }
       setStoreItems(filteredItems);
+    } else {
+      if (storeDetails) {
+        setStoreItems(storeDetails.products);
+      }
     }
-  }, [filters]);
+  }, [selectedCategories]);
 
   return (
     <div className="p-2 flex items-center justify-center">
@@ -113,10 +119,10 @@ const StoreDetails = () => {
           </div>
           <div className="mt-3">
             <div className="store-items grid md:grid-cols-4 space-x-1">
-              <ItemFilters
-                storeItems={storeItems}
-                filters={filters}
-                updateFilters={updateFilters}
+              <ProductCategories
+                categories={categories}
+                selectedCategories={selectedCategories}
+                updateSelectedCategories={updateSelectedCategories}
               />
               {storeItems.length > 0 ? (
                 <div

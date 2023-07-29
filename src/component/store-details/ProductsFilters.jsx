@@ -2,28 +2,26 @@ import React from "react";
 import { GrClose } from "react-icons/gr";
 import FormItem from "../commons/form-item";
 
-const ItemFilters = ({ storeItems, filters, updateFilters }) => {
-
-  const filterList = storeItems.map((item) => item.filterType);
-  const distinctFilter = filterList
-    .filter((filter, index) => filterList.indexOf(filter) === index)
-    .filter(Boolean);
-
+const ProductCategories = ({
+  selectedCategories,
+  categories,
+  updateSelectedCategories,
+}) => {
   return (
     <div className="w-full">
       <div className="mx-auto w-full max-w-4xl p-2">
         <div className="rounded-md px-2 py-6">
           <div className="flex flex-col">
             <div className="mb-3">
-              <span className="font-semibold">FILTER BY</span>
+              <span className="font-semibold">Selected Categories</span>
               <div className="flex flex-wrap m-2 space-x-2">
-                {filters.map((filter) => (
+                {selectedCategories.map((category) => (
                   <span className="flex items-center justify-center rounded-md bg-gray-dark px-3 py-1 font-medium">
-                    {filter}
+                    {category.name}
                     <GrClose
                       className="ml-1 h-4 w-4 cursor-pointer"
                       onClick={() => {
-                        updateFilters(filter, false);
+                        updateSelectedCategories(category, false);
                       }}
                     />
                   </span>
@@ -39,31 +37,33 @@ const ItemFilters = ({ storeItems, filters, updateFilters }) => {
                   // console.log(e.target.checked)
                 }}
               >
-                <li name="ALL" className="w-full rounded-t-lg">
+                {/* <li name="ALL" className="w-full rounded-t-lg">
                   <FormItem
                     type="checkbox"
                     label="All"
-                    checked={filters.includes('All')}
+                    checked={filters.includes("All")}
                     onChange={(e) => {
-                      updateFilters(
+                      updateSelectedCategories(
                         e.target.getAttribute("label"),
                         e.target.checked
                       );
                     }}
                   />
-                </li>
+                </li> */}
 
-                {distinctFilter.map((filterType) => {
+                {categories.map((category) => {
                   return (
                     <FormItem
+                      key={category._id}
                       type="checkbox"
-                      label={filterType}
-                      checked={filters.includes(filterType)}
+                      label={category.name}
+                      checked={
+                        selectedCategories.findIndex(
+                          (selCategory) => selCategory._id === category._id
+                        ) !== -1
+                      }
                       onChange={(e) => {
-                        updateFilters(
-                          e.target.getAttribute(filterType),
-                          e.target.checked
-                        );
+                        updateSelectedCategories(category, e.target.checked);
                       }}
                     />
                   );
@@ -77,4 +77,4 @@ const ItemFilters = ({ storeItems, filters, updateFilters }) => {
   );
 };
 
-export default ItemFilters;
+export default ProductCategories;

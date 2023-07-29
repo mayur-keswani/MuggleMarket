@@ -8,7 +8,6 @@ const BaseLayout = (props) => {
   const {
     globalState: { cart,auth },
   } = useContext(UserContext);
-  console.log(cart)
   return (
     <>
       <Header forBusiness={!!props?.forBusiness} overLap={!!props?.overLap} />

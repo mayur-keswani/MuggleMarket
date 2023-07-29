@@ -1,13 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/user-context";
-import { uploadItemToStoreAPI } from "../../lib/market.api";
-import { useForm } from "react-hook-form";
+import {
+  addStoresProductAPI,
+  updateStoreProductAPI,
+} from "../../lib/market.api";
+import { Controller, useForm } from "react-hook-form";
 import ModalLayout from "../layout/ModalLayout";
 import Spinner from "../commons/spinner/Spinner";
 import { toast } from "react-toastify";
 import FormItem from "../commons/form-item";
 import ImageUploader from "../image-uploader/ImageUploader";
 import { AiFillDelete } from "react-icons/ai";
+import { Listbox } from "@headlessui/react";
+import { data } from "autoprefixer";
 
 const AddProductModal = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,25 +21,50 @@ const AddProductModal = (props) => {
     handleSubmit,
     formState: { errors },
     watch,
-    setValue
+    setValue,
+    control,
   } = useForm();
 
+  useEffect(() => {
+    if (props.data) {
+      setValue("name", props.data.name);
+      setValue("description", props.data.description);
+      setValue("price", props.data.price);
+      setValue("picture", props.data.picture);
+      setValue("categories", props.data.categories);
+    }
+  }, [props.data]);
   const onSubmitHandler = async (values) => {
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("description", values.description);
-    formData.append("picture", values.picture);
-    console.log(formData.get("picture"));
+    if (typeof values.picture === "string") {
+      formData.append("picture", values.picture);
+    } else {
+      formData.append("picture", values.picture[0]);
+    }
+    values.categories.forEach((cat) => {
+      formData.append("categories[]", cat);
+    });
     formData.append("price", values.price);
+    console.log(formData.get("picture"));
     try {
       setIsLoading(true);
-      const { data: result } = await uploadItemToStoreAPI(
-        editStoreKey,
-        formData
-      );
-      setItems((prevState) => {
-        return prevState.concat(result.product);
-      });
+      if (props.data) {
+        const { data: result } = await updateStoreProductAPI(
+          props.data.storeID,
+          props.data._id,
+          formData
+        );
+      } else {
+        const { data: result } = await addStoresProductAPI(
+          props.storeId,
+          formData
+        );
+      }
+
+      props.onSuccess && props.onSuccess();
+      props.closeModal();
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -42,9 +72,10 @@ const AddProductModal = (props) => {
   };
 
   const picture = watch("picture");
-  console.log(picture);
   const imgSrc =
-    picture && picture.length > 0 && URL.createObjectURL(picture[0]);
+    typeof picture === "string"
+      ? picture
+      : picture && picture?.length > 0 && URL.createObjectURL(picture[0]);
 
   return (
     <ModalLayout
@@ -64,7 +95,7 @@ const AddProductModal = (props) => {
           />
 
           {errors?.name?.type === "required" && (
-            <p className="name">Item'Name is required</p>
+            <p className="error">Item'Name is required</p>
           )}
         </div>
 
@@ -80,14 +111,78 @@ const AddProductModal = (props) => {
         </div>
 
         <div className="mb-6">
-          <FormItem
-            label="Select Category"
-            type="select"
-            options={props.categories.map(category=>({label:category.name,values:category._id}))}
-            {...register("category", { required: true })}
+          <Controller
+            control={control}
+            name="categories"
+            rules={{ required: true }}
+            defaultValue={[]}
+            render={({ field: { onChange, onBlur, value, name, ref } }) => {
+              return (
+                <FormItem
+                  type="select"
+                  label="Select Categories"
+                  value={value ?? []}
+                  onChange={(value) => {
+                    setValue("categories", value);
+                  }}
+                  isMulti={true}
+                  name={name}
+                  ref={ref}
+                  options={props.categories.map((category) => ({
+                    label: category.name,
+                    value: category._id,
+                  }))}
+                />
+                // <Listbox
+                //   as="div"
+                //   value={selectedCategories}
+                //   // {...register("category", { required: true })}
+                //   onChange={setSeletedCategories}
+                //   isMulti={true}
+                //   onBlur={onBlur}
+                //   name={name}
+                //   ref={ref}
+                //   // as="..."
+                //   multiple
+                // >
+                //   {({ open }) => (
+                //     <div className="relative">
+                //       <Listbox.Button>
+                //         {selectedCategories
+                //           .map((category) => category.name)
+                //           .join(", ")}
+                //         <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                //           <svg
+                //             className="h-5 w-5 text-gray-400"
+                //             viewBox="0 0 20 20"
+                //             fill="none"
+                //             stroke="currentColor"
+                //           >
+                //             <path
+                //               d="M7 7l3-3 3 3m0 6l-3 3-3-3"
+                //               strokeWidth="1.5"
+                //               strokeLinecap="round"
+                //               strokeLinejoin="round"
+                //             />
+                //           </svg>
+                //         </span>
+                //       </Listbox.Button>
+                //       <Listbox.Options>
+                //         {props.categories.map((category) => (
+                //           <Listbox.Option key={category._id} value={category}>
+                //             {category.name}
+                //           </Listbox.Option>
+                //         ))}
+                //       </Listbox.Options>
+                //     </div>
+                //   )}
+                // </Listbox>
+              );
+            }}
           />
-          {errors?.price?.type === "required" && (
-            <p className="category">Item'Price is required</p>
+
+          {errors?.categories?.type === "required" && (
+            <p className="error">Item' Category is required</p>
           )}
         </div>
 
@@ -143,7 +238,7 @@ const AddProductModal = (props) => {
             className="btn btn-primary inline-flex w-full items-center justify-center rounded-md px-3.5 py-2.5 font-semibold leading-7"
             type="submit"
           >
-            {isLoading && <Spinner />} Submit
+            {isLoading && <Spinner />} {props.data ? "Update" : "Submit"}
           </button>
         </div>
       </form>
