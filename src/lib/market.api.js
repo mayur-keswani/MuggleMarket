@@ -65,6 +65,9 @@ export const fetchMyStoresAPI = () => {
   return axios.get(`${endpoint}/my-stores`);
 };
 
+export const makePaymentAPI = (payload)=>{
+   return axios.post(`${endpoint}/payment`,payload);
+}
 /** Store Categories API */
 export const fetchCategoriesAPI = (id) => {
   return axios.get(`${endpoint}/my-stores/${id}/categories`);

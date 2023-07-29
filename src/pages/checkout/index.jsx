@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Skeleton } from "../../component/commons/skeleton/card";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/user-context";
-// import {Button,Icon,Divider,Grid,Message} from 'semantic-ui-react'
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import {
-  FetchUserDetailsAPI,
   checkoutAPI,
   createStripeSessionAPI,
-  getCartAPI,
-  placeOrderAPI,
 } from "../../lib/market.api";
 import CheckoutSummary from "../../component/checkout/checkout-summary";
 import CheckoutForm from "../../component/checkout/checkout-form";
@@ -30,16 +27,7 @@ const Checkout = () => {
   const { getTotalPrice, removeFromCartHandler } = useCart();
   const navigate = useNavigate();
 
-  // const fetchUserCartDetails = async () => {
-  //   try {
-  //     setIsLoading(true);
-  //     const { data: response } = await getCartAPI();
-  //     setCartItem(response.cart);
-  //     setIsLoading(false);
-  //   } catch (error) {
-  //     setIsLoading(false);
-  //   }
-  // };
+
 
   const checkoutHandler = async (payload) => {
     try {
@@ -63,18 +51,7 @@ const Checkout = () => {
     }
   };
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://js.stripe.com/v3/";
-    script.async = true;
-    document.body.appendChild(script);
-
-    script.addEventListener("load", () => {
-      // Initialize Stripe with your publishable API key
-      window.stripe = window.Stripe(import.meta.env.VITE_STRIPE_KEY);
-    });
-    // fetchUserCartDetails();
-  }, []);
+  const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
   // const onOrderSumbit = async (stripe_token,values) => {
   //   try {
@@ -149,11 +126,13 @@ const Checkout = () => {
               total={getTotalPrice(cart)}
               removeFromCartHandler={removeFromCartHandler}
             />
-            <CheckoutForm
-              checkoutHandler={checkoutHandler}
-              total={getTotalPrice(cart)}
-              isLoading={isLoading}
-            />
+            <Elements stripe={stripePromise}>
+              <CheckoutForm
+                checkoutHandler={checkoutHandler}
+                total={getTotalPrice(cart)}
+                isLoading={isLoading}
+              />
+            </Elements>
           </div>
         </div>
       </div>

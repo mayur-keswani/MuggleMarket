@@ -59,7 +59,6 @@ const reducer = (state, action) => {
       return { ...state, cart: action.payload };
     }
     case ADD_TO_CART: {
-      debugger;
       return { ...state, cart: state.cart.concat(action.payload)  };
     }
     case ADD_QUANTITY: {

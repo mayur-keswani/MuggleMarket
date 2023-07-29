@@ -58,7 +58,6 @@ const StoreDetails = () => {
     if (isChecked)
       setSelectedCategories((prevState) => prevState.concat(category));
     else {
-      // debugger;
       setSelectedCategories((prevState) =>
         prevState.filter((filt) => filt._id !== category._id)
       );
