@@ -3,17 +3,21 @@ import React, { Fragment, useContext } from "react";
 import { UserContext } from "../../../context/user-context";
 import { clearLocalStorage } from "../../../lib/localStorage";
 import { onLogout } from "../../../context/action-creators";
+import { useNavigate } from "react-router-dom";
 
 const UserAccountMenu = () => {
-  const { globalState, dispatch } = useContext(UserContext);
+  const {
+    globalState: {
+      auth: { username },
+    },
+    dispatch,
+  } = useContext(UserContext);
+  const navigate = useNavigate();
 
   async function logoutHandler() {
     dispatch(onLogout());
     await clearLocalStorage();
   }
-  const {
-    auth: { isLoggedIn, username },
-  } = globalState;
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -71,8 +75,11 @@ const UserAccountMenu = () => {
                   active ? "bg-gray-100 text-gray-900" : "text-gray-700 ",
                   "block px-4 py-2 text-sm"
                 )}
+                onClick={() => {
+                  navigate("/my-orders");
+                }}
               >
-                Account Settings
+                My Orders
               </span>
             )}
           </Menu.Item>

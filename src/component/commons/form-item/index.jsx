@@ -113,7 +113,7 @@ const FormItem = (props, ref) => {
 
     case "checkbox":
       return (
-        <div class="flex items-center pl-3">
+        <div className="flex items-center pl-3">
           <input
             type="checkbox"
             className="w-6 h-6 rounded"

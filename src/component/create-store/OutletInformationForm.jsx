@@ -44,7 +44,7 @@ const OutletInformationForm = (props) => {
             <p className="error">Store'name is required!</p>
           )}
         </div>
-        <div class="drag-image relative flex flex-col items-center justify-center text-center w-[250px] h-[300px] active:border-primary border border-dotted p-3">
+        <div className="drag-image relative flex flex-col items-center justify-center text-center w-[250px] h-[300px] active:border-primary border border-dotted p-3">
           {imgSrc ? (
             <>
               <img

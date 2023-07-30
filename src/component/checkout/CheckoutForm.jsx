@@ -81,8 +81,8 @@ const CheckoutForm = (props) => {
                     {open ? <IoIosArrowUp /> : <IoIosArrowDown />}
                   </Disclosure.Button>
                   <Disclosure.Panel>
-                    <div class="mt-6 grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-3">
-                      <div class="sm:col-span-3">
+                    <div className="mt-6 grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-3">
+                      <div className="sm:col-span-3">
                         <FormItem
                           type="textarea"
                           label="Address"

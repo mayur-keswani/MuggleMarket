@@ -6,8 +6,8 @@ import { AiFillDelete, AiFillEdit, AiOutlineSearch } from "react-icons/ai";
 const MyStoreProducts = (props) => {
   return (
     <div className="flex flex-col border border-gray-200 md:rounded-lg overflow-x-scroll">
-      <div class="relative text-right">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+      <div className="relative text-right">
+        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <AiOutlineSearch/>
         </div>
         <FormItem
@@ -63,9 +63,9 @@ const MyStoreProducts = (props) => {
                       src={product.picture}
                       className="w-20 h-20 rounded-full object-contain"
                     />
-                    <div class="pl-3">
-                      <div class="text-base font-semibold">{product.name}</div>
-                      <div class="font-normal text-gray-500">
+                    <div className="pl-3">
+                      <div className="text-base font-semibold">{product.name}</div>
+                      <div className="font-normal text-gray-500">
                         {product.description}
                       </div>
                     </div>

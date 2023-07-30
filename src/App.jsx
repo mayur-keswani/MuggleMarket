@@ -114,13 +114,13 @@ const App = () => {
 
       <Route
         path="/my-orders"
-        render={() => (
+        element={
           <ProtectedRoute auth={auth}>
             <BaseLayout showCart={false}>
               <MyOrders />
             </BaseLayout>
           </ProtectedRoute>
-        )}
+        }
       />
     </Routes>
   );

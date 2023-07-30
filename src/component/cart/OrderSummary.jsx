@@ -54,7 +54,7 @@ const OrderSummary = () => {
                   <div className="flex text-sm">
                     <button
                       type="button"
-                      class="h-7 w-7"
+                      className="h-7 w-7"
                       onClick={() => {
                         reduceQuantityHandler(
                           cartItem?.product?._id,
@@ -66,12 +66,12 @@ const OrderSummary = () => {
                     </button>
                     <input
                       type="text"
-                      class="mx-1 h-7 w-9 rounded-md border text-center"
+                      className="mx-1 h-7 w-9 rounded-md border text-center"
                       value={cartItem?.quantity}
                     />
                     <button
                       type="button"
-                      class="flex h-7 w-7 items-center justify-center"
+                      className="flex h-7 w-7 items-center justify-center"
                       onClick={() => {
                         addQuantityHandler(
                           cartItem?.product?._id,
