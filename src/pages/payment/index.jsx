@@ -93,7 +93,7 @@ const PaymentPage = () => {
       {orderStatus.isLoading ? (
         <Spinner size="large" />
       ) : (
-        <div className="w-[500px] flex items-center">
+        <div className="w-full h-full flex items-center justify-center">
           <Elements stripe={stripePromise}>
             <StripeCard totalAmount={totalAmount} placeOrder={orderHandler} />
           </Elements>

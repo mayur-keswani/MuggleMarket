@@ -67,12 +67,29 @@ const StripeCard = (props) => {
 
   useEffect(() => {}, []);
   return (
-    <div className="my-3">
-      <div className="border border-dashed rounded-sm py-8 px-2">
+    <div className="w-[500px] my-3 border border-dashed rounded-sm py-8 px-2">
+      <div>
+        <label>Card Number</label>
+        <div className="border w-full md:w-3/4 rounded-sm p-2">
+          <CardNumberElement
+            options={{
+              style: {
+                base: inputStyle,
+              },
+            }}
+          />
+        </div>
+      </div>
+
+      <div>
+        <FormItem type="text" label="Card Holder Name" />
+      </div>
+
+      <div className="grid grid-cols-2 my-2 space-x-1">
         <div>
-          <label>Card Number</label>
+          <label>Expiry Date</label>
           <div className="border w-full md:w-3/4 rounded-sm p-2">
-            <CardNumberElement
+            <CardExpiryElement
               options={{
                 style: {
                   base: inputStyle,
@@ -81,47 +98,28 @@ const StripeCard = (props) => {
             />
           </div>
         </div>
-
         <div>
-          <FormItem type="text" label="Card Holder Name" />
-        </div>
-
-        <div className="grid grid-cols-2 my-2 space-x-1">
-          <div>
-            <label>Expiry Date</label>
-            <div className="border w-full md:w-3/4 rounded-sm p-2">
-              <CardExpiryElement
-                options={{
-                  style: {
-                    base: inputStyle,
-                  },
-                }}
-              />
-            </div>
-          </div>
-          <div>
-            <label>CVV Code</label>
-            <div className="border w-full md:w-3/4 rounded-sm p-2">
-              <CardCvcElement
-                options={{
-                  style: {
-                    base: inputStyle,
-                  },
-                }}
-              />
-            </div>
+          <label>CVV Code</label>
+          <div className="border w-full md:w-3/4 rounded-sm p-2">
+            <CardCvcElement
+              options={{
+                style: {
+                  base: inputStyle,
+                },
+              }}
+            />
           </div>
         </div>
+      </div>
 
-        <div className="flex flex-col justify-center items-center mt-5">
-          <button
-            className="btn btn-primary block w-4/5 py-2"
-            onClick={onSubmit}
-            disabled={isLoading}
-          >
-            {isLoading ? <Spinner /> : "Pay"}
-          </button>
-        </div>
+      <div className="flex flex-col justify-center items-center mt-5">
+        <button
+          className="btn btn-primary block w-4/5 py-2"
+          onClick={onSubmit}
+          disabled={isLoading}
+        >
+          {isLoading ? <Spinner /> : "Pay"}
+        </button>
       </div>
     </div>
   );
