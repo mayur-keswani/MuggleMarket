@@ -23,9 +23,7 @@ const Header = (props) => {
   } = globalState;
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  useEffect(() => {
-    console.log(document.documentElement.classList);
-  }, [document.documentElement.classList]);
+
   return (
     <>
       <header

@@ -16,6 +16,7 @@ import CreateStore from "./pages/create-your-store";
 import { getCartAPI } from "./lib/market.api";
 import { addInitialCartItems } from "./context/action-creators";
 import StoreProducts from "./pages/my-stores/products";
+import PaymentPage from "./pages/payment";
 
 const ProtectedRoute = (props) => {
   if (!props?.auth?.isLoggedIn) {
@@ -33,7 +34,6 @@ const App = () => {
   const getCartItems = async () => {
     try {
       const { data } = await getCartAPI();
-      console.log(data);
       dispatch(addInitialCartItems(data.cart));
     } catch (error) {
       console.log(error);
@@ -96,6 +96,17 @@ const App = () => {
           <ProtectedRoute auth={auth}>
             <BaseLayout showCart={false}>
               <Checkout />
+            </BaseLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/payment"
+        element={
+          <ProtectedRoute auth={auth}>
+            <BaseLayout showCart={false}>
+              <PaymentPage />
             </BaseLayout>
           </ProtectedRoute>
         }

@@ -3,7 +3,6 @@ import { AiFillDelete } from "react-icons/ai";
 
 
 const CheckoutSummary = ({ items, removeFromCartHandler, total }) => {
-  console.log({ items });
   return (
     <div className="checkout-summary">
       <div className="bg-gray-100 px-5 py-6 md:px-8">

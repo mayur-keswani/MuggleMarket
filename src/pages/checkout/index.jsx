@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/user-context";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import {
   checkoutAPI,
   createStripeSessionAPI,
+  makePaymentAPI,
 } from "../../lib/market.api";
-import CheckoutSummary from "../../component/checkout/checkout-summary";
-import CheckoutForm from "../../component/checkout/checkout-form";
+import CheckoutSummary from "../../component/checkout/CheckoutSummary";
+import CheckoutForm from "../../component/checkout/CheckoutForm";
 import useCart from "../../hooks/useCart";
 import AfterPaymentStatusModal from "../../component/modals/AfterPaymentStatusModal";
 
@@ -18,7 +17,6 @@ const Checkout = () => {
     isComplete: false,
     isFailed: false,
   });
-  const [invoice, setInvoice] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const {
@@ -27,88 +25,19 @@ const Checkout = () => {
   const { getTotalPrice, removeFromCartHandler } = useCart();
   const navigate = useNavigate();
 
-
-
   const checkoutHandler = async (payload) => {
     try {
       setIsLoading(true);
       const { data: checkoutResult } = await checkoutAPI(payload);
-      console.log({ checkoutResult });
-      const { data: session } = await createStripeSessionAPI({
-        items: cart,
-      });
-      const { error } = await window.stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
       setIsLoading(false);
-
-      if (error) {
-        console.error(error);
-      }
+      navigate('/payment');
     } catch (error) {
       setIsLoading(false);
       console.log(error);
     }
   };
 
-  const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
-
-  // const onOrderSumbit = async (stripe_token,values) => {
-  //   try {
-  //     const items = cartItems.map((item) => {
-  //       return {
-  //         productID: item.productID._id,
-  //         name: item.productID.name,
-  //         quantity: item.quantity,
-  //         price: item.productID.price,
-  //         storeID: item.productID.storeID,
-  //       };
-  //     });
-  //     const payload = {
-  //       token: stripe_token,
-  //       address: values.address,
-  //       price: 100,
-  //       username: values.username,
-  //       items,
-  //     };
-
-  //     setIsPlacingOrder(true);
-  //     const {
-  //       data: {
-  //         result: { receipt_url },
-  //       },
-  //     } = await processPaymentAPI(payload);
-
-  //     const orderItems = cartItems.map((item) => {
-  //       return {
-  //         productID: item.productID._id,
-  //         name: item.productID.name,
-  //         description: item.productID.description,
-  //         picture: item.productID.picture,
-  //         quantity: item.quantity,
-  //         price: item.productID.price,
-  //         storeID: item.productID.storeID,
-  //       };
-  //     });
-  //     const data = {
-  //       address: selectedAddress,
-  //       charges: charges,
-  //       grandTotal: grandTotal,
-  //       username: user.username,
-  //       items: orderItems,
-  //     };
-
-  //     const { data: {message} } = await placeOrderAPI(data);
-  //     setIsPlacingOrder(false);
-  //     onOrderPlaced({ flag: true, status: "success", message });
-  //     receipt_url ? setInvoice(receipt_url) : setInvoice("");
-  //   } catch (error) {
-  //     let message = error.message;
-  //     setIsPlacingOrder(false);
-  //     onOrderPlaced({ flag: true, status: "fail", message });
-  //   }
-  // };
-
+ 
   return (
     <>
       <div className="mx-auto my-4 max-w-4xl md:my-6">
@@ -126,13 +55,13 @@ const Checkout = () => {
               total={getTotalPrice(cart)}
               removeFromCartHandler={removeFromCartHandler}
             />
-            <Elements stripe={stripePromise}>
-              <CheckoutForm
-                checkoutHandler={checkoutHandler}
-                total={getTotalPrice(cart)}
-                isLoading={isLoading}
-              />
-            </Elements>
+
+            <CheckoutForm
+              products={cart}
+              checkoutHandler={checkoutHandler}
+              total={getTotalPrice(cart)}
+              isLoading={isLoading}
+            />
           </div>
         </div>
       </div>

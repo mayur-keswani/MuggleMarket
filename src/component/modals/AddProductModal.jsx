@@ -47,7 +47,6 @@ const AddProductModal = (props) => {
       formData.append("categories[]", cat);
     });
     formData.append("price", values.price);
-    console.log(formData.get("picture"));
     try {
       setIsLoading(true);
       if (props.data) {

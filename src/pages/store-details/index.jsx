@@ -78,7 +78,6 @@ const StoreDetails = () => {
         let selectedCategoriesIds = selectedCategories.map(
           (category) => category._id
         );
-        console.log({ selectedCategoriesIds });
         filteredItems = storeDetails.products.filter((item) =>
           item.categories.some((category) =>
             selectedCategoriesIds.includes(category)

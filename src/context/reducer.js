@@ -55,7 +55,6 @@ const reducer = (state, action) => {
     }
 
     case ADD_CART_ITEMS: {
-      console.log({ payload: action.payload });
       return { ...state, cart: action.payload };
     }
     case ADD_TO_CART: {

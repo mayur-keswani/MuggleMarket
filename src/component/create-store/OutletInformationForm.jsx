@@ -27,7 +27,6 @@ const OutletInformationForm = (props) => {
     picture.length > 0 &&
     (typeof picture === "string" ? picture : URL.createObjectURL(picture[0]));
 
-  console.log({ picture: props.storeDetails });
   return (
     <form onSubmit={handleSubmit(props?.onSubmit)}>
       <div className="py-3">

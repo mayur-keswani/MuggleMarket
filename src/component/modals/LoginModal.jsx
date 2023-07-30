@@ -20,12 +20,10 @@ const LoginModal = (props) => {
 
   const onSubmitHandler = async (values) => {
     try {
-      console.log(values);
       // setIsLoading(true)
       const { email, password } = values;
       setIsLoading(true);
       const { data: result } = await loginAPI({ email, password });
-      console.log(data);
       setIsLoading(false);
       const expiresIN = new Date(new Date().getTime() + 3600000)?.toISOString();
       localStorage.setItem(

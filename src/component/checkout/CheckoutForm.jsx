@@ -4,9 +4,6 @@ import { useForm } from "react-hook-form";
 import { Disclosure } from "@headlessui/react";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import Spinner from "../commons/spinner/Spinner";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { makePaymentAPI } from "../../lib/market.api";
-import { toast } from "react-toastify";
 
 const CheckoutForm = (props) => {
   const {
@@ -14,9 +11,6 @@ const CheckoutForm = (props) => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-
-  const elements = useElements();
-  const stripe = useStripe();
 
   const onSubmit = async (values) => {
     let payload = {
@@ -29,83 +23,13 @@ const CheckoutForm = (props) => {
       paymentMethod: "Debit Card",
       paymentStatus: "Pending",
       totalAmount: props?.total,
+      products: props.products.map((prod) => ({
+        product: prod.product._id,
+        quantity: prod.quantity,
+      })),
     };
-    if (!stripe || !elements) {
-      return;
-    }
-    const cardElement = elements.getElement(CardElement);
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card: cardElement,
-    });
 
-    if (error) {
-      console.log(error.message);
-    } else {
-      // Send paymentMethod.id to your backend to process the payment
-      console.log("PaymentMethod:", paymentMethod);
-      try {
-        const res = await makePaymentAPI({
-          paymentMethodId: paymentMethod.id,
-          amount: payload.totalAmount,
-        });
-        console.log({ res });
-        toast.success("Payment Received Successfully!", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      } catch (error) {
-        toast.error("Something went wrong!Please contact Administorator", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      }
-      // {
-      //     "id": "pm_1NZHXQGKjVBYc4dG7GfgoHr1",
-      //     "object": "payment_method",
-      //     "billing_details": {
-      //         "address": {
-      //             "city": null,
-      //             "country": null,
-      //             "line1": null,
-      //             "line2": null,
-      //             "postal_code": "22222",
-      //             "state": null
-      //         },
-      //         "email": null,
-      //         "name": null,
-      //         "phone": null
-      //     },
-      //     "card": {
-      //         "brand": "visa",
-      //         "checks": {
-      //             "address_line1_check": null,
-      //             "address_postal_code_check": null,
-      //             "cvc_check": null
-      //         },
-      //         "country": "US",
-      //         "exp_month": 4,
-      //         "exp_year": 2025,
-      //         "funding": "credit",
-      //         "generated_from": null,
-      //         "last4": "4242",
-      //         "networks": {
-      //             "available": [
-      //                 "visa"
-      //             ],
-      //             "preferred": null
-      //         },
-      //         "three_d_secure_usage": {
-      //             "supported": true
-      //         },
-      //         "wallet": null
-      //     },
-      //     "created": 1690654008,
-      //     "customer": null,
-      //     "livemode": false,
-      //     "type": "card"
-      // }
-    }
-
-    // await props.checkoutHandler(payload);
+    await props.checkoutHandler(payload);
   };
 
   return (
@@ -226,22 +150,6 @@ const CheckoutForm = (props) => {
                   <Disclosure.Panel>
                     <div className="text-muted">
                       Currently, we only support card payment, No COD Available!
-                      <CardElement
-                        options={{
-                          style: {
-                            base: {
-                              fontSize: "16px",
-                              color: "#424770",
-                              "::placeholder": {
-                                color: "#aab7c4",
-                              },
-                            },
-                            invalid: {
-                              color: "#9e2146",
-                            },
-                          },
-                        }}
-                      />
                     </div>
                   </Disclosure.Panel>
                 </div>
@@ -254,7 +162,7 @@ const CheckoutForm = (props) => {
                 disabled={props?.isLoading}
                 className="btn btn-primary w-full rounded-md p-4 space-x-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
               >
-                {props.isLoading && <Spinner />} Pay
+                {props.isLoading && <Spinner />} Proceed to Payment
               </button>
             </div>
           </form>

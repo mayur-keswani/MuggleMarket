@@ -20,7 +20,6 @@ const useCart = () => {
     cartItems?.forEach((cartItem) => {
       totalPrice = totalPrice + cartItem?.quantity * cartItem?.product?.price;
     });
-    console.log({ totalPrice });
     return totalPrice;
   }
   async function addQuantityHandler(id, existingQuantity) {

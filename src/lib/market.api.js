@@ -36,9 +36,12 @@ export const getCartAPI = () => {
 export const checkoutAPI = (payload) => {
   return axios.post(`${endpoint}/checkout`, payload);
 };
+export const getLastCheckoutAPI = () => {
+  return axios.get(`${endpoint}/checkout`);
+};
 
-export const placeOrderAPI = (payload) => {
-  return axios.post(`${endpoint}/place-order`, payload);
+export const postOrderAPI = (payload) => {
+  return axios.post(`${endpoint}/order`, payload);
 };
 
 export const createStripeSessionAPI = (payload) => {
@@ -52,10 +55,6 @@ export const fetchMyOrdersAPI = async () => {
 export const fetchStoresAPI = async () => {
   return axios.get(`${endpoint}/stores`);
 };
-
-
-
-
 
 export const fetchStoreDetailAPI = (storeId) => {
   return axios.get(`${endpoint}/store/${storeId}`);

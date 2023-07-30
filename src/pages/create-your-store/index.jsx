@@ -122,7 +122,6 @@ const CreateStore = () => {
     setCurrentStep((prevState) => prevState - 1);
   };
   const onSubmitHandler = async (values) => {
-    console.log(storeDetails);
     if (
       "picture" in values &&
       typeof values['picture'] !== 'string' &&
