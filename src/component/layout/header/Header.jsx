@@ -27,7 +27,7 @@ const Header = (props) => {
   return (
     <>
       <header
-        className={`fixed top-0 w-full h-24 box-border bg-white dark:border-gray-dark dark:bg-gray-dark z-10  `}
+        className={`fixed top-0 w-full h-24 box-border bg-gray-light dark:border-gray-dark dark:bg-gray-dark z-10  `}
       >
         <LoginModal
           isOpen={showLoginDialog}

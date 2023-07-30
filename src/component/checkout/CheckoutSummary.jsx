@@ -28,7 +28,7 @@ const CheckoutSummary = ({ items, removeFromCartHandler, total }) => {
                         {item?.product.description}
                       </p>
                     </div>
-                    <p className="mt-4 text-xs font-medium ">x 1</p>
+                    <p className="mt-4 text-xs font-medium ">{`x ${item.quantity}`} </p>
                   </div>
                 </div>
                 <div className="ml-auto flex flex-col items-end justify-between">

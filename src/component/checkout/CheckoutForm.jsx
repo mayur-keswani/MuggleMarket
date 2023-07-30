@@ -159,8 +159,8 @@ const CheckoutForm = (props) => {
             <div>
               <button
                 type="submit"
-                disabled={props?.isLoading}
-                className="btn btn-primary w-full rounded-md p-4 space-x-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                disabled={props?.isLoading || !props.allowToProceed}
+                className="btn btn-primary w-full rounded-md p-4 font-semibold shadow-sm"
               >
                 {props.isLoading && <Spinner />} Proceed to Payment
               </button>

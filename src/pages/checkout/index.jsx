@@ -30,14 +30,13 @@ const Checkout = () => {
       setIsLoading(true);
       const { data: checkoutResult } = await checkoutAPI(payload);
       setIsLoading(false);
-      navigate('/payment');
+      navigate("/payment");
     } catch (error) {
       setIsLoading(false);
       console.log(error);
     }
   };
 
- 
   return (
     <>
       <div className="mx-auto my-4 max-w-4xl md:my-6">
@@ -61,6 +60,7 @@ const Checkout = () => {
               checkoutHandler={checkoutHandler}
               total={getTotalPrice(cart)}
               isLoading={isLoading}
+              allowToProceed={cart.length > 0}
             />
           </div>
         </div>
