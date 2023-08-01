@@ -1,22 +1,32 @@
 import axios from "axios";
+import { clearLocalStorage, getAuthDetails } from "./localStorage";
+import { onLogout } from "../context/action-creators";
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
+import { useContext } from "react";
+import { UserContext } from "../context/user-context";
 const instance = axios.create();
 
+const logoutUserHander = () => {
+  const { dispatch } = useContext(UserContext);
+  dispatch(logoutUser());
+};
 instance.interceptors.request.use(
-  function (config) {
+  function(config) {
     // Do something before request is sento
     if (config?.url?.indexOf("/login") === -1) {
       if (!config.headers.Authorization) {
         if (!config.headers) {
           config.headers = {};
         }
-        const token = JSON.parse(localStorage.getItem("token"));
-        config.headers["Authorization"] = token;
+        const token = getAuthDetails()?.token;
+        config.headers["Authorization"] = `Bearer ${token}`;
       }
     }
 
     return config;
   },
-  function (error) {
+  function(error) {
     // Do something with request error
     return Promise.reject(error);
   }
@@ -24,18 +34,35 @@ instance.interceptors.request.use(
 
 // Add a response interceptor
 instance.interceptors.response.use(
-  function (response) {
+  function(response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     return response;
   },
-  async function (error) {
+  async function(error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    console.log(error.toJSON());
+    console.log({ error: error.response });
+    if (error && error?.response && error?.response?.status == "401") {
+      clearLocalStorage();
+      window.location.reload()
+      toast.error("Session Expired!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      // window.location.href('/')
+    }
 
     return Promise.reject(error);
   }
 );
 
-export default instance;
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logoutUser: () => dispatch(onLogout),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(instance);
