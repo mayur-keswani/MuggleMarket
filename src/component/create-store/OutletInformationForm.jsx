@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../context/user-context";
 import FormItem from "../commons/form-item";
-import { useForm, useWatch } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import noImageAvailable from "../../public/noImageAvailable.png";
 import { useRef } from "react";
 import { AiFillDelete } from "react-icons/ai";
@@ -17,6 +17,7 @@ const OutletInformationForm = (props) => {
     handleSubmit,
     watch,
     setValue,
+    control,
   } = useForm({
     defaultValues: props?.storeDetails,
   });
@@ -136,21 +137,35 @@ const OutletInformationForm = (props) => {
         </p>
         <div className="grid grid-cols-2 gap-2">
           <div>
-            <FormItem
-              type="text"
+            <Controller
+              control={control}
               name="contactNo"
-              {...register("contactNo", { required: true })}
-              placeholder="Mobile number at store"
+              rules={{ required: true }}
+              render={({ field: { ref, ...field } }) => (
+                <FormItem
+                  type="phone"
+                  {...field}
+                  placeholder="Mobile number at store"
+                />
+              )}
             />
+
             {errors?.contactNo?.type === "required" && (
               <p className="error">Contact no. is required!</p>
             )}
           </div>
           <div>
-            <FormItem
-              type="text"
-              {...register("landlineNo", { required: true })}
-              placeholder="landline number with std code"
+            <Controller
+              control={control}
+              name="landlineNo"
+              rules={{ required: true }}
+              render={({ field: { ref, ...field } }) => (
+                <FormItem
+                  type="phone"
+                  {...field}
+                  placeholder="landline number with std code"
+                />
+              )}
             />
             {errors?.landlineNo?.type === "required" && (
               <p className="error">Landline no. is required!</p>
@@ -177,10 +192,13 @@ const OutletInformationForm = (props) => {
           </div>
 
           <div>
-            <FormItem
-              type="phone"
-              {...register("personalNo", { required: true })}
-              placeholder="Personal no."
+            <Controller
+              control={control}
+              name="personalNo"
+              rules={{ required: true }}
+              render={({ field: { ref, ...field } }) => (
+                <FormItem type="phone" {...field} placeholder="Personal no." />
+              )}
             />
             {errors?.personalNo?.type === "required" && (
               <p className="error">Owner' Personal no. is required</p>

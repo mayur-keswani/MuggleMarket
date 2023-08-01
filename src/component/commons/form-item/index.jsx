@@ -139,18 +139,34 @@ const FormItem = (props, ref) => {
               {props?.label}
             </label>
           )}
-          <input
+          {/* <input
             type="phone"
             className={`flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-dark ${props?.className &&
               props?.className}`}
             {...(({ className, ...o }) => o)(props)}
             ref={ref}
-          />
-          {/* <PhoneInput
-            country={"us"}
-            
-            inputProps={{...props}}
           /> */}
+          <PhoneInput
+            country={"in"}
+            inputExtraProps={{
+              ref,
+              required: true,
+              autoFocus: true,
+              // {...(({ className, ...o }) => o)(props)}
+            }}
+            onlyCountries={["in"]}
+            inputProps={{ ...props }}
+            inputStyle={{
+              display: "flex",
+              width: "100%",
+              borderRadius: "0.375rem",
+              background: "transparent",
+              // padding: "2.75em 2.50em",
+              fontSize: "0.75rem" /* 14px */,
+              lineHeight: "0.25rem" /* 20px */,
+              border: "1px solid rgb(0 0 0 / 0.3);",
+            }}
+          />
         </>
       );
     case "textarea":

@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../../context/user-context";
-import { loginAPI } from "../../lib/market.api";
+import { googleSignUpAPI, loginAPI } from "../../lib/market.api";
 import { useForm } from "react-hook-form";
 import ModalLayout from "../layout/ModalLayout";
 import { onLogin } from "../../context/action-creators";
@@ -11,12 +11,32 @@ import FormItem from "../commons/form-item";
 
 const LoginModal = (props) => {
   const [isLoading, setIsLoading] = useState(false);
+  const googleSigninRef = useRef()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const { dispatch } = useContext(UserContext);
+
+  function initGoogleSDK() {
+    if (typeof window !== "undefined" && !!window.google) {
+      window.google.accounts.id.initialize({
+        client_id: import.meta.env.VITE_GOOGLE_AUTH2_CLIENT_ID,
+        callback: async (res) => {
+          setIsLoading(true)
+          await googleSignUpAPI({})
+          setIsLoading(false)
+          console.log((res.credential));
+        },
+      });
+      console.log(document.getElementById('googleSigninRef'))
+      window.google.accounts.id.renderButton(googleSigninRef.current, {
+        theme: "outline",
+        size: "large",
+      });
+    }
+  }
 
   const onSubmitHandler = async (values) => {
     try {
@@ -55,6 +75,23 @@ const LoginModal = (props) => {
     }
   };
 
+  useEffect(() => {
+    initGoogleSDK()
+    const script = document.createElement("script");
+    script.src = "https://accounts.google.com/gsi/client";
+    script.onload = initGoogleSDK;
+    script.async = true;
+    script.id = "google-client-script";
+    document.querySelector("body")?.appendChild(script);
+    // return () => {
+    //   window.google?.accounts.id.cancel();
+
+    //   //For React App
+    //   document.getElementById("google-client-script")?.remove();
+    // };
+  }, [])
+
+  console.log(googleSigninRef)
   return (
     <ModalLayout
       title={"Login"}
@@ -109,6 +146,8 @@ const LoginModal = (props) => {
         <div className="mt-3 space-y-3">
           <button
             type="button"
+            id="googleSigninRef"
+            ref={googleSigninRef}
             className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 px-3.5 py-2.5 font-semibold transition-all duration-200 focus:outline-none"
           >
             <span className="mr-2 inline-block">

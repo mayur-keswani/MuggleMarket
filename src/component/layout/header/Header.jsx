@@ -29,18 +29,18 @@ const Header = (props) => {
       <header
         className={`fixed top-0 w-full h-24 box-border bg-gray-light dark:border-gray-dark dark:bg-gray-dark z-10  `}
       >
-        <LoginModal
+        {showLoginDialog  && <LoginModal
           isOpen={showLoginDialog}
           closeModal={() => {
             setShowLoginModal(false);
           }}
-        />
-        <SignupModal
+        />}
+        {showSignupDialog  && <SignupModal
           isOpen={showSignupDialog}
           closeModal={() => {
             setShowSignupModal(false);
           }}
-        />
+        />}
         <nav className="w-full h-full flex items-center justify-between box-border">
           <div className="h-full p-1 flex items-center justify-center flex-initial">
             <span className={`mx-2 block md:hidden`}>

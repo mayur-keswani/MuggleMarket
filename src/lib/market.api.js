@@ -14,6 +14,9 @@ export const signupAPI = (payload) => {
   return axios.post(`${endpoint}/auth/signup`, payload);
 };
 
+export const googleSignUpAPI =(payload)=>{
+  return axios.post(`${endpoint}/google-signin`,payload)
+}
 /******** Users **********************/
 
 export const FetchUserDetailsAPI = () => {
